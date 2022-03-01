@@ -9,15 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C7FBA189-DB2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A5AFF77F-EA52-46D7-B338-98E3B47F802F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.BusinessLayer", "TourPlanner.BusinessLayer\TourPlanner.BusinessLayer.csproj", "{BA99384D-92D1-4E17-A0E0-83205520A972}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.BusinessLayer", "TourPlanner.BusinessLayer\TourPlanner.BusinessLayer.csproj", "{BA99384D-92D1-4E17-A0E0-83205520A972}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.DataAccessLayer", "TourPlanner.DataAccessLayer\TourPlanner.DataAccessLayer.csproj", "{07801A36-CED0-4BB0-8B4F-509003B8E8E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.DataAccessLayer", "TourPlanner.DataAccessLayer\TourPlanner.DataAccessLayer.csproj", "{07801A36-CED0-4BB0-8B4F-509003B8E8E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.Models", "TourPlanner.Models\TourPlanner.Models.csproj", "{9A864159-E948-4F92-96EC-12D5ABB76B3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.Tests", "..\TourPlanner.Tests\TourPlanner.Tests\TourPlanner.Tests.csproj", "{75A74559-8294-49D2-A295-A63AC7765E6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.Tests", "..\TourPlanner.Tests\TourPlanner.Tests\TourPlanner.Tests.csproj", "{75A74559-8294-49D2-A295-A63AC7765E6E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlannerBL.Tests", "..\TourPlanner.Tests\TourPlanner.BusinessLayer.Tests\TourPlannerBL.Tests.csproj", "{295084B4-31F2-417F-A542-20B342B696E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlannerBL.Tests", "..\TourPlanner.Tests\TourPlanner.BusinessLayer.Tests\TourPlannerBL.Tests.csproj", "{295084B4-31F2-417F-A542-20B342B696E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{07801A36-CED0-4BB0-8B4F-509003B8E8E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07801A36-CED0-4BB0-8B4F-509003B8E8E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07801A36-CED0-4BB0-8B4F-509003B8E8E3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A864159-E948-4F92-96EC-12D5ABB76B3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A864159-E948-4F92-96EC-12D5ABB76B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A864159-E948-4F92-96EC-12D5ABB76B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A864159-E948-4F92-96EC-12D5ABB76B3C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{75A74559-8294-49D2-A295-A63AC7765E6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{75A74559-8294-49D2-A295-A63AC7765E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75A74559-8294-49D2-A295-A63AC7765E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,7 +51,6 @@ Global
 		{8773A548-CF5C-477A-B436-ABA0AC41385E} = {C7FBA189-DB25-447A-A75C-4BA23D847054}
 		{BA99384D-92D1-4E17-A0E0-83205520A972} = {C7FBA189-DB25-447A-A75C-4BA23D847054}
 		{07801A36-CED0-4BB0-8B4F-509003B8E8E3} = {C7FBA189-DB25-447A-A75C-4BA23D847054}
-		{9A864159-E948-4F92-96EC-12D5ABB76B3C} = {C7FBA189-DB25-447A-A75C-4BA23D847054}
 		{75A74559-8294-49D2-A295-A63AC7765E6E} = {A5AFF77F-EA52-46D7-B338-98E3B47F802F}
 		{295084B4-31F2-417F-A542-20B342B696E7} = {A5AFF77F-EA52-46D7-B338-98E3B47F802F}
 	EndGlobalSection

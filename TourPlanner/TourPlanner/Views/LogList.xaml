@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="TourPlanner.Views.LogList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TourPlanner.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <ListView BorderBrush="DimGray" Margin="10 5 10 10">
+            <ListViewItem>
+                <TextBlock>Logs:</TextBlock>
+            </ListViewItem>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>Log</TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

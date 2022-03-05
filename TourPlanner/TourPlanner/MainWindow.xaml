@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TourPlanner"
-        xmlns:views="clr-namespace:TourPlanner.Views"
+        xmlns:local="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
         Title="Tour Planner" Height="600" Width="500">
     <Grid>
@@ -14,8 +13,8 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <views:MenuStrip Grid.Row="0"></views:MenuStrip>
-        <views:SearchBar Grid.Row="1"></views:SearchBar>
+        <local:MenuStrip Grid.Row="0"></local:MenuStrip>
+        <local:SearchBar Grid.Row="1"></local:SearchBar>
 
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
@@ -27,10 +26,9 @@
                 <ColumnDefinition Width="70*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <views:TourList Grid.Row="0" Grid.Column="0"></views:TourList>
-            <views:TourDetails Grid.Row="0" Grid.Column="1"></views:TourDetails>
-            <views:LogList Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></views:LogList>
+            <local:TourList Grid.Row="0" Grid.Column="0"></local:TourList>
+            <local:TourDetails Grid.Row="0" Grid.Column="1"></local:TourDetails>
+            <local:LogList Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></local:LogList>
         </Grid>
-
     </Grid>
 </Window>

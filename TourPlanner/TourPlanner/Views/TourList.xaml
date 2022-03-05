@@ -13,7 +13,7 @@
             </ListViewItem>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <RadioButton>Tour</RadioButton>
+                    <RadioButton></RadioButton>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

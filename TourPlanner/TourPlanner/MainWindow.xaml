@@ -31,5 +31,6 @@
             <views:TourDetails Grid.Row="0" Grid.Column="1"></views:TourDetails>
             <views:LogList Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></views:LogList>
         </Grid>
+
     </Grid>
 </Window>

@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace TourPlanner.Models
 {
-	internal class Tour {
+	public class Tour {
+		public string TourName { get; set; }
+
+		public Tour(string tourName) {
+			TourName = tourName;
+		}
 	}
 }

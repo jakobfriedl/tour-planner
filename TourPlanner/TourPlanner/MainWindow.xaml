@@ -8,27 +8,27 @@
         Title="Tour Planner" Height="600" Width="500">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <local:MenuStrip Grid.Row="0"></local:MenuStrip>
-        <local:SearchBar Grid.Row="1"></local:SearchBar>
+        <local:MenuStrip Grid.Row="0"/>
+        <local:SearchBar Grid.Row="1"/>
 
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30*"></ColumnDefinition>
-                <ColumnDefinition Width="70*"></ColumnDefinition>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="70*"/>
             </Grid.ColumnDefinitions>
 
-            <local:TourList Grid.Row="0" Grid.Column="0"></local:TourList>
-            <local:TourDetails Grid.Row="0" Grid.Column="1"></local:TourDetails>
-            <local:LogList Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></local:LogList>
+            <local:TourList Grid.Row="0" Grid.Column="0" DataContext="{Binding TourListViewModel}"/>
+            <local:TourDetails Grid.Row="0" Grid.Column="1"/>
+            <local:LogList Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
         </Grid>
     </Grid>
 </Window>

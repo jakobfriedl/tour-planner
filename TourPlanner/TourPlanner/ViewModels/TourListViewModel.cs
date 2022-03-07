@@ -10,7 +10,7 @@ using TourPlanner.ViewModels.Abstract;
 
 namespace TourPlanner.ViewModels
 {
-    internal class TourListViewModel : BaseViewModel {
-	    
+	public class TourListViewModel : BaseViewModel {
+	    public ObservableCollection<Tour> Tours { get; set; } = new();
     }
 }

@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace TourPlanner.Models
 {
-    internal class Log {
+    public class Log {
     }
 }

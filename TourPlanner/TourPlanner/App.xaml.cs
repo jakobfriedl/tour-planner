@@ -26,7 +26,7 @@ namespace TourPlanner
 		    var mainViewModel = new MainWindowViewModel(searchBarViewModel, menuStripViewModel, tourListViewModel,
 			    tourDetailsViewModel, logListViewModel);
 
-		    var main = new MainWindow(mainViewModel); 
+		    var main = new MainWindow(mainViewModel);
 
 		    main.Show(); 
 	    }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
 
@@ -23,8 +24,9 @@ namespace TourPlanner.ViewModels
 		    TourDetailsViewModel = tourDetailsViewModel;
 		    LogListViewModel = logListViewModel;
 
-			TourListViewModel.Tours.Add(new Tour("Tour 1"));
+		    TourListViewModel.Tours.Add(new Tour("Tour 1"));
 			TourListViewModel.Tours.Add(new Tour("Tour 2"));
+			
 	    }
     }
 }

@@ -9,7 +9,7 @@ namespace TourPlanner.Views
     {
         public TourList()
         {
-            InitializeComponent();
+	        InitializeComponent();
         }
     }
 }

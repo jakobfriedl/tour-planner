@@ -6,11 +6,24 @@
              xmlns:local="clr-namespace:TourPlanner.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="10 0"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+        </Style>
+        <Style TargetType="ListView">
+            <Setter Property="Margin" Value="10 5 10 10"></Setter>
+            <Setter Property="BorderBrush" Value="DimGray"></Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <ListView BorderBrush="DimGray" Margin="10 5 10 10">
-            <ListViewItem>
-                <TextBlock>Logs:</TextBlock>
-            </ListViewItem>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0">Logs</TextBlock>
+        <ListView Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>Log</TextBlock>

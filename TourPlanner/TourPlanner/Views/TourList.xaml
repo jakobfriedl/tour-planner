@@ -15,6 +15,16 @@
             <Setter Property="Margin" Value="10 5 5 5"></Setter>
             <Setter Property="BorderBrush" Value="DimGray"></Setter>
         </Style>
+        <Style TargetType="DockPanel">
+            <Setter Property="Margin" Value="0 7 4 0"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="1 2"></Setter>
+            <Setter Property="Width" Value="20"></Setter>
+            <Setter Property="Height" Value="20"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -22,7 +32,14 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0">Tours</TextBlock>
+        <DockPanel Grid.Row="0">
+            <TextBlock DockPanel.Dock="Left">Tours</TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button>+</Button>
+                <Button>-</Button>
+            </StackPanel>
+        </DockPanel>
+
         <ListView Grid.Row="1" ItemsSource="{Binding Tours, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ListView.ItemTemplate>
                 <DataTemplate>

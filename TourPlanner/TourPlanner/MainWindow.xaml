@@ -13,8 +13,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <local:MenuStrip Grid.Row="0"/>
-        <local:SearchBar Grid.Row="1"/>
+        <local:MenuStrip Grid.Row="0" DataContext="{Binding MenuStripViewModel}"/>
+        <local:SearchBar Grid.Row="1" DataContext="{Binding SearchBarViewModel}"/>
 
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
@@ -27,8 +27,8 @@
             </Grid.ColumnDefinitions>
 
             <local:TourList Grid.Row="0" Grid.Column="0" DataContext="{Binding TourListViewModel}"/>
-            <local:TourDetails Grid.Row="0" Grid.Column="1"/>
-            <local:LogList Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+            <local:TourDetails Grid.Row="0" Grid.Column="1" DataContext="{Binding TourDetailsViewModel}"/>
+            <local:LogList Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" DataContext="{Binding LogListViewModel}"/>
         </Grid>
     </Grid>
 </Window>

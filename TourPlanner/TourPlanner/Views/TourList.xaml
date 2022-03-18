@@ -35,7 +35,7 @@
         <DockPanel Grid.Row="0">
             <TextBlock DockPanel.Dock="Left">Tours</TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button>+</Button>
+                <Button Name="AddTourButton" Command="{Binding AddTourDialogCommand}">+</Button>
                 <Button>-</Button>
             </StackPanel>
         </DockPanel>

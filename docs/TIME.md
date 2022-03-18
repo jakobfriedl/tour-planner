@@ -7,3 +7,4 @@
 |09.03.2022|4h|Jakob|Data Binding and SubView Structure|
 |12.03.2022|1h|Jakob|Add XAML for Buttons for adding/removing Tours/Logs|
 |18.03.2022|2h|Jakob|Open Dialog Window from ViewModel, implement basic Command Pattern|
+|18.03.2022|2h|Jakob|Rework and Improve Commands & Structure|

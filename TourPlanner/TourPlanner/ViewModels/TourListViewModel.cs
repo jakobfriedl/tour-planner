@@ -21,11 +21,8 @@ namespace TourPlanner.ViewModels
 		public ICommand AddTourDialogCommand { get; }
 
 		public TourListViewModel() {
-			AddTourDialogCommand = new RelayCommand(
-				o => {
-					AddTourDialog dialog = new();
-					dialog.Show();
-				});
+			// Template value determines the type of dialog
+			AddTourDialogCommand = new OpenDialogCommand<AddTourDialog>(); 
 		}
 	}
 }

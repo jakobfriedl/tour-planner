@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
-        Title="Add Tour" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" Height="450" Width="400">
+        Title="Add Tour" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" 
+        ResizeMode="NoResize"
+        Height="450" Width="400">
     <Grid>
         <Label>Hello</Label>
     </Grid>

@@ -5,10 +5,89 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
-        Title="Add Tour" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" 
-        ResizeMode="NoResize"
+        Title="New Tour" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" 
+        ResizeMode="CanResize"
         Height="450" Width="400">
+    <Window.Resources>
+        <Style x:Key="DescriptionStyle" TargetType="TextBox">
+            <Setter Property="Margin" Value="15 5"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
+            <Setter Property="Padding" Value="10 10"></Setter>
+            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+            <Setter Property="AcceptsReturn" Value="True"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="15 5"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="Padding" Value="10 0"></Setter>
+        </Style>
+        <Style x:Key="HeaderStyle" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+        </Style>
+        <Style x:Key="FormTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="15 0"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="15 0"></Setter>
+            <Setter Property="Padding" Value="10 0"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Label>Hello</Label>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="80*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Style="{StaticResource HeaderStyle}">Create a new tour</TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Name" x:Name="TourNameTextBox"/>
+            <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Description" x:Name="TourDescriptionTextBox" Style="{StaticResource DescriptionStyle}"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">From:</TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" x:Name="TourStartTextBox">Start</TextBox>
+            <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">To:</TextBlock>
+            <TextBox Grid.Row="3" Grid.Column="1" x:Name="TourDestinationTextBox">Destination</TextBox>
+            <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Transport Type:</TextBlock>
+            <ComboBox Grid.Row="4" Grid.Column="1" x:Name="TourTransportTypeComboBox">
+                <!-- make dynamic based on enum TransportType --> 
+                <ComboBoxItem IsSelected="True">Car</ComboBoxItem>
+                <ComboBoxItem>Bus</ComboBoxItem>
+                <ComboBoxItem>Bike</ComboBoxItem>
+                <ComboBoxItem>Walk</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" x:Name="CancelNewTourButton" Content="Cancel"/>
+            <Button Grid.Column="1" x:Name="SubmitNewTourButton" Content="Submit"/>
+        </Grid>
     </Grid>
 </Window>

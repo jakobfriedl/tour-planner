@@ -9,6 +9,10 @@ namespace TourPlanner.ViewModels
 {
 	public class SearchBarViewModel : BaseViewModel
     {
+		public string? SearchTerm { get; set; }
 
+		public SearchBarViewModel() {
+			SearchTerm = "Search Data Binding"; 
+		}
     }
 }

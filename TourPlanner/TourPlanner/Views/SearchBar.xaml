@@ -11,7 +11,7 @@
             <ColumnDefinition Width="90*"></ColumnDefinition>
             <ColumnDefinition Width="50"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBox Grid.Column="0" Name="SearchTextBox" VerticalContentAlignment="Center"></TextBox>
+        <TextBox Text="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Name="SearchTextBox" VerticalContentAlignment="Center"></TextBox>
         <Button Grid.Column="1" Name="SearchButton">Search</Button>
     </Grid>
 </UserControl>

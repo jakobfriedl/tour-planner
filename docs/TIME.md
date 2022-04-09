@@ -9,3 +9,4 @@
 |18.03.2022|2h|Jakob|Open Dialog Window from ViewModel, implement basic Command Pattern|
 |18.03.2022|2h|Jakob|Rework and Improve Commands & Structure|
 |19.03.2022|1h|Jakob|Create New-Tour Form in Dialog|
+|09.04.2022|3h|Jakob|Implement Command and Data Binding for AddTour Dialog|

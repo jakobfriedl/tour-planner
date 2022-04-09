@@ -36,7 +36,7 @@
             <TextBlock DockPanel.Dock="Left">Tours</TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="AddTourButton" Command="{Binding AddTourDialogCommand}">+</Button>
-                <Button>-</Button>
+                <Button x:Name="RemoveTourButton">-</Button>
             </StackPanel>
         </DockPanel>
 

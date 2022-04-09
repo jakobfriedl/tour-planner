@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TourPlanner.Models
+namespace TourPlanner.DataAccessLayer
 {
-	public enum TransportType {
-		Car = 0,
-		Bus,
-		Bike,
-		Walk
-	}
+    internal class Class1
+    {
+    }
 }

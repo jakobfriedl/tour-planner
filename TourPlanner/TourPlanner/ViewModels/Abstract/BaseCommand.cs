@@ -9,7 +9,6 @@ namespace TourPlanner.ViewModels.Abstract
 {
     public abstract class BaseCommand : ICommand
     {
-	    protected Action<object> ExecuteAction;
 	    protected Func<object, bool>? CanExecuteAction;
 
 	    public event EventHandler? CanExecuteChanged {
@@ -17,12 +16,10 @@ namespace TourPlanner.ViewModels.Abstract
 		    remove => CommandManager.RequerySuggested -= value;
 	    }
 
-	    public bool CanExecute(object? parameter) {
+	    public virtual bool CanExecute(object? parameter) {
 		    return CanExecuteAction is null || CanExecute(parameter);
 	    }
 
-	    public void Execute(object? parameter) {
-		    ExecuteAction(parameter!);
-	    }
+	    public abstract void Execute(object? parameter); 
     }
 }

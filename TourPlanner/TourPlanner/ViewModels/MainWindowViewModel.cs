@@ -22,8 +22,5 @@ public class MainWindowViewModel : BaseViewModel {
 		TourListViewModel = tourListViewModel;
 		TourDetailsViewModel = tourDetailsViewModel;
 		LogListViewModel = logListViewModel;
-
-		TourListViewModel.Tours.Add(new Tour("Tour 1"));
-		TourListViewModel.Tours.Add(new Tour("Tour 2"));
 	}
 }

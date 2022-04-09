@@ -16,13 +16,9 @@ namespace TourPlanner.ViewModels.Commands
 	/// </summary>
 	/// <typeparam name="T"> Type of dialog (e.g. AddTourDialog, AddLogDialog, EditTourDialog) </typeparam>
     public class OpenDialogCommand<T> : BaseCommand where T : Window, new() {
-
-	    public OpenDialogCommand(Func<object, bool>? canExecuteAction = null) {
-		    ExecuteAction = _ => {
-			    var dialog = new T(); 
-			    dialog.ShowDialog();
-		    };
-		    CanExecuteAction = canExecuteAction;
-	    }
-    }
+		public override void Execute(object? parameter) {
+		    var dialog = new T();
+			dialog.ShowDialog(); 
+		}
+	}
 }

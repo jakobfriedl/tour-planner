@@ -28,7 +28,7 @@ namespace TourPlanner.ViewModels.Commands
 	    }
 	    
 	    public override void Execute(object? parameter) {
-		    throw new NotImplementedException(); 
+		    var test = new Class1(); 
 	    }
     }
 }

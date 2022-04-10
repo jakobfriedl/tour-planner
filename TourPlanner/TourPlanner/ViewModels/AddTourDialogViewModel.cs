@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TourPlanner.Models;
+using TourPlanner.ViewModels.Abstract;
 using TourPlanner.ViewModels.Commands;
 using TourPlanner.Views;
 
 namespace TourPlanner.ViewModels
 {
-    public class AddTourDialogViewModel {
+    public class AddTourDialogViewModel : BaseViewModel {
 	    public ICommand SubmitCommand { get; }
 
 	    public string? AddTourName { get; set; } = "Name";

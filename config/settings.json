@@ -1,0 +1,9 @@
+{
+    "image-location" : "../resources",
+    "db" : {
+        "host" : "localhost",
+        "username" : "username",
+        "password" : "password",
+        "database" : "dbname" 
+    }
+}

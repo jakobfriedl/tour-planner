@@ -10,3 +10,4 @@
 |18.03.2022|2h|Jakob|Rework and Improve Commands & Structure|
 |19.03.2022|1h|Jakob|Create New-Tour Form in Dialog|
 |09.04.2022|3h|Jakob|Implement Command and Data Binding for AddTour Dialog|
+|10.04.2022|2h|Jakob|Create settings.json file and parse contents|

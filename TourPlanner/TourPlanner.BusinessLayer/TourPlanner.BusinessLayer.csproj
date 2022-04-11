@@ -13,4 +13,10 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TourPlanner.DataAccessLayer.REST\TourPlanner.DataAccessLayer.REST.csproj" />
+    <ProjectReference Include="..\TourPlanner.DataAccessLayer\TourPlanner.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\TourPlanner.Modelss\TourPlanner.Models.csproj" />
+  </ItemGroup>
+
 </Project>

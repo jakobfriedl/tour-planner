@@ -12,16 +12,18 @@ using TourPlanner.Views;
 namespace TourPlanner.ViewModels
 {
     public class AddTourDialogViewModel : BaseViewModel {
+		public Action CloseAction { get; }
 	    public ICommand SubmitCommand { get; }
 
-	    public string? AddTourName { get; set; } = "Name";
-	    public string? AddTourDescription { get; set; } = "Description";
-	    public string? AddTourStart { get; set; } = "Start";
-	    public string? AddTourDestination { get; set; } = "Destination";
-	    public TransportType AddTourTransportType { get; set; } = TransportType.Car;
+	    public string AddTourName { get; set; }
+	    public string AddTourDescription { get; set; }
+	    public string AddTourStart { get; set; }
+	    public string AddTourDestination { get; set; }
+	    public TransportType AddTourTransportType { get; set; }
 
-        public AddTourDialogViewModel() {
+        public AddTourDialogViewModel(Action closeAction) {
 	        SubmitCommand = new SubmitTourCommand(this);
+	        CloseAction = closeAction; 
         }
     }
 }

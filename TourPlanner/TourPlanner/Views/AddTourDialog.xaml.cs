@@ -21,8 +21,8 @@ namespace TourPlanner.Views
     public partial class AddTourDialog : Window
     {
         public AddTourDialog() {
-	        DataContext = new AddTourDialogViewModel();  
-            InitializeComponent();
+	        DataContext = new AddTourDialogViewModel(this.Close);
+	        InitializeComponent();
         }
     }
 }

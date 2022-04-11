@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TourPlanner.BusinessLayer\TourPlanner.BusinessLayer.csproj" />
+    <ProjectReference Include="..\TourPlanner.Modelss\TourPlanner.Models.csproj" />
   </ItemGroup>
 
 </Project>

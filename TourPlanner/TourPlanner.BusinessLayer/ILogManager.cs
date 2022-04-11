@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TourPlanner.BusinessLayer.Config;
+using TourPlanner.Models;
 
 namespace TourPlanner.BusinessLayer
 {
-    public class Class1
-    {
-	    public Class1() {
-		    var config = ConfigManager.GetConfig(); 
-	    }
+    public interface ILogManager {
+	    Log CreateLog(Log log);
+	    Log EditLog(Log log);
+	    IEnumerable<Log> GetLogs(int tourId); 
     }
 }

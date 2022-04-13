@@ -22,9 +22,13 @@ namespace TourPlanner.ViewModels
 
 		public TourListViewModel() {
 			// Template value determines the type of dialog
-			AddTourDialogCommand = new OpenDialogCommand<AddTourDialog>();
-			Tours.Add(new Tour("Tour 1"));
-			Tours.Add(new Tour("Tour 2"));
+			AddTourDialogCommand = new OpenAddTourDialogCommand(this);
+			AddTour(new Tour("Tour 1"));
+			AddTour(new Tour("Tour 2"));
+		}
+
+		public void AddTour(Tour tour) {
+			Tours.Add(tour);
 		}
 	}
 }

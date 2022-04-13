@@ -25,7 +25,8 @@ namespace TourPlanner.DataAccessLayer.Config
 			    DatabaseHost = config["db:host"],
 			    DatabaseUsername = config["db:username"],
 			    DatabasePassword = config["db:password"],
-			    DatabaseName = config["db:database"]
+			    DatabaseName = config["db:database"],
+				ApiKey = config["api-key"]
 		    }; 
 	    }
     }

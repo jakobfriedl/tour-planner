@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TourPlanner.DataAccessLayer
+namespace TourPlanner.DataAccessLayer.DAO
 {
-    internal class Class1
+    internal interface ILogDAO
     {
     }
 }

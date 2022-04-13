@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 using TourPlanner.DataAccessLayer.REST;
 using TourPlanner.Models;
 
@@ -14,9 +15,11 @@ namespace TourPlanner.BusinessLayer
 		    throw new NotImplementedException();
 	    }
 
-	    public Tour CreateTour(Tour tour) { 
-		    MapRequest.GetTourInformation(tour);
-			return tour;
+	    public async Task<Tour> CreateTour(Tour tour) {
+		    var http = new HttpRequest();
+		    tour = await http.GetTourInformation(tour);
+		    // tour.ImagePath = await http.GetTourImage(tour);
+		    return tour;
 	    }
 
 	    public Tour UpdateTour(Tour tour) {

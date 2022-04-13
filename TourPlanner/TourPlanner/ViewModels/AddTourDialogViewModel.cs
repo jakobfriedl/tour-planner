@@ -15,14 +15,14 @@ namespace TourPlanner.ViewModels
 		public Action CloseAction { get; }
 	    public ICommand SubmitCommand { get; }
 
-	    public string AddTourName { get; set; }
-	    public string AddTourDescription { get; set; }
-	    public string AddTourStart { get; set; }
-	    public string AddTourDestination { get; set; }
-	    public TransportType AddTourTransportType { get; set; }
+	    public string AddTourName { get; set; } = string.Empty;
+		public string AddTourDescription { get; set; } = string.Empty;
+		public string AddTourStart { get; set; } = string.Empty;
+		public string AddTourDestination { get; set; } = string.Empty;
+		public TransportType AddTourTransportType { get; set; }
 
-        public AddTourDialogViewModel(Action closeAction) {
-	        SubmitCommand = new SubmitTourCommand(this);
+        public AddTourDialogViewModel(TourListViewModel viewModel, Action closeAction) {
+	        SubmitCommand = new SubmitTourCommand(viewModel, this);
 	        CloseAction = closeAction; 
         }
     }

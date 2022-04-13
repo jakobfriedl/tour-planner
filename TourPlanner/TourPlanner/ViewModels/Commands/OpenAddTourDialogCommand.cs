@@ -12,12 +12,17 @@ using TourPlanner.Views;
 namespace TourPlanner.ViewModels.Commands
 {
 	/// <summary>
-	/// Specific Command for opening dialog/modal windows
+	/// Specific Command for opening the Add-Tour dialog/modal window
 	/// </summary>
-	/// <typeparam name="T"> Type of dialog (e.g. AddTourDialog, AddLogDialog, EditTourDialog) </typeparam>
-    public class OpenDialogCommand<T> : BaseCommand where T : Window, new() {
+	public class OpenAddTourDialogCommand : BaseCommand {
+		public TourListViewModel TourListViewModel { get; }
+
+		public OpenAddTourDialogCommand(TourListViewModel vm) {
+			TourListViewModel = vm;
+		}
+
 		public override void Execute(object? parameter) {
-		    var dialog = new T();
+		    var dialog = new AddTourDialog(TourListViewModel);
 			dialog.ShowDialog(); 
 		}
 	}

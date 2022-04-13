@@ -11,8 +11,8 @@ namespace TourPlanner.Models
 		public int Id { get; set; }
 		public string TourName { get; set; }
 		public string TourDescription { get; set; }
-		public string From { get; set; }
-		public string To { get; set; }
+		public string Start { get; set; }
+		public string Destination { get; set; }
 		public TransportType TransportType { get; set; }
 		public double? Distance { get; set; }
 		public double? EstimatedTime { get; set; }
@@ -22,21 +22,21 @@ namespace TourPlanner.Models
 			TourName = tourName; 
 		}
 
-		public Tour(string tourName, string tourDescription, string tourFrom, string tourTo,
+		public Tour(string tourName, string tourDescription, string tourStart, string tourDestination,
 			TransportType transportType) {
 			TourName = tourName;
 			TourDescription = tourDescription;
-			From = tourFrom;
-			To = tourTo;
+			Start = tourStart;
+			Destination = tourDestination;
 			TransportType = transportType; 
 		}
 
-		public Tour(int id, string tourName, string tourDescription, string from, string to, TransportType transportType, double? distance, double? estimatedTime, string? imagePath) {
+		public Tour(int id, string tourName, string tourDescription, string start, string destination, TransportType transportType, double? distance, double? estimatedTime, string? imagePath) {
 			Id = id;
 			TourName = tourName;
 			TourDescription = tourDescription;
-			From = from;
-			To = to;
+			Start = start;
+			Destination = destination;
 			TransportType = transportType;
 			Distance = distance;
 			EstimatedTime = estimatedTime;

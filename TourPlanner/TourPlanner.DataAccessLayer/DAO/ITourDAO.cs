@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TourPlanner.Models
+namespace TourPlanner.DataAccessLayer.DAO
 {
-	public enum TransportType {
-		Car = 0,
-		Bus,
-		Bike,
-		Walk
-	}
+    internal interface ITourDAO
+    {
+    }
 }

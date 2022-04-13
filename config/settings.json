@@ -1,9 +1,10 @@
 {
-    "image-location" : "../resources",
+    "image-location" : "../resources/tour-img",
     "db" : {
         "host" : "localhost",
         "username" : "username",
         "password" : "password",
         "database" : "dbname" 
-    }
+    }, 
+    "api-key": "jq6DBzkCek4Z6yQGoGGHgGnteiF4SoUe"
 }

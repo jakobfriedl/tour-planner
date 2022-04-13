@@ -8,6 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Windows;
 using TourPlanner.ViewModels;
+using TourPlanner.Views;
 
 namespace TourPlanner
 {

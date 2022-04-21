@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using TourPlanner.BusinessLayer;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
 using TourPlanner.ViewModels.Commands;
@@ -25,5 +27,9 @@ namespace TourPlanner.ViewModels
 	        SubmitCommand = new SubmitTourCommand(viewModel, this);
 	        CloseAction = closeAction; 
         }
-    }
+
+		public async Task<Tour> GetCreatedTour(Tour tour){
+			return await ManagerFactory.GetTourManager().CreateTour(tour);
+		}
+	}
 }

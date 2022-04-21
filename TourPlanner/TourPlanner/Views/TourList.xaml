@@ -39,13 +39,17 @@
                 <Button x:Name="RemoveTourButton">-</Button>
             </StackPanel>
         </DockPanel>
-
-        <ListView Grid.Row="1" ItemsSource="{Binding Tours, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <RadioButton GroupName="TourList" Content="{Binding TourName}"></RadioButton>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ListView ItemsSource="{Binding Tours, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedTour, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton GroupName="TourList" Content="{Binding TourName}"
+                                     IsChecked="{Binding IsSelected}"></RadioButton>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
     </Grid>
 </UserControl>

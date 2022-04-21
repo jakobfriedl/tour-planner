@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="TourPlanner.Views.TourInformation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TourPlanner.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin"  Value="10 0"></Setter>
+        </Style>
+        <Style x:Key="HeadingStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="Margin"  Value="10 0 "></Setter>
+        </Style>
+        <Style x:Key="PropertyHeadingStyle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Margin"  Value="10 0"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Style="{StaticResource HeadingStyle}" Text="{Binding SelectedTour.TourName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Text="{Binding SelectedTour.TourDescription, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="From" Style="{StaticResource PropertyHeadingStyle}"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedTour.Start}"/>
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="To" Style="{StaticResource PropertyHeadingStyle}"/>
+                <TextBlock Grid.Row="2" Grid.Column="3" Text="{Binding SelectedTour.Destination}"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Distance" Style="{StaticResource PropertyHeadingStyle}"/>
+                <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding SelectedTour.Distance}"/>
+                <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="Estimated Time" Style="{StaticResource PropertyHeadingStyle}"/>
+                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding SelectedTour.EstimatedTime}"/>
+                <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="Transport Type" Style="{StaticResource PropertyHeadingStyle}"/>
+                <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding SelectedTour.TransportType}"/>
+                <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Text="Popularity" Style="{StaticResource PropertyHeadingStyle}"/>
+                <TextBlock Grid.Row="6" Grid.Column="2" Text="0"/>
+                <TextBlock Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Text="Child-Friendliness" Style="{StaticResource PropertyHeadingStyle}"/>
+                <TextBlock Grid.Row="7" Grid.Column="2" Text="5/5"/>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

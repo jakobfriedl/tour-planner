@@ -21,11 +21,12 @@ namespace TourPlanner
 		    var searchBarViewModel = new SearchBarViewModel();
 		    var menuStripViewModel = new MenuStripViewModel();
 		    var tourListViewModel = new TourListViewModel();
-		    var tourDetailsViewModel = new TourDetailsViewModel();
+		    var tourInformationViewModel = new TourInformationViewModel(tourListViewModel);
+		    var tourDetailsViewModel = new TourDetailsViewModel(tourInformationViewModel);
 		    var logListViewModel = new LogListViewModel();
 
 		    var mainViewModel = new MainWindowViewModel(searchBarViewModel, menuStripViewModel, tourListViewModel,
-			    tourDetailsViewModel, logListViewModel);
+			    tourDetailsViewModel, tourInformationViewModel, logListViewModel);
 
 		    var main = new MainWindow(mainViewModel);
 

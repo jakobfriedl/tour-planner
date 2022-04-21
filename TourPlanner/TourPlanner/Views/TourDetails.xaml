@@ -14,11 +14,10 @@
     </UserControl.Resources>
     <Grid>
         <TabControl>
-            <TabItem Header="Route">
-                <Label>Route</Label>
-            </TabItem>
             <TabItem Header="Information">
-                <Label>Information</Label>
+                <local:TourInformation DataContext="{Binding TourInformationViewModel}"></local:TourInformation>
+            </TabItem>
+            <TabItem Header="Route">
             </TabItem>
         </TabControl>
     </Grid>

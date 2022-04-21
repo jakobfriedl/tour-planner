@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlannerBL.Tests", "..\T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.DataAccessLayer.REST", "TourPlanner.DataAccessLayer.REST\TourPlanner.DataAccessLayer.REST.csproj", "{C23F1016-B501-4CCE-BF18-85D052C5D54F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.Models", "TourPlanner.Models\TourPlanner.Models.csproj", "{2BC3A201-E987-41AB-B258-494DD64721DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.Models", "TourPlanner.Models\TourPlanner.Models.csproj", "{2BC3A201-E987-41AB-B258-494DD64721DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

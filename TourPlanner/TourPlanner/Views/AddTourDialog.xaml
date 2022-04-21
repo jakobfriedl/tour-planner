@@ -66,23 +66,23 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Tourname:</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Tourname*:</TextBlock>
             <TextBox Grid.Row="0" Grid.Column="1" 
                      Text="{Binding AddTourName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      x:Name="TourNameTextBox"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Description:</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Description*:</TextBlock>
             <TextBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
                      Text="{Binding AddTourDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      x:Name="TourDescriptionTextBox" Style="{StaticResource DescriptionStyle}"/>
-            <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Start:</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Start*:</TextBlock>
             <TextBox Grid.Row="3" Grid.Column="1"
                      Text="{Binding AddTourStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      x:Name="TourStartTextBox"/>
-            <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Destination:</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Destination*:</TextBlock>
             <TextBox Grid.Row="4" Grid.Column="1" 
                      Text="{Binding AddTourDestination, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      x:Name="TourDestinationTextBox"/>
-            <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Transport Type:</TextBlock>
+            <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Transport Type*:</TextBlock>
             <ComboBox Grid.Row="5" Grid.Column="1" 
                       x:Name="TourTransportTypeComboBox">
                 <!-- make dynamic based on enum TransportType --> 

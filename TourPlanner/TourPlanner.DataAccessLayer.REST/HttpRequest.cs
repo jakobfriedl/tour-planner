@@ -14,8 +14,8 @@ namespace TourPlanner.DataAccessLayer.REST
 		private readonly string? _key = ConfigManager.GetConfig().ApiKey;
 		private readonly HttpClient _client; 
 
-		public HttpRequest() {
-			_client = new HttpClient(); 
+		public HttpRequest(HttpClient client) {
+			_client = client; 
 		}
 
 		public async Task<Tour> GetTourInformation(Tour tour) {
@@ -31,12 +31,11 @@ namespace TourPlanner.DataAccessLayer.REST
 		    return null; 
 		}
 
-	    public async Task<string> GetTourImage(Tour tour) {
+	    public async Task<byte[]> GetTourImage(Tour tour) {
 		    var url = "https://open.mapquestapi.com/staticmap/v5/map?" +
 		              $"key={_key}&start={tour.Start}&end={tour.Destination}";
-		    var response = await _client.GetAsync(url);
+		    return await _client.GetByteArrayAsync(url);
 
-		    return ""; 
 	    }
     }
 }

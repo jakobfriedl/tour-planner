@@ -9,12 +9,12 @@ namespace TourPlanner.ViewModels.Commands;
 ///     Button which validates input of AddTourDialog and sends it to the business layer
 /// </summary>
 internal class SubmitTourCommand : BaseCommand {
-	public AddTourDialogViewModel Data { get; }
+	public AddTourDialogViewModel AddTourDialogViewModel { get; }
 	public TourListViewModel TourListViewModel { get; }
 
-	public SubmitTourCommand(TourListViewModel vm, AddTourDialogViewModel data) {
-		TourListViewModel = vm; 
-		Data = data;
+	public SubmitTourCommand(TourListViewModel viewModel, AddTourDialogViewModel addTourDialogViewModel) {
+		TourListViewModel = viewModel; 
+		AddTourDialogViewModel = addTourDialogViewModel;
 	}
 
 	/// <summary>
@@ -23,10 +23,10 @@ internal class SubmitTourCommand : BaseCommand {
 	/// <param name="parameter"></param>
 	/// <returns></returns>
 	public override bool CanExecute(object? parameter) {
-		return !string.IsNullOrEmpty(Data.AddTourName) &&
-		       !string.IsNullOrEmpty(Data.AddTourDescription) &&
-		       !string.IsNullOrEmpty(Data.AddTourStart) &&
-		       !string.IsNullOrEmpty(Data.AddTourDestination) &&
+		return !string.IsNullOrEmpty(AddTourDialogViewModel.AddTourName) &&
+		       !string.IsNullOrEmpty(AddTourDialogViewModel.AddTourDescription) &&
+		       !string.IsNullOrEmpty(AddTourDialogViewModel.AddTourStart) &&
+		       !string.IsNullOrEmpty(AddTourDialogViewModel.AddTourDestination) &&
 		       base.CanExecute(parameter);
 	}
 
@@ -35,15 +35,13 @@ internal class SubmitTourCommand : BaseCommand {
 	/// </summary>
 	/// <param name="parameter"></param>
 	public override async void Execute(object? parameter) {
-		var tour = new Tour(Data.AddTourName,
-							Data.AddTourDescription,
-							Data.AddTourStart,
-							Data.AddTourDestination,
-							Data.AddTourTransportType);
+		var tour = new Tour(AddTourDialogViewModel.AddTourName,
+							AddTourDialogViewModel.AddTourDescription,
+							AddTourDialogViewModel.AddTourStart,
+							AddTourDialogViewModel.AddTourDestination,
+							AddTourDialogViewModel.AddTourTransportType);
 
-		tour = await ManagerFactory.GetTourManager().CreateTour(tour);
-
-		if (tour is null) { 
+		if ((tour = await AddTourDialogViewModel.GetCreatedTour(tour)) is null) { 
 			// Invalid Location
 			MessageBox.Show("Please make sure to enter valid locations.",
 				"Invalid locations",
@@ -51,7 +49,7 @@ internal class SubmitTourCommand : BaseCommand {
 				MessageBoxImage.Error);
 		} else {
 			TourListViewModel.AddTour(tour); // Add new Tout to TourListViewModel to update List
-			Data.CloseAction(); // Close Dialog Window}
+			AddTourDialogViewModel.CloseAction(); // Close Dialog Window}
 		}
 	}
 }

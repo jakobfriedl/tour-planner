@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
@@ -16,9 +17,9 @@ namespace TourPlanner.BusinessLayer
 	    }
 
 	    public async Task<Tour> CreateTour(Tour tour) {
-		    var http = new HttpRequest();
+		    var http = new HttpRequest(new HttpClient());
 		    tour = await http.GetTourInformation(tour);
-		    // tour.ImagePath = await http.GetTourImage(tour);
+		    // var image = await http.GetTourImage(tour);
 		    return tour;
 	    }
 

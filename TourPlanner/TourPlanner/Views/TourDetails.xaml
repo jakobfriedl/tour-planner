@@ -15,9 +15,10 @@
     <Grid>
         <TabControl>
             <TabItem Header="Information">
-                <local:TourInformation DataContext="{Binding TourInformationViewModel}"></local:TourInformation>
+                <local:TourInformation DataContext="{Binding TourListViewModel}"/>
             </TabItem>
             <TabItem Header="Route">
+                <local:TourRoute DataContext="{Binding TourListViewModel}"/>
             </TabItem>
         </TabControl>
     </Grid>

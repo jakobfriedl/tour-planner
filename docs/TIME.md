@@ -13,3 +13,5 @@
 |10.04.2022|2h|Jakob|Create settings.json file and parse contents|
 |11.04.2022|3h|Jakob|Start implementation of MapQuest Request|
 |13.04.2022|3h|Jakob|Update TourListVM when creating a new Tour, handling invalid input|
+|21.04.2022|3h|Jakob|Implement TourInformation with Databinding, SelectedTour hardcoded|
+|22.04.2022|3h|Jakob|Databinding SelectedTour, Show Image in Route Tab|

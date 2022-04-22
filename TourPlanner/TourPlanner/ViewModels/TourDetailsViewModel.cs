@@ -10,10 +10,10 @@ namespace TourPlanner.ViewModels
 {
 	public class TourDetailsViewModel : BaseViewModel
     {
-        public TourInformationViewModel TourInformationViewModel { get; }
+        public TourListViewModel TourListViewModel { get; }
 
-        public TourDetailsViewModel(TourInformationViewModel tourInformationViewModel) {
-	        TourInformationViewModel = tourInformationViewModel;
+        public TourDetailsViewModel(TourListViewModel tourListViewModel) {
+	        TourListViewModel = tourListViewModel;
         }
     }
 }

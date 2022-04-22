@@ -8,20 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
-namespace TourPlanner.DataAccessLayer.Config
+namespace TourPlanner.DataAccessLayer.Configuration
 {
     public static class ConfigManager
     {
 	    public static TourPlannerConfig GetConfig() {
-			var configPath =
-			    Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.Parent 
-			    + "\\config\\settings.json";
+		    var configPath =
+			    Directory.GetCurrentDirectory()
+			    + "\\Config\\settings.json"; 
 
 		    IConfiguration config = new ConfigurationBuilder()
 			    .AddJsonFile(configPath, false, true)
 			    .Build();
 
-		    return new TourPlannerConfig() {
+		    return new TourPlannerConfig {
 			    ImageLocation = config["image-location"],
 			    DatabaseHost = config["db:host"],
 			    DatabaseUsername = config["db:username"],

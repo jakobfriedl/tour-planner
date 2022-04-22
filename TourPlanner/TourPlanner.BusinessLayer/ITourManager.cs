@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TourPlanner.DataAccessLayer.Config;
+using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.Models;
 
 namespace TourPlanner.BusinessLayer

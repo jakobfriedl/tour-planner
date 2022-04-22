@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Reflection.Metadata;
+using System.Windows;
 using TourPlanner.BusinessLayer;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
@@ -36,20 +38,23 @@ internal class SubmitTourCommand : BaseCommand {
 	/// <param name="parameter"></param>
 	public override async void Execute(object? parameter) {
 		var tour = new Tour(AddTourDialogViewModel.AddTourName,
-							AddTourDialogViewModel.AddTourDescription,
-							AddTourDialogViewModel.AddTourStart,
-							AddTourDialogViewModel.AddTourDestination,
-							AddTourDialogViewModel.AddTourTransportType);
+			AddTourDialogViewModel.AddTourDescription,
+			AddTourDialogViewModel.AddTourStart,
+			AddTourDialogViewModel.AddTourDestination,
+			AddTourDialogViewModel.AddTourTransportType);
 
-		if ((tour = await AddTourDialogViewModel.GetCreatedTour(tour)) is null) { 
-			// Invalid Location
+		try {
+			tour = await AddTourDialogViewModel.GetCreatedTour(tour);
+		} catch (NullReferenceException) {
+			// Invalid Location, show Error-MessageBox
 			MessageBox.Show("Please make sure to enter valid locations.",
 				"Invalid locations",
-				MessageBoxButton.OK, 
+				MessageBoxButton.OK,
 				MessageBoxImage.Error);
-		} else {
-			TourListViewModel.AddTour(tour); // Add new Tout to TourListViewModel to update List
-			AddTourDialogViewModel.CloseAction(); // Close Dialog Window}
+			return;
 		}
+
+		TourListViewModel.AddTour(tour); // Add new Tout to TourListViewModel to update List
+		AddTourDialogViewModel.CloseAction(); // Close Dialog Window
 	}
 }

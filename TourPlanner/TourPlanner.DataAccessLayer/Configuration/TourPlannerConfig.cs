@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TourPlanner.DataAccessLayer.Config
+namespace TourPlanner.DataAccessLayer.Configuration
 {
     public class TourPlannerConfig
     {

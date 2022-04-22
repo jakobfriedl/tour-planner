@@ -29,7 +29,9 @@ namespace TourPlanner.ViewModels
         }
 
 		public async Task<Tour> GetCreatedTour(Tour tour){
-			return await ManagerFactory.GetTourManager().CreateTour(tour);
+			try {
+				return await ManagerFactory.GetTourManager().CreateTour(tour);
+			} catch (NullReferenceException) { throw; }
 		}
 	}
 }

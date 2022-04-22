@@ -17,9 +17,11 @@ namespace TourPlanner.Models
 		public double? Distance { get; set; }
 		public double? EstimatedTime { get; set; }
 		public string? ImagePath { get; set; }
+		public int? Popularity { get; set; } = 0;
+		public int? ChildFriendliness { get; set; } = 0; 
 
 		public Tour(string tourName) {
-			TourName = tourName; 
+			TourName = tourName;
 		}
 
 		public Tour(string tourName, string tourDescription, string tourStart, string tourDestination,
@@ -28,10 +30,10 @@ namespace TourPlanner.Models
 			TourDescription = tourDescription;
 			Start = tourStart;
 			Destination = tourDestination;
-			TransportType = transportType; 
+			TransportType = transportType;
 		}
 
-		public Tour(int id, string tourName, string tourDescription, string start, string destination, TransportType transportType, double? distance, double? estimatedTime, string? imagePath) {
+		public Tour(int id, string tourName, string tourDescription, string start, string destination, TransportType transportType, double? distance, double? estimatedTime, string? imagePath, int? popularity, int? childFriendliness) {
 			Id = id;
 			TourName = tourName;
 			TourDescription = tourDescription;
@@ -40,7 +42,9 @@ namespace TourPlanner.Models
 			TransportType = transportType;
 			Distance = distance;
 			EstimatedTime = estimatedTime;
-			ImagePath = imagePath; 
+			ImagePath = imagePath;
+			Popularity = popularity;
+			ChildFriendliness = childFriendliness;
 		}
 	}
 }

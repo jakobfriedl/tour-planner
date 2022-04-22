@@ -8,5 +8,5 @@ namespace TourPlanner.DataAccessLayer.Common;
 /// </summary>
 public interface IHttpRequest {
 	public Task<Tour> GetTourInformation(Tour tour); 
-	public Task<byte[]> GetTourImage(Tour tour); 
+	public Task<byte[]> GetTourImageBytes(Tour tour); 
 }

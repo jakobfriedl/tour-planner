@@ -17,7 +17,7 @@
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Style="{StaticResource HeadingStyle}" Text="{Binding SelectedTour.TourName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <Image Grid.Row="1" Source="{Binding SelectedTour.ImagePath}"></Image>
+            <TextBlock Grid.Row="0" Style="{StaticResource HeadingStyle}" Text="{Binding SelectedTour.Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Image Grid.Row="1" Source="{Binding RouteImageSource}"></Image>
         </Grid>
 </UserControl>

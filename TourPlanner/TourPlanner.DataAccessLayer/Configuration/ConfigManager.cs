@@ -24,6 +24,7 @@ namespace TourPlanner.DataAccessLayer.Configuration
 		    return new TourPlannerConfig {
 			    ImageLocation = config["image-location"],
 			    DatabaseHost = config["db:host"],
+			    DatabasePort = config["db:port"],
 			    DatabaseUsername = config["db:username"],
 			    DatabasePassword = config["db:password"],
 			    DatabaseName = config["db:database"],

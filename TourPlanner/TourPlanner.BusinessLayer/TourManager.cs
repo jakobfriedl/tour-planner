@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Navigation;
 using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.DataAccessLayer.REST;
+using TourPlanner.DataAccessLayer.SQL;
 using TourPlanner.Models;
 
 namespace TourPlanner.BusinessLayer
@@ -26,10 +27,15 @@ namespace TourPlanner.BusinessLayer
 			    tour = await http.GetTourInformation(tour);
 		    } catch (NullReferenceException) { throw; }
 
+		    var tourDao = new TourDAO(new Database());
+		    tour = tourDao.AddNewTour(tour); 
+
+			// Save image from REST Request to png-File
 		    var imageBytes = await http.GetTourImageBytes(tour);
-		    tour.ImagePath =
-			    $"{Directory.GetCurrentDirectory()}\\{ConfigManager.GetConfig().ImageLocation}\\{tour.TourName}.png";
+		    tour.ImagePath = $"{ConfigManager.GetConfig().ImageLocation}\\{tour.Id}.png";
 		    await File.WriteAllBytesAsync(tour.ImagePath, imageBytes);
+
+		    tourDao.SetImagePath(tour.Id, tour.ImagePath); 
 
 		    return tour;
 	    }
@@ -39,7 +45,8 @@ namespace TourPlanner.BusinessLayer
 	    }
 
 	    public IEnumerable<Tour> GetTours() {
-		    throw new NotImplementedException();
+			var tourDao = new TourDAO(new Database());
+			return tourDao.GetTours();
 	    }
     }
 }

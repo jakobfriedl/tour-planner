@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TourPlanner.DataAccessLayer.DAO
 {
-    internal interface ILogDAO
+    public interface ILogDAO
     {
     }
 }

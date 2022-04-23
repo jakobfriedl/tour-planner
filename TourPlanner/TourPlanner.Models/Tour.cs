@@ -9,8 +9,8 @@ namespace TourPlanner.Models
 {
 	public class Tour {
 		public int Id { get; set; }
-		public string TourName { get; set; }
-		public string TourDescription { get; set; }
+		public string Name { get; set; }
+		public string Description { get; set; }
 		public string Start { get; set; }
 		public string Destination { get; set; }
 		public TransportType TransportType { get; set; }
@@ -20,23 +20,23 @@ namespace TourPlanner.Models
 		public int? Popularity { get; set; } = 0;
 		public int? ChildFriendliness { get; set; } = 0; 
 
-		public Tour(string tourName) {
-			TourName = tourName;
+		public Tour(string name) {
+			Name = name;
 		}
 
-		public Tour(string tourName, string tourDescription, string tourStart, string tourDestination,
+		public Tour(string name, string description, string tourStart, string tourDestination,
 			TransportType transportType) {
-			TourName = tourName;
-			TourDescription = tourDescription;
+			Name = name;
+			Description = description;
 			Start = tourStart;
 			Destination = tourDestination;
 			TransportType = transportType;
 		}
 
-		public Tour(int id, string tourName, string tourDescription, string start, string destination, TransportType transportType, double? distance, double? estimatedTime, string? imagePath, int? popularity, int? childFriendliness) {
+		public Tour(int id, string name, string description, string start, string destination, TransportType transportType, double distance, double estimatedTime, string imagePath, int popularity, int childFriendliness) {
 			Id = id;
-			TourName = tourName;
-			TourDescription = tourDescription;
+			Name = name;
+			Description = description;
 			Start = start;
 			Destination = destination;
 			TransportType = transportType;

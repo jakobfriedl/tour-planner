@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TourPlanner.Models;
 
 namespace TourPlanner.DataAccessLayer.DAO
 {
-    internal interface ITourDAO
-    {
+    public interface ITourDAO {
+	    Tour GetTourByTourId(int id); 
+	    Tour AddNewTour(Tour tour);
+	    int SetImagePath(int id, string imagePath);
+	    IEnumerable<Tour> GetTours();
     }
 }

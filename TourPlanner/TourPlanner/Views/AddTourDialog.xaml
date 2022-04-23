@@ -66,14 +66,14 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Tourname*:</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Name*:</TextBlock>
             <TextBox Grid.Row="0" Grid.Column="1" 
                      Text="{Binding AddTourName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     x:Name="TourNameTextBox"/>
+                     x:Name="NameTextBox"/>
             <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Description*:</TextBlock>
             <TextBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
                      Text="{Binding AddTourDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     x:Name="TourDescriptionTextBox" Style="{StaticResource DescriptionStyle}"/>
+                     x:Name="DescriptionTextBox" Style="{StaticResource DescriptionStyle}"/>
             <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Start*:</TextBlock>
             <TextBox Grid.Row="3" Grid.Column="1"
                      Text="{Binding AddTourStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -84,10 +84,11 @@
                      x:Name="TourDestinationTextBox"/>
             <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Transport Type*:</TextBlock>
             <ComboBox Grid.Row="5" Grid.Column="1" 
-                      x:Name="TourTransportTypeComboBox">
+                      x:Name="TourTransportTypeComboBox"
+                      SelectedValue="{Binding AddTourTransportType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <!-- make dynamic based on enum TransportType --> 
                 <ComboBoxItem IsSelected="True">Car</ComboBoxItem>
-                <ComboBoxItem>Bus</ComboBoxItem>
+                <ComboBoxItem >Bus</ComboBoxItem>
                 <ComboBoxItem>Bike</ComboBoxItem>
                 <ComboBoxItem>Walk</ComboBoxItem>
             </ComboBox>

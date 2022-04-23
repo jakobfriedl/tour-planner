@@ -45,7 +45,7 @@
                   ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding TourName}"/>
+                    <TextBlock Text="{Binding Name}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

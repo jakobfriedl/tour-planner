@@ -10,6 +10,7 @@ namespace TourPlanner.DataAccessLayer.Configuration
     {
         public string? ImageLocation { get; set; }
         public string? DatabaseHost { get; set; }
+        public string? DatabasePort { get; set; }
         public string? DatabaseUsername { get; set; }
         public string? DatabasePassword { get; set; }
         public string? DatabaseName { get; set; }

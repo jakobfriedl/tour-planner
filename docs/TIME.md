@@ -15,3 +15,4 @@
 |13.04.2022|3h|Jakob|Update TourListVM when creating a new Tour, handling invalid input|
 |21.04.2022|3h|Jakob|Implement TourInformation with Databinding, SelectedTour hardcoded|
 |22.04.2022|3h|Jakob|Databinding SelectedTour, Show Image in Route Tab|
+|23.04.2022|4h|Jakob|DB: Create Tour, GetAllTours for Observable Collection|

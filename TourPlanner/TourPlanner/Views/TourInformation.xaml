@@ -39,8 +39,8 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Style="{StaticResource HeadingStyle}" Text="{Binding SelectedTour.TourName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Text="{Binding SelectedTour.TourDescription, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Style="{StaticResource HeadingStyle}" Text="{Binding SelectedTour.Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Text="{Binding SelectedTour.Description, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="From" Style="{StaticResource PropertyHeadingStyle}"/>
                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedTour.Start}"/>
                 <TextBlock Grid.Row="2" Grid.Column="2" Text="To" Style="{StaticResource PropertyHeadingStyle}"/>

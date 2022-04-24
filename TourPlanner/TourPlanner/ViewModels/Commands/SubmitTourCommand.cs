@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Reflection.Metadata;
 using System.Windows;
+using Npgsql;
 using TourPlanner.BusinessLayer;
+using TourPlanner.BusinessLayer.Exceptions;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
 
@@ -45,7 +47,7 @@ internal class SubmitTourCommand : BaseCommand {
 
 		try {
 			tour = await AddTourDialogViewModel.GetCreatedTour(tour);
-		} catch (NullReferenceException) {
+		} catch (InvalidLocationException) {
 			// Invalid Location, show Error-MessageBox
 			MessageBox.Show("Please make sure to enter valid locations.",
 				"Invalid locations",

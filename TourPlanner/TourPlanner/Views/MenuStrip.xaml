@@ -9,11 +9,11 @@
     <Grid>
         <Menu Name="MainMenu" VerticalAlignment="Top">
             <MenuItem Header="_Options">
-                <MenuItem Name="OptionsConfig" Header="_Config"></MenuItem>
-                <MenuItem Name="OptionsExport" Header="_Export"></MenuItem>
-                <MenuItem Name="OptionsImport" Header="_Import"></MenuItem>
-                <MenuItem Name="OptionsTourReport" Header="_Tour Report"></MenuItem>
-                <MenuItem Name="OptionsSummarizeReport" Header="_Summarize Report"></MenuItem>
+                <MenuItem Command="{Binding OpenSettingsCommand}" Header="_Config"></MenuItem>
+                <MenuItem Header="_Export"></MenuItem>
+                <MenuItem Header="_Import"></MenuItem>
+                <MenuItem Header="_Tour Report"></MenuItem>
+                <MenuItem Header="_Summarize Report"></MenuItem>
             </MenuItem>
             <MenuItem HorizontalAlignment="Right" Header="_Help"></MenuItem>
         </Menu>

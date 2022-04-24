@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using TourPlanner.BusinessLayer;
+using TourPlanner.BusinessLayer.Exceptions;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
 using TourPlanner.ViewModels.Commands;
@@ -31,7 +32,7 @@ namespace TourPlanner.ViewModels
 		public async Task<Tour> GetCreatedTour(Tour tour){
 			try {
 				return await ManagerFactory.GetTourManager().CreateTour(tour);
-			} catch (NullReferenceException) { throw; }
+			} catch (InvalidLocationException) { throw; }
 		}
 	}
 }

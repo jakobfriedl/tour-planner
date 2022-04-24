@@ -6,6 +6,8 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using Npgsql;
 using TourPlanner.DataAccessLayer.Common;
 using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.DataAccessLayer.DAO;
@@ -16,7 +18,7 @@ namespace TourPlanner.DataAccessLayer.SQL
     public class TourDAO : ITourDAO {
 	    private readonly IDatabase _db;
 
-		private const string SqlGetAllTours = "SELECT * FROM \"tour\";"; 
+		private const string SqlGetAllTours = "SELECT * FROM \"tour\" ORDER BY id asc;"; 
 		private const string SqlGetTourById = "SELECT * FROM \"tour\" WHERE id=@id;";
 		private const string SqlInsertTour = "" + 
          "INSERT INTO \"tour\"(name, description, start, destination, transport_type, distance, time)" +
@@ -76,7 +78,7 @@ namespace TourPlanner.DataAccessLayer.SQL
 		/// </summary>
 		/// <returns>All Tours in a enumerable format</returns>
 	    public IEnumerable<Tour> GetTours() {
-		    var cmd = _db.CreateCommand(SqlGetAllTours);
+			var cmd = _db.CreateCommand(SqlGetAllTours);
 		    return QueryTours(cmd);
 	    }
 
@@ -102,7 +104,7 @@ namespace TourPlanner.DataAccessLayer.SQL
 				    (int)reader["child_friendliness"]
 			    ));
 		    }
-
+		    
 		    return tours;
 	    }
     }

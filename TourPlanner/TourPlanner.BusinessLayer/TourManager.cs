@@ -7,6 +7,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
+using Npgsql;
+using TourPlanner.BusinessLayer.Exceptions;
 using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.DataAccessLayer.REST;
 using TourPlanner.DataAccessLayer.SQL;
@@ -25,17 +27,20 @@ namespace TourPlanner.BusinessLayer
 
 		    try {
 			    tour = await http.GetTourInformation(tour);
-		    } catch (NullReferenceException) { throw; }
+		    } catch (NullReferenceException) { throw new InvalidLocationException(); }
+		    
+		    // Check for Invalid Locations
+		    if (tour.Distance == 0 || tour.EstimatedTime == 0) throw new InvalidLocationException(); 
+		    
+			var tourDao = new TourDAO(new Database());
+		    tour = tourDao.AddNewTour(tour);
 
-		    var tourDao = new TourDAO(new Database());
-		    tour = tourDao.AddNewTour(tour); 
-
-			// Save image from REST Request to png-File
+		    // Save image from REST Request to png-File
 		    var imageBytes = await http.GetTourImageBytes(tour);
 		    tour.ImagePath = $"{ConfigManager.GetConfig().ImageLocation}\\{tour.Id}.png";
 		    await File.WriteAllBytesAsync(tour.ImagePath, imageBytes);
 
-		    tourDao.SetImagePath(tour.Id, tour.ImagePath); 
+		    tourDao.SetImagePath(tour.Id, tour.ImagePath);
 
 		    return tour;
 	    }
@@ -45,8 +50,8 @@ namespace TourPlanner.BusinessLayer
 	    }
 
 	    public IEnumerable<Tour> GetTours() {
-			var tourDao = new TourDAO(new Database());
-			return tourDao.GetTours();
+		    var tourDao = new TourDAO(new Database());
+		    return tourDao.GetTours();
 	    }
     }
 }

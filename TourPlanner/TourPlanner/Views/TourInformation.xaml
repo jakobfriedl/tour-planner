@@ -46,15 +46,15 @@
                 <TextBlock Grid.Row="2" Grid.Column="2" Text="To" Style="{StaticResource PropertyHeadingStyle}"/>
                 <TextBlock Grid.Row="2" Grid.Column="3" Text="{Binding SelectedTour.Destination}"/>
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Distance" Style="{StaticResource PropertyHeadingStyle}"/>
-                <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding SelectedTour.Distance}"/>
+                <TextBlock Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectedTour.DisplayDistance}"/>
                 <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="Estimated Time" Style="{StaticResource PropertyHeadingStyle}"/>
-                <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding SelectedTour.EstimatedTime}"/>
+                <TextBlock Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectedTour.DisplayTime}"/>
                 <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="Transport Type" Style="{StaticResource PropertyHeadingStyle}"/>
-                <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding SelectedTour.TransportType}"/>
+                <TextBlock Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectedTour.TransportType}"/>
                 <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Text="Popularity" Style="{StaticResource PropertyHeadingStyle}"/>
-                <TextBlock Grid.Row="6" Grid.Column="2" Text="{Binding SelectedTour.Popularity}"/>
+                <TextBlock Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectedTour.Popularity}"/>
                 <TextBlock Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Text="Child-Friendliness" Style="{StaticResource PropertyHeadingStyle}"/>
-                <TextBlock Grid.Row="7" Grid.Column="2" Text="{Binding SelectedTour.ChildFriendliness}"/>
+                <TextBlock Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SelectedTour.ChildFriendliness}"/>
             </Grid>
         </ScrollViewer>
     </Grid>

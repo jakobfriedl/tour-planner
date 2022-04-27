@@ -54,6 +54,7 @@ namespace TourPlanner.ViewModels.Commands {
 					TourListViewModel.AddTour(tour); // Add new Tout to TourListViewModel to update List
 				} else {
 					tour = await AddTourDialogViewModel.GetUpdatedTour(tour); 
+					TourListViewModel.ReplaceTour(tour);
 				}
 			} catch (InvalidLocationException) {
 				// Invalid Location, show Error-MessageBox

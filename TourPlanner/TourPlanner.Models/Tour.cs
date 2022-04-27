@@ -15,10 +15,13 @@ namespace TourPlanner.Models
 		public string Destination { get; set; }
 		public TransportType TransportType { get; set; }
 		public double Distance { get; set; } = 0;
-		public double EstimatedTime { get; set; } = 0; 
+		public int EstimatedTime { get; set; } = 0; 
 		public string ImagePath { get; set; }
 		public int? Popularity { get; set; } = 0;
 		public int? ChildFriendliness { get; set; } = 0;
+
+		public string DisplayDistance { get; set; }
+		public string DisplayTime { get; set; }
 
 		public Tour(string name) {
 			Name = name;
@@ -34,7 +37,7 @@ namespace TourPlanner.Models
 			TransportType = transportType;
 		}
 
-		public Tour(int id, string name, string description, string start, string destination, TransportType transportType, double distance, double estimatedTime, string imagePath, int popularity, int childFriendliness) {
+		public Tour(int id, string name, string description, string start, string destination, TransportType transportType, double distance, int estimatedTime, string imagePath, int popularity, int childFriendliness) {
 			Id = id;
 			Name = name;
 			Description = description;
@@ -46,6 +49,16 @@ namespace TourPlanner.Models
 			ImagePath = imagePath;
 			Popularity = popularity;
 			ChildFriendliness = childFriendliness;
+
+			DisplayDistance = $"{Math.Round(distance, 2)} km";
+			DisplayTime = FormatTime(EstimatedTime).ToString("G").Split(',')[0]; 
+		}
+
+		private TimeSpan FormatTime(int time) {
+			var s = time % 60;
+			var m = (time / 60) % 60;
+			var h = (time / 3600);
+			return new TimeSpan(h, m, s);
 		}
 	}
 }

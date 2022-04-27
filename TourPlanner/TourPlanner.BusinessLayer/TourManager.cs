@@ -85,10 +85,7 @@ namespace TourPlanner.BusinessLayer
 		    var imageBytes = await http.GetTourImageBytes(tour);
 		    tour.ImagePath = $"{ConfigManager.GetConfig().ImageLocation}\\{tour.Id}.png";
 
-			if(File.Exists($"{Directory.GetCurrentDirectory()}\\{tour.ImagePath}"))
-				File.Delete($"{Directory.GetCurrentDirectory()}\\{tour.ImagePath}");
-
-		    await File.WriteAllBytesAsync(tour.ImagePath, imageBytes);
+		    // await File.WriteAllBytesAsync(tour.ImagePath, imageBytes);
 
 		    var tourDao = new TourDAO(new Database());
 		    tourDao.SetImagePath(tour.Id, tour.ImagePath);

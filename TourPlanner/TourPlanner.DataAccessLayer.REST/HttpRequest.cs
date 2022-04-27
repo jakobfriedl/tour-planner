@@ -24,7 +24,7 @@ namespace TourPlanner.DataAccessLayer.REST
 
 		    var json = JsonNode.Parse(await _client.GetStringAsync(url));
 		    tour.Distance = json["route"]["distance"].GetValue<double>();
-		    tour.EstimatedTime = json["route"]["time"].GetValue<double>();
+		    tour.EstimatedTime = json["route"]["time"].GetValue<int>();
 
 		    return tour;
 		}

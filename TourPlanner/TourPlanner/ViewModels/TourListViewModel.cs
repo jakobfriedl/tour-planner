@@ -60,6 +60,12 @@ namespace TourPlanner.ViewModels
 			Tours.Remove(toRemove);
 		}
 
+		public void ReplaceTour(Tour tour) {
+			var t = Tours.FirstOrDefault(t => t.Id == tour.Id);
+			Tours[Tours.IndexOf(t)] = tour;
+			SelectedTour = tour; 
+		}
+
 		public bool IsEmpty() {
 			return Tours.Count <= 0; 
 		}

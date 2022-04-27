@@ -59,7 +59,7 @@ namespace TourPlanner.DataAccessLayer.SQL
 			_db.DefineParameter(cmd, "@destination", DbType.String, tour.Destination);
 			_db.DefineParameter(cmd, "@transportType", DbType.Int32, (int)tour.TransportType);
 			_db.DefineParameter(cmd, "@distance", DbType.Double, tour.Distance);
-			_db.DefineParameter(cmd, "@time", DbType.Double, tour.EstimatedTime);
+			_db.DefineParameter(cmd, "@time", DbType.Int32, tour.EstimatedTime);
 			return GetTourByTourId(_db.ExecuteScalar(cmd));
 		}
 
@@ -96,10 +96,10 @@ namespace TourPlanner.DataAccessLayer.SQL
 			_db.DefineParameter(cmd, "@destination", DbType.String, tour.Destination);
 			_db.DefineParameter(cmd, "@transportType", DbType.Int32, (int)tour.TransportType);
 			_db.DefineParameter(cmd, "@distance", DbType.Double, tour.Distance);
-			_db.DefineParameter(cmd, "@time", DbType.Double, tour.EstimatedTime);
+			_db.DefineParameter(cmd, "@time", DbType.Int32, tour.EstimatedTime);
 			_db.DefineParameter(cmd, "@id", DbType.Int32, tour.Id);
 			_db.ExecuteNonQuery(cmd);
-			return tour;
+			return GetTourByTourId(tour.Id);
 		}
 
 		/// <summary>
@@ -127,7 +127,7 @@ namespace TourPlanner.DataAccessLayer.SQL
 				    (string)reader["destination"],
 				    (TransportType)reader["transport_type"],
 				    (double)reader["distance"],
-				    (double)reader["time"],
+				    (int)reader["time"],
 				    (string)reader["image_path"],
 				    (int)reader["popularity"],
 				    (int)reader["child_friendliness"]

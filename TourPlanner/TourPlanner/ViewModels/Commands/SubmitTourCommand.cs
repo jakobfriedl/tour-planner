@@ -15,10 +15,12 @@ namespace TourPlanner.ViewModels.Commands {
 	internal class SubmitTourCommand : BaseCommand {
 		public AddTourDialogViewModel AddTourDialogViewModel { get; }
 		public TourListViewModel TourListViewModel { get; }
+		public bool IsUpdate { get; }
 
-		public SubmitTourCommand(TourListViewModel viewModel, AddTourDialogViewModel addTourDialogViewModel) {
+		public SubmitTourCommand(TourListViewModel viewModel, AddTourDialogViewModel addTourDialogViewModel, bool isUpdate) {
 			TourListViewModel = viewModel;
 			AddTourDialogViewModel = addTourDialogViewModel;
+			IsUpdate = isUpdate; 
 		}
 
 		/// <summary>
@@ -39,14 +41,20 @@ namespace TourPlanner.ViewModels.Commands {
 		/// </summary>
 		/// <param name="parameter"></param>
 		public override async void Execute(object? parameter) {
-			var tour = new Tour(AddTourDialogViewModel.AddTourName,
+			var tour = new Tour(AddTourDialogViewModel.AddTourId,
+				AddTourDialogViewModel.AddTourName,
 				AddTourDialogViewModel.AddTourDescription,
 				AddTourDialogViewModel.AddTourStart,
 				AddTourDialogViewModel.AddTourDestination,
 				AddTourDialogViewModel.AddTourTransportType);
 
 			try {
-				tour = await AddTourDialogViewModel.GetCreatedTour(tour);
+				if (!IsUpdate) {
+					tour = await AddTourDialogViewModel.GetCreatedTour(tour);
+					TourListViewModel.AddTour(tour); // Add new Tout to TourListViewModel to update List
+				} else {
+					tour = await AddTourDialogViewModel.GetUpdatedTour(tour); 
+				}
 			} catch (InvalidLocationException) {
 				// Invalid Location, show Error-MessageBox
 				MessageBox.Show("Please make sure to enter valid locations.",
@@ -56,7 +64,6 @@ namespace TourPlanner.ViewModels.Commands {
 				return;
 			}
 
-			TourListViewModel.AddTour(tour); // Add new Tout to TourListViewModel to update List
 			AddTourDialogViewModel.CloseAction(); // Close Dialog Window
 		}
 	}

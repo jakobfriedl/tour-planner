@@ -24,8 +24,9 @@ namespace TourPlanner.Models
 			Name = name;
 		}
 
-		public Tour(string name, string description, string tourStart, string tourDestination,
+		public Tour(int id, string name, string description, string tourStart, string tourDestination,
 			TransportType transportType) {
+			Id = id;
 			Name = name;
 			Description = description;
 			Start = tourStart;

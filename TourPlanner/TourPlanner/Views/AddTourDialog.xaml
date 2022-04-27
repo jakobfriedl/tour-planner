@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
-        Title="New Tour" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" 
+        Title="Tour" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" 
         ResizeMode="CanResize"
         Height="450" Width="500">
     <Window.Resources>
@@ -51,7 +51,7 @@
             <RowDefinition Height="20*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Style="{StaticResource HeaderStyle}">Create a new tour</TextBlock>
+        <TextBlock Grid.Row="0" Style="{StaticResource HeaderStyle}" Text="{Binding DialogHeading}"/>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>
@@ -84,11 +84,11 @@
                      x:Name="TourDestinationTextBox"/>
             <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Transport Type*:</TextBlock>
             <ComboBox Grid.Row="5" Grid.Column="1" 
-                      x:Name="TourTransportTypeComboBox"
-                      SelectedValue="{Binding AddTourTransportType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                      x:Name="TourTransportTypeComboBox">
+                <!--SelectedValue="{Binding AddTourTransportType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
                 <!-- make dynamic based on enum TransportType --> 
                 <ComboBoxItem IsSelected="True">Car</ComboBoxItem>
-                <ComboBoxItem >Bus</ComboBoxItem>
+                <ComboBoxItem>Bus</ComboBoxItem>
                 <ComboBoxItem>Bike</ComboBoxItem>
                 <ComboBoxItem>Walk</ComboBoxItem>
             </ComboBox>

@@ -26,8 +26,12 @@ namespace TourPlanner.DataAccessLayer.SQL
          "SELECT CAST(lastval() AS integer);";
 		private const string SqlSetTourImagePath = "UPDATE \"tour\" SET image_path=@imagePath WHERE id=@id;";
 		private const string SqlDeleteTour = "DELETE FROM \"tour\" WHERE id=@id;"; 
+		private const string SqlUpdateTour = "UPDATE \"tour\" " +
+			"SET name=@name, description=@description, start=@start, destination=@destination, transport_type=@transportType, distance=@distance, time=@time " +
+			"WHERE id=@id;";
 
-	    public TourDAO(IDatabase database) {
+
+		public TourDAO(IDatabase database) {
 		    _db = database; 
 	    }
 
@@ -83,6 +87,20 @@ namespace TourPlanner.DataAccessLayer.SQL
 			_db.DefineParameter(cmd, "@id", DbType.Int32, id);
 			return _db.ExecuteNonQuery(cmd); 
 	    }
+
+		public Tour UpdateTour(Tour tour) {
+			var cmd = _db.CreateCommand(SqlUpdateTour);
+			_db.DefineParameter(cmd, "@name", DbType.String, tour.Name);
+			_db.DefineParameter(cmd, "@description", DbType.String, tour.Description);
+			_db.DefineParameter(cmd, "@start", DbType.String, tour.Start);
+			_db.DefineParameter(cmd, "@destination", DbType.String, tour.Destination);
+			_db.DefineParameter(cmd, "@transportType", DbType.Int32, (int)tour.TransportType);
+			_db.DefineParameter(cmd, "@distance", DbType.Double, tour.Distance);
+			_db.DefineParameter(cmd, "@time", DbType.Double, tour.EstimatedTime);
+			_db.DefineParameter(cmd, "@id", DbType.Int32, tour.Id);
+			_db.ExecuteNonQuery(cmd);
+			return tour;
+		}
 
 		/// <summary>
 		/// Get All Tours

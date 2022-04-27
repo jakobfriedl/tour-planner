@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
 using Npgsql;
+using Npgsql.Replication.PgOutput.Messages;
 using TourPlanner.BusinessLayer.Exceptions;
 using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.DataAccessLayer.REST;
@@ -26,12 +27,12 @@ namespace TourPlanner.BusinessLayer
 		/// <param name="tour">Has name, description, start, dest., and transport type</param>
 		/// <returns></returns>
 	    public async Task<Tour> CreateTour(Tour tour) {
-		    return await SaveImage(await SaveInitialInformation(tour));
+		    return await SaveImage(await SaveInformation(tour));
 	    }
 
-		public Tour UpdateTour(Tour tour) {
-		    throw new NotImplementedException();
-	    }
+		public async Task<Tour> UpdateTour(Tour tour) {
+			return await SaveImage(await UpdateInformation(tour)); 
+		}
 
 		public bool DeleteTour(int id) {
 			var tourDao = new TourDAO(new Database());
@@ -49,7 +50,7 @@ namespace TourPlanner.BusinessLayer
 		/// <param name="tour">Tour to create</param>
 		/// <returns>Tour with distance and time and id</returns>
 		/// <exception cref="InvalidLocationException">Invalid Locations that could not be found, or the same location twice</exception>
-	    private async Task<Tour> SaveInitialInformation(Tour tour) {
+	    private async Task<Tour> GetInformation(Tour tour) {
 		    var http = new HttpRequest(new HttpClient());
 
 		    try {
@@ -59,8 +60,17 @@ namespace TourPlanner.BusinessLayer
 		    // Check for Invalid Locations
 			if(tour.Distance == 0 || tour.EstimatedTime == 0) throw new InvalidLocationException();
 
-		    var tourDao = new TourDAO(new Database());
-		    return tourDao.AddNewTour(tour);
+			return tour; 
+		}
+
+		private async Task<Tour> SaveInformation(Tour tour) {
+			var tourDao = new TourDAO(new Database());
+			return tourDao.AddNewTour(await GetInformation(tour));
+		}
+
+		private async Task<Tour> UpdateInformation(Tour tour) {
+			var tourDao = new TourDAO(new Database());
+			return tourDao.UpdateTour(await GetInformation(tour)); 
 		}
 
 		/// <summary>
@@ -74,6 +84,10 @@ namespace TourPlanner.BusinessLayer
 		    // Save image from REST Request to png-File
 		    var imageBytes = await http.GetTourImageBytes(tour);
 		    tour.ImagePath = $"{ConfigManager.GetConfig().ImageLocation}\\{tour.Id}.png";
+
+			if(File.Exists($"{Directory.GetCurrentDirectory()}\\{tour.ImagePath}"))
+				File.Delete($"{Directory.GetCurrentDirectory()}\\{tour.ImagePath}");
+
 		    await File.WriteAllBytesAsync(tour.ImagePath, imageBytes);
 
 		    var tourDao = new TourDAO(new Database());

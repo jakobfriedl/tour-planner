@@ -37,6 +37,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="AddTourButton" Command="{Binding AddTourDialogCommand}">+</Button>
                 <Button x:Name="RemoveTourButton" Command="{Binding DeleteTourCommand}">-</Button>
+                <Button x:Name="EditTourButton" Command="{Binding EditTourDialogCommand}">Edit</Button>
             </StackPanel>
         </DockPanel>
 

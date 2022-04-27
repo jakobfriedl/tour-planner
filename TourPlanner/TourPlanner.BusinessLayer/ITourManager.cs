@@ -10,7 +10,7 @@ namespace TourPlanner.BusinessLayer
 {
     public interface ITourManager {
 	    Task<Tour> CreateTour(Tour tour);
-	    Tour UpdateTour(Tour tour);
+	    Task<Tour> UpdateTour(Tour tour);
 	    bool DeleteTour(int id); 
 	    IEnumerable<Tour> GetTours();
     }

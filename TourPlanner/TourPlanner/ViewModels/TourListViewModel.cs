@@ -25,7 +25,7 @@ namespace TourPlanner.ViewModels
 		public Tour SelectedTour {
 			get => _selectedTour;
 			set {
-				_selectedTour = value;
+				_selectedTour = value ?? new Tour("No Tour selected");
 				RouteImageSource = $"{Directory.GetCurrentDirectory()}\\{_selectedTour.ImagePath}";
 				OnPropertyChanged(nameof(SelectedTour));
 				OnPropertyChanged(nameof(RouteImageSource));
@@ -33,19 +33,35 @@ namespace TourPlanner.ViewModels
 		}
 
 		public ICommand AddTourDialogCommand { get; }
+		public ICommand DeleteTourCommand { get; }
 
 		public TourListViewModel() {
 			AddTourDialogCommand = new OpenAddTourDialogCommand(this);
+			DeleteTourCommand = new DeleteTourCommand(this);
 			Tours = new ObservableCollection<Tour>(GetTours()); 
-			SelectedTour = Tours.FirstOrDefault() ?? new Tour("No Tour selected");
+			SelectedTour = Tours.FirstOrDefault()!;
 		}
 
 		public void AddTour(Tour tour) {
 			Tours.Add(tour);
 		}
 
+		public void RemoveSelectedTour() {
+			var toRemove = SelectedTour; 
+			SelectedTour = Tours.FirstOrDefault()!;
+			Tours.Remove(toRemove);
+		}
+
+		public bool IsEmpty() {
+			return Tours.Count <= 0; 
+		}
+
 		public IEnumerable<Tour> GetTours() {
 			return ManagerFactory.GetTourManager().GetTours(); 
+		}
+
+		public bool DeleteTour() {
+			return ManagerFactory.GetTourManager().DeleteTour(SelectedTour.Id); 
 		}
 	}
 }

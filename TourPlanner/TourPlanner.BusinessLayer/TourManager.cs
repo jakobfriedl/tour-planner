@@ -18,11 +18,7 @@ namespace TourPlanner.BusinessLayer
 {
     internal class TourManager : ITourManager
     {
-	    public Tour GetTour(int tourId) {
-		    throw new NotImplementedException();
-	    }
-
-		/// <summary>
+	    /// <summary>
 		/// Create a tour by getting the needed information from the http-client,
 		/// creating a db-entry and afterwards saving the image on the filesystem and
 		/// the image-path in the db
@@ -36,6 +32,11 @@ namespace TourPlanner.BusinessLayer
 		public Tour UpdateTour(Tour tour) {
 		    throw new NotImplementedException();
 	    }
+
+		public bool DeleteTour(int id) {
+			var tourDao = new TourDAO(new Database());
+			return tourDao.DeleteTour(id); 
+		}
 
 	    public IEnumerable<Tour> GetTours() {
 		    var tourDao = new TourDAO(new Database());

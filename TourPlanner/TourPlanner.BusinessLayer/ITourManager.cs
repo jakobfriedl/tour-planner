@@ -9,9 +9,9 @@ using TourPlanner.Models;
 namespace TourPlanner.BusinessLayer
 {
     public interface ITourManager {
-	    Tour GetTour(int tourId); 
 	    Task<Tour> CreateTour(Tour tour);
-	    Tour UpdateTour(Tour tour); 
+	    Tour UpdateTour(Tour tour);
+	    bool DeleteTour(int id); 
 	    IEnumerable<Tour> GetTours();
     }
 }

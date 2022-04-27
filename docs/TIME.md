@@ -17,3 +17,4 @@
 |22.04.2022|3h|Jakob|Databinding SelectedTour, Show Image in Route Tab|
 |23.04.2022|4h|Jakob|DB: Create Tour, GetAllTours for Observable Collection|
 |24.04.2022|2h|Jakob|Open Settings Folder, Exceptionhandling|
+|27.04.2022|2h|Jakob|Implement DeleteTour|

@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:TourPlanner"
              Startup="App_OnStartup">
     <Application.Resources>
-         
+         <Style TargetType="Border">
+             <Setter Property="CornerRadius" Value="4"></Setter>
+         </Style>
     </Application.Resources>
 </Application>

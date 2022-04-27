@@ -22,36 +22,63 @@ namespace TourPlanner.BusinessLayer
 		    throw new NotImplementedException();
 	    }
 
+		/// <summary>
+		/// Create a tour by getting the needed information from the http-client,
+		/// creating a db-entry and afterwards saving the image on the filesystem and
+		/// the image-path in the db
+		/// </summary>
+		/// <param name="tour">Has name, description, start, dest., and transport type</param>
+		/// <returns></returns>
 	    public async Task<Tour> CreateTour(Tour tour) {
-		    var http = new HttpRequest(new HttpClient());
-
-		    try {
-			    tour = await http.GetTourInformation(tour);
-		    } catch (NullReferenceException) { throw new InvalidLocationException(); }
-		    
-		    // Check for Invalid Locations
-		    if (tour.Distance == 0 || tour.EstimatedTime == 0) throw new InvalidLocationException(); 
-		    
-			var tourDao = new TourDAO(new Database());
-		    tour = tourDao.AddNewTour(tour);
-
-		    // Save image from REST Request to png-File
-		    var imageBytes = await http.GetTourImageBytes(tour);
-		    tour.ImagePath = $"{ConfigManager.GetConfig().ImageLocation}\\{tour.Id}.png";
-		    await File.WriteAllBytesAsync(tour.ImagePath, imageBytes);
-
-		    tourDao.SetImagePath(tour.Id, tour.ImagePath);
-
-		    return tour;
+		    return await SaveImage(await SaveInitialInformation(tour));
 	    }
 
-	    public Tour UpdateTour(Tour tour) {
+		public Tour UpdateTour(Tour tour) {
 		    throw new NotImplementedException();
 	    }
 
 	    public IEnumerable<Tour> GetTours() {
 		    var tourDao = new TourDAO(new Database());
 		    return tourDao.GetTours();
+	    }
+
+		/// <summary>
+		/// Get Initial Information for Tour from API and save this information to database
+		/// </summary>
+		/// <param name="tour">Tour to create</param>
+		/// <returns>Tour with distance and time and id</returns>
+		/// <exception cref="InvalidLocationException">Invalid Locations that could not be found, or the same location twice</exception>
+	    private async Task<Tour> SaveInitialInformation(Tour tour) {
+		    var http = new HttpRequest(new HttpClient());
+
+		    try {
+			    tour = await http.GetTourInformation(tour);
+		    } catch (NullReferenceException) { throw new InvalidLocationException(); }
+
+		    // Check for Invalid Locations
+			if(tour.Distance == 0 || tour.EstimatedTime == 0) throw new InvalidLocationException();
+
+		    var tourDao = new TourDAO(new Database());
+		    return tourDao.AddNewTour(tour);
+		}
+
+		/// <summary>
+		/// Get Tour Image from API and save image-path in database
+		/// </summary>
+		/// <param name="tour">Tour to get image from</param>
+		/// <returns>Tour with ImagePath</returns>
+		private async Task<Tour> SaveImage(Tour tour) {
+		    var http = new HttpRequest(new HttpClient());
+
+		    // Save image from REST Request to png-File
+		    var imageBytes = await http.GetTourImageBytes(tour);
+		    tour.ImagePath = $"{ConfigManager.GetConfig().ImageLocation}\\{tour.Id}.png";
+		    await File.WriteAllBytesAsync(tour.ImagePath, imageBytes);
+
+		    var tourDao = new TourDAO(new Database());
+		    tourDao.SetImagePath(tour.Id, tour.ImagePath);
+
+		    return tour; 
 	    }
     }
 }

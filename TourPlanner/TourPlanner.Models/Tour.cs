@@ -14,11 +14,11 @@ namespace TourPlanner.Models
 		public string Start { get; set; }
 		public string Destination { get; set; }
 		public TransportType TransportType { get; set; }
-		public double? Distance { get; set; }
-		public double? EstimatedTime { get; set; }
-		public string? ImagePath { get; set; }
+		public double Distance { get; set; } = 0;
+		public double EstimatedTime { get; set; } = 0; 
+		public string ImagePath { get; set; }
 		public int? Popularity { get; set; } = 0;
-		public int? ChildFriendliness { get; set; } = 0; 
+		public int? ChildFriendliness { get; set; } = 0;
 
 		public Tour(string name) {
 			Name = name;

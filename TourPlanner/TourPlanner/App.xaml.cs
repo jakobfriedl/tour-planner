@@ -22,7 +22,7 @@ namespace TourPlanner
 		    var menuStripViewModel = new MenuStripViewModel();
 		    var tourListViewModel = new TourListViewModel();
 		    var tourDetailsViewModel = new TourDetailsViewModel(tourListViewModel);
-		    var logListViewModel = new LogListViewModel();
+		    var logListViewModel = new LogListViewModel(tourListViewModel);
 
 		    var mainViewModel = new MainWindowViewModel(searchBarViewModel, menuStripViewModel, tourListViewModel,
 			    tourDetailsViewModel, logListViewModel);

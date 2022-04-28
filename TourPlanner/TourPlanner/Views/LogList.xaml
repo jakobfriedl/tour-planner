@@ -11,9 +11,11 @@
             <Setter Property="Margin" Value="10 0"></Setter>
             <Setter Property="FontSize" Value="16"></Setter>
         </Style>
-        <Style TargetType="ListView">
+        <Style TargetType="DataGrid">
             <Setter Property="Margin" Value="10 5 10 10"></Setter>
+            <Setter Property="Padding" Value="10 5"></Setter>
             <Setter Property="BorderBrush" Value="DimGray"></Setter>
+            <Setter Property="Background" Value="White"></Setter>
         </Style>
         <Style TargetType="DockPanel">
             <Setter Property="Margin" Value="0 0 9 0"></Setter>
@@ -35,17 +37,26 @@
         <DockPanel Grid.Row="0">
             <TextBlock DockPanel.Dock="Left">Logs</TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button>+</Button>
+                <Button Command="{Binding AddLogDialogCommand}">+</Button>
                 <Button>-</Button>
             </StackPanel>
         </DockPanel>
 
-        <ListView Grid.Row="1">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock>Log</TextBlock>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Logs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" 
+                  CanUserReorderColumns="True" CanUserSortColumns="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date/Time" Width="20*" IsReadOnly="True" 
+                                    Binding="{Binding DateTime, StringFormat=G}"/>
+                <DataGridTextColumn Header="Total Time" Width="10*" IsReadOnly="True" 
+                                    Binding="{Binding TotalTime}"/>
+                <DataGridTextColumn Header="Comment" Width="25*" IsReadOnly="True"
+                                    Binding="{Binding Comment}"/>
+                <DataGridTextColumn Header="Difficulty" Width="10*" IsReadOnly="True"
+                                    Binding="{Binding Difficulty}"/>
+                <DataGridTextColumn Header="Rating" Width="10*" IsReadOnly="True"
+                                    Binding="{Binding Rating}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

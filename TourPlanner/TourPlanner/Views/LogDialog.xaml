@@ -1,0 +1,107 @@
+﻿<Window x:Class="TourPlanner.Views.LogDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TourPlanner.Views"
+        xmlns:wpfx="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Log" 
+        ResizeMode="CanResize"
+        Height="450" Width="500">
+    <Window.Resources>
+        <Style x:Key="HeadingStyle" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+        </Style>
+        <Style x:Key="CommentStyle" TargetType="TextBox">
+            <Setter Property="Margin" Value="15 5"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Top"></Setter>
+            <Setter Property="Padding" Value="10 10"></Setter>
+            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+            <Setter Property="AcceptsReturn" Value="True"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="15 5"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="Padding" Value="10 0"></Setter>
+        </Style>
+        <Style x:Key="FormTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="15 0"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+        </Style>
+        <Style TargetType="wpfx:DateTimePicker">
+            <Setter Property="Margin" Value="15 5"></Setter>
+            <Setter Property="TextAlignment" Value="Left"></Setter>
+        </Style>
+        <Style TargetType="wpfx:TimeSpanUpDown">
+            <Setter Property="Margin" Value="15 5"></Setter>
+            <Setter Property="TextAlignment" Value="Left"></Setter>
+        </Style>
+        <Style TargetType="wpfx:IntegerUpDown">
+            <Setter Property="Margin" Value="15 5"></Setter>
+            <Setter Property="TextAlignment" Value="Left"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="80*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Style="{StaticResource HeadingStyle}"
+                   Text="{Binding LogDialogHeading}"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*"></ColumnDefinition>
+                <ColumnDefinition Width="70*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Date/Time*:" Style="{StaticResource FormTextBlockStyle}"/>
+            <wpfx:DateTimePicker Grid.Row="0" Grid.Column="1"
+                                 Text="{Binding LogDialogDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Total Time*:" Style="{StaticResource FormTextBlockStyle}"/>
+            <wpfx:TimeSpanUpDown Grid.Row="1" Grid.Column="1" Watermark="dd.hh:mm:ss" Minimum="0.00:00:00"
+                                 Text="{Binding LogDialogDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Comment*:" Style="{StaticResource FormTextBlockStyle}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource CommentStyle}"
+                     Text="{Binding LogDialogComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Difficulty*:" Style="{StaticResource FormTextBlockStyle}"/>
+            <wpfx:IntegerUpDown Grid.Row="4" Watermark="0 (easy) - 10 (hard)" Grid.Column="1" Minimum="0" Maximum="10" Increment="1"
+                                Text="{Binding LogDialogDifficulty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Rating*:" Style="{StaticResource FormTextBlockStyle}"/>
+            <wpfx:IntegerUpDown Grid.Row="5" Watermark="0 (horrible) - 10 (excellent)" Grid.Column="1" Minimum="0" Maximum="10" Increment="1"
+                                Text="{Binding LogDialogRating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" x:Name="CancelNewLogButton" Content="Cancel"
+                    IsCancel="True"/>
+            <Button Grid.Column="1" x:Name="SubmitNewLogButton" Content="Submit" IsDefault="True"
+                    Command="{Binding SubmitCommand}"/>
+        </Grid>
+    </Grid>
+</Window>

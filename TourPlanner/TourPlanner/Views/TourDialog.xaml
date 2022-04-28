@@ -1,4 +1,4 @@
-﻿<Window x:Class="TourPlanner.Views.AddTourDialog"
+﻿<Window x:Class="TourPlanner.Views.TourDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -21,7 +21,7 @@
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
             <Setter Property="Padding" Value="10 0"></Setter>
         </Style>
-        <Style x:Key="HeaderStyle" TargetType="TextBlock">
+        <Style x:Key="HeadingStyle" TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
             <Setter Property="FontSize" Value="20"></Setter>
@@ -51,7 +51,8 @@
             <RowDefinition Height="20*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Style="{StaticResource HeaderStyle}" Text="{Binding DialogHeading}"/>
+        <TextBlock Grid.Row="0" Style="{StaticResource HeadingStyle}" 
+                   Text="{Binding TourDialogHeading}"/>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>
@@ -68,24 +69,24 @@
 
             <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Name*:</TextBlock>
             <TextBox Grid.Row="0" Grid.Column="1" 
-                     Text="{Binding AddTourName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     Text="{Binding TourDialogName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      x:Name="NameTextBox"/>
             <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Description*:</TextBlock>
             <TextBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
-                     Text="{Binding AddTourDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     Text="{Binding TourDialogDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                      x:Name="DescriptionTextBox" Style="{StaticResource DescriptionStyle}"/>
             <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Start*:</TextBlock>
             <TextBox Grid.Row="3" Grid.Column="1"
-                     Text="{Binding AddTourStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding TourDialogStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      x:Name="TourStartTextBox"/>
             <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Destination*:</TextBlock>
             <TextBox Grid.Row="4" Grid.Column="1" 
-                     Text="{Binding AddTourDestination, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding TourDialogDestination, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      x:Name="TourDestinationTextBox"/>
             <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Transport Type*:</TextBlock>
             <ComboBox Grid.Row="5" Grid.Column="1" 
                       x:Name="TourTransportTypeComboBox">
-                <!--SelectedValue="{Binding AddTourTransportType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
+                <!--SelectedValue="{Binding TourDialogTransportType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
                 <!-- make dynamic based on enum TransportType --> 
                 <ComboBoxItem IsSelected="True">Car</ComboBoxItem>
                 <ComboBoxItem>Bus</ComboBoxItem>

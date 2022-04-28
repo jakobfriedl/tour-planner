@@ -10,16 +10,16 @@ using TourPlanner.ViewModels.Abstract;
 namespace TourPlanner.ViewModels.Commands {
 
 	/// <summary>
-	///     Button which validates input of AddTourDialog and sends it to the business layer
+	///     Button which validates input of TourDialog and sends it to the business layer
 	/// </summary>
 	internal class SubmitTourCommand : BaseCommand {
-		public AddTourDialogViewModel AddTourDialogViewModel { get; }
+		public TourDialogViewModel TourDialogViewModel { get; }
 		public TourListViewModel TourListViewModel { get; }
 		public bool IsUpdate { get; }
 
-		public SubmitTourCommand(TourListViewModel viewModel, AddTourDialogViewModel addTourDialogViewModel, bool isUpdate) {
+		public SubmitTourCommand(TourDialogViewModel tourDialogViewModel, TourListViewModel viewModel, bool isUpdate) {
 			TourListViewModel = viewModel;
-			AddTourDialogViewModel = addTourDialogViewModel;
+			TourDialogViewModel = tourDialogViewModel;
 			IsUpdate = isUpdate; 
 		}
 
@@ -29,10 +29,10 @@ namespace TourPlanner.ViewModels.Commands {
 		/// <param name="parameter"></param>
 		/// <returns></returns>
 		public override bool CanExecute(object? parameter) {
-			return !string.IsNullOrEmpty(AddTourDialogViewModel.AddTourName) &&
-			       !string.IsNullOrEmpty(AddTourDialogViewModel.AddTourDescription) &&
-			       !string.IsNullOrEmpty(AddTourDialogViewModel.AddTourStart) &&
-			       !string.IsNullOrEmpty(AddTourDialogViewModel.AddTourDestination) &&
+			return !string.IsNullOrEmpty(TourDialogViewModel.TourDialogName) &&
+			       !string.IsNullOrEmpty(TourDialogViewModel.TourDialogDescription) &&
+			       !string.IsNullOrEmpty(TourDialogViewModel.TourDialogStart) &&
+			       !string.IsNullOrEmpty(TourDialogViewModel.TourDialogDestination) &&
 			       base.CanExecute(parameter);
 		}
 
@@ -41,19 +41,19 @@ namespace TourPlanner.ViewModels.Commands {
 		/// </summary>
 		/// <param name="parameter"></param>
 		public override async void Execute(object? parameter) {
-			var tour = new Tour(AddTourDialogViewModel.AddTourId,
-				AddTourDialogViewModel.AddTourName,
-				AddTourDialogViewModel.AddTourDescription,
-				AddTourDialogViewModel.AddTourStart,
-				AddTourDialogViewModel.AddTourDestination,
-				AddTourDialogViewModel.AddTourTransportType);
+			var tour = new Tour(TourDialogViewModel.TourDialogId,
+				TourDialogViewModel.TourDialogName,
+				TourDialogViewModel.TourDialogDescription,
+				TourDialogViewModel.TourDialogStart,
+				TourDialogViewModel.TourDialogDestination,
+				TourDialogViewModel.TourDialogTransportType);
 
 			try {
 				if (!IsUpdate) {
-					tour = await AddTourDialogViewModel.GetCreatedTour(tour);
+					tour = await TourDialogViewModel.GetCreatedTour(tour);
 					TourListViewModel.AddTour(tour); // Add new Tout to TourListViewModel to update List
 				} else {
-					tour = await AddTourDialogViewModel.GetUpdatedTour(tour); 
+					tour = await TourDialogViewModel.GetUpdatedTour(tour); 
 					TourListViewModel.ReplaceTour(tour);
 				}
 			} catch (InvalidLocationException) {
@@ -65,7 +65,7 @@ namespace TourPlanner.ViewModels.Commands {
 				return;
 			}
 
-			AddTourDialogViewModel.CloseAction(); // Close Dialog Window
+			TourDialogViewModel.CloseAction(); // Close Dialog Window
 		}
 	}
 }

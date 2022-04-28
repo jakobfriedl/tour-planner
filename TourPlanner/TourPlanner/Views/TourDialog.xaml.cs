@@ -17,12 +17,12 @@ using TourPlanner.ViewModels;
 namespace TourPlanner.Views
 {
     /// <summary>
-    /// Interaction logic for AddTourDialog.xaml
+    /// Interaction logic for TourDialog.xaml
     /// </summary>
-    public partial class AddTourDialog : Window
+    public partial class TourDialog : Window
     {
-        public AddTourDialog(TourListViewModel viewModel, Tour? tourToUpdate = null!) {
-	        DataContext = new AddTourDialogViewModel(viewModel, this.Close, tourToUpdate);
+        public TourDialog(TourListViewModel viewModel, Tour? tourToUpdate = null!) {
+	        DataContext = new TourDialogViewModel(viewModel, this.Close, tourToUpdate);
 	        InitializeComponent();
         }
     }

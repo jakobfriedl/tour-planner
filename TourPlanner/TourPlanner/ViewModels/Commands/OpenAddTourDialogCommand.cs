@@ -23,7 +23,7 @@ namespace TourPlanner.ViewModels.Commands
 		}
 
 		public override void Execute(object? parameter) {
-		    var dialog = new AddTourDialog(TourListViewModel);
+		    var dialog = new TourDialog(TourListViewModel);
 			dialog.ShowDialog(); 
 		}
 	}

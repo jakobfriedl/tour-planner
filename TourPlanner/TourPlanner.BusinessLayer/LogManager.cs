@@ -13,7 +13,11 @@ namespace TourPlanner.BusinessLayer
 		    throw new NotImplementedException();
 	    }
 
-	    public Log EditLog(Log log) {
+	    public Log UpdateLog(Log log) {
+		    throw new NotImplementedException();
+	    }
+
+	    public bool DeleteLog(int id) {
 		    throw new NotImplementedException();
 	    }
 

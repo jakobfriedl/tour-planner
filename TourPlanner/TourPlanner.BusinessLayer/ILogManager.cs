@@ -9,7 +9,8 @@ namespace TourPlanner.BusinessLayer
 {
     public interface ILogManager {
 	    Log CreateLog(Log log);
-	    Log EditLog(Log log);
+	    Log UpdateLog(Log log);
+	    bool DeleteLog(int id);
 	    IEnumerable<Log> GetLogs(int tourId); 
     }
 }

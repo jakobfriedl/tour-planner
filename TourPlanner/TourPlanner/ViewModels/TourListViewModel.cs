@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -40,8 +41,7 @@ namespace TourPlanner.ViewModels
 			}
 		}
 
-		public TourListViewModel()
-		{
+		public TourListViewModel() {
 			Tours = new ObservableCollection<Tour>(GetTours());
 			SelectedTour = Tours.FirstOrDefault()!;
 

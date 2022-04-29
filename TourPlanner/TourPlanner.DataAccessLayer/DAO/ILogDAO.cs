@@ -10,8 +10,8 @@ namespace TourPlanner.DataAccessLayer.DAO
     public interface ILogDAO
     {
 	    Log GetLogByLogId(int id);
-	    IEnumerable<Log> GetLogsByTourId(int id);
-	    Log AddNewLog(int tourId, Log log);
+	    IEnumerable<Log> GetLogsByTourId(int tourId);
+	    Log AddNewLog(Log log);
 	    Log UpdateLog(Log log);
 	    bool DeleteLog(int id);
     }

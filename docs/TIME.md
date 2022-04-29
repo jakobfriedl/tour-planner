@@ -20,3 +20,4 @@
 |27.04.2022|2h|Jakob|Implement DeleteTour|
 |27.04.2022|4h|Jakob|Start UpdateTour (error with image replace), Display time and distance|
 |28.04.2022|5h|Jakob|Start TourLog Implementation|
+|29.04.2022|3h|Jakob|Save TourLogs in Database and add show them in the view|

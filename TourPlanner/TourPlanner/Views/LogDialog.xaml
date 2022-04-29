@@ -43,10 +43,6 @@
             <Setter Property="Margin" Value="15 5"></Setter>
             <Setter Property="TextAlignment" Value="Left"></Setter>
         </Style>
-        <Style TargetType="wpfx:TimeSpanUpDown">
-            <Setter Property="Margin" Value="15 5"></Setter>
-            <Setter Property="TextAlignment" Value="Left"></Setter>
-        </Style>
         <Style TargetType="wpfx:IntegerUpDown">
             <Setter Property="Margin" Value="15 5"></Setter>
             <Setter Property="TextAlignment" Value="Left"></Setter>
@@ -76,12 +72,12 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Date/Time*:" Style="{StaticResource FormTextBlockStyle}"/>
-            <wpfx:DateTimePicker Grid.Row="0" Grid.Column="1"
-                                 Text="{Binding LogDialogDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Total Time*:" Style="{StaticResource FormTextBlockStyle}"/>
-            <wpfx:TimeSpanUpDown Grid.Row="1" Grid.Column="1" Watermark="dd.hh:mm:ss" Minimum="0.00:00:00"
-                                 Text="{Binding LogDialogDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Start Date/Time*:" Style="{StaticResource FormTextBlockStyle}"/>
+            <wpfx:DateTimePicker Grid.Row="0" Grid.Column="1" Format="FullDateTime"
+                                 Text="{Binding LogDialogStartDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="End Date/Time*:" Style="{StaticResource FormTextBlockStyle}"/>
+            <wpfx:DateTimePicker Grid.Row="1" Grid.Column="1" Format="FullDateTime"
+                                 Text="{Binding LogDialogEndDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Comment*:" Style="{StaticResource FormTextBlockStyle}"/>
             <TextBox Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource CommentStyle}"
                      Text="{Binding LogDialogComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>

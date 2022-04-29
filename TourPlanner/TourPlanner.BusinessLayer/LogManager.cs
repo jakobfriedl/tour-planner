@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TourPlanner.DataAccessLayer.SQL;
 using TourPlanner.Models;
 
 namespace TourPlanner.BusinessLayer
@@ -10,7 +11,8 @@ namespace TourPlanner.BusinessLayer
     public class LogManager : ILogManager
     {
 	    public Log CreateLog(Log log) {
-		    throw new NotImplementedException();
+		    var logDAO = new LogDAO(new Database());
+			return logDAO.AddNewLog(log);
 	    }
 
 	    public Log UpdateLog(Log log) {
@@ -22,7 +24,8 @@ namespace TourPlanner.BusinessLayer
 	    }
 
 	    public IEnumerable<Log> GetLogs(int tourId) {
-		    throw new NotImplementedException();
+		    var logDAO = new LogDAO(new Database());
+		    return logDAO.GetLogsByTourId(tourId); 
 	    }
     }
 }

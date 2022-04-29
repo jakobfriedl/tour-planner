@@ -35,7 +35,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0">
-            <TextBlock DockPanel.Dock="Left">Logs</TextBlock>
+            <TextBlock DockPanel.Dock="Left" Text="{Binding LogListHeading}"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Command="{Binding AddLogDialogCommand}">+</Button>
                 <Button>-</Button>
@@ -46,10 +46,10 @@
                   AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" 
                   CanUserReorderColumns="True" CanUserSortColumns="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date/Time" Width="20*" IsReadOnly="True" 
-                                    Binding="{Binding DateTime, StringFormat=G}"/>
-                <DataGridTextColumn Header="Total Time" Width="10*" IsReadOnly="True" 
-                                    Binding="{Binding TotalTime}"/>
+                <DataGridTextColumn Header="Start Date/Time" Width="20*" IsReadOnly="True" 
+                                    Binding="{Binding DateTime, StringFormat=R}"/>
+                <DataGridTextColumn Header="Tour Duration" Width="10*" IsReadOnly="True" 
+                                    Binding="{Binding DisplayTime}"/>
                 <DataGridTextColumn Header="Comment" Width="25*" IsReadOnly="True"
                                     Binding="{Binding Comment}"/>
                 <DataGridTextColumn Header="Difficulty" Width="10*" IsReadOnly="True"

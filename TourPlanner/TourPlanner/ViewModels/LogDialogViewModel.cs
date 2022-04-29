@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TourPlanner.BusinessLayer;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
 using TourPlanner.ViewModels.Commands;
@@ -17,11 +18,11 @@ namespace TourPlanner.ViewModels
         public TourListViewModel TourListViewModel { get; }
 
         public int LogDialogLogId { get; set; } = 0;
-        public DateTime LogDialogDateTime { get; set; }
-        public TimeSpan LogDialogTotalTime { get; set; }
-        public string LogDialogComment { get; set; } = string.Empty; 
-        public int LogDialogDifficulty { get; set; } 
-        public int LogDialogRating { get; set; }
+        public string LogDialogStartDateTime { get; set; } = string.Empty;
+        public string LogDialogEndDateTime { get; set; } = string.Empty;
+        public string LogDialogComment { get; set; } = string.Empty;
+        public int LogDialogDifficulty { get; set; } = 0;
+        public int LogDialogRating { get; set; } = 0; 
 
         public string LogDialogHeading { get; set; }
 
@@ -31,6 +32,10 @@ namespace TourPlanner.ViewModels
 
 	        SubmitCommand = new SubmitLogCommand(this, logListViewModel, false); 
 	        CloseAction = closeAction;
+        }
+
+        public Log GetCreatedLog(Log log) {
+	        return ManagerFactory.GetLogManager().CreateLog(log); 
         }
     }
 }

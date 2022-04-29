@@ -1,14 +1,14 @@
 using NUnit.Framework;
-using Moq; 
+using Moq;
+using TourPlanner.BusinessLayer;
+using TourPlanner.Models;
 
 namespace TourPlannerBL.Tests
 {
-	public class TestTourManager
-    {
+	public class TestTourManager {
+
 	    [SetUp]
-        public void Setup()
-        {
-            
+        public void Setup() {
         }
 
         [Test]
@@ -16,5 +16,5 @@ namespace TourPlannerBL.Tests
         {
             Assert.Pass();
         }
-    }
+	}
 }

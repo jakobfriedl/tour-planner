@@ -26,8 +26,7 @@ namespace TourPlanner.ViewModels.Commands {
 		/// <summary>
 		/// Checks if all input fields are filled out by the user
 		/// </summary>
-		/// <param name="parameter"></param>
-		/// <returns></returns>
+		/// <returns>True if all input-fields are filled out</returns>
 		public override bool CanExecute(object? parameter) {
 			return !string.IsNullOrEmpty(TourDialogViewModel.TourDialogName) &&
 			       !string.IsNullOrEmpty(TourDialogViewModel.TourDialogDescription) &&
@@ -39,7 +38,6 @@ namespace TourPlanner.ViewModels.Commands {
 		/// <summary>
 		/// Executes Command, send TourData to backend (API Request and create Tour in DB)
 		/// </summary>
-		/// <param name="parameter"></param>
 		public override async void Execute(object? parameter) {
 			var tour = new Tour(TourDialogViewModel.TourDialogId,
 				TourDialogViewModel.TourDialogName,

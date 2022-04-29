@@ -31,7 +31,8 @@ namespace TourPlanner.BusinessLayer
 	    }
 
 		public async Task<Tour> UpdateTour(Tour tour) {
-			return await SaveImage(await UpdateInformation(tour)); 
+			return await UpdateInformation(tour);
+			// return await SaveImage(await UpdateInformation(tour)); 
 		}
 
 		public bool DeleteTour(int id) {
@@ -85,7 +86,7 @@ namespace TourPlanner.BusinessLayer
 		    var imageBytes = await http.GetTourImageBytes(tour);
 		    tour.ImagePath = $"{ConfigManager.GetConfig().ImageLocation}\\{tour.Id}.png";
 
-		    // await File.WriteAllBytesAsync(tour.ImagePath, imageBytes);
+		    await File.WriteAllBytesAsync(tour.ImagePath, imageBytes);
 
 		    var tourDao = new TourDAO(new Database());
 		    tourDao.SetImagePath(tour.Id, tour.ImagePath);

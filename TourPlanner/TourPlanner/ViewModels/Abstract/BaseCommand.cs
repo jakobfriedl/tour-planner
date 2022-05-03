@@ -9,7 +9,7 @@ namespace TourPlanner.ViewModels.Abstract
 {
     public abstract class BaseCommand : ICommand
     {
-	    protected Func<object, bool>? CanExecuteAction;
+	    protected Predicate<object?>? CanExecuteAction;
 
 	    public event EventHandler? CanExecuteChanged {
 		    add => CommandManager.RequerySuggested += value;

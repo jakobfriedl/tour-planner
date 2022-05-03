@@ -9,6 +9,7 @@ using TourPlanner.BusinessLayer;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
 using TourPlanner.ViewModels.Commands;
+using TourPlanner.Views;
 
 namespace TourPlanner.ViewModels
 {
@@ -22,7 +23,10 @@ namespace TourPlanner.ViewModels
         public ObservableCollection<Log> Logs { get; set; }
 
         public LogListViewModel(TourListViewModel tourListViewModel) {
-	        AddLogDialogCommand = new OpenAddLogDialogCommand(this, tourListViewModel);
+	        AddLogDialogCommand = new RelayCommand((_) => {
+		        var dialog = new LogDialog(this, tourListViewModel);
+		        dialog.ShowDialog();
+            }); 
 
 	        Logs = new ObservableCollection<Log>(GetLogs(tourListViewModel));
 	        LogListHeading = $"Logs for \"{tourListViewModel.SelectedTour.Name}\""; 
@@ -32,7 +36,7 @@ namespace TourPlanner.ViewModels
             Logs.Add(log);
         }
 
-        public IEnumerable<Log> GetLogs(TourListViewModel tourListViewModel) {
+        private IEnumerable<Log> GetLogs(TourListViewModel tourListViewModel) {
             return ManagerFactory.GetLogManager().GetLogs(tourListViewModel.SelectedTour.Id);
         }
     }

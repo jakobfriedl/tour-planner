@@ -25,7 +25,7 @@ namespace TourPlanner.ViewModels.Commands
 		    _application = application; 
 	    }
 
-        public override void Execute(object? parameter) {
+	    public override void Execute(object? parameter) {
 	        if (Directory.Exists(_settingsLocation)) {
 		        var startInfo = new ProcessStartInfo(_application, _settingsLocation);
 		        Process.Start(startInfo); 

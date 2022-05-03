@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using TourPlanner.BusinessLayer;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
@@ -36,7 +37,7 @@ namespace TourPlanner.ViewModels
 				RouteImageSource = $"{Directory.GetCurrentDirectory()}\\{_selectedTour.ImagePath}";
 				OnPropertyChanged(nameof(RouteImageSource));
 
-				EditTourDialogCommand = new OpenEditTourDialogCommand(this); 
+				EditTourDialogCommand = new OpenEditTourDialogCommand(this);
 				OnPropertyChanged(nameof(EditTourDialogCommand));
 			}
 		}
@@ -45,8 +46,12 @@ namespace TourPlanner.ViewModels
 			Tours = new ObservableCollection<Tour>(GetTours());
 			SelectedTour = Tours.FirstOrDefault()!;
 
-			AddTourDialogCommand = new OpenAddTourDialogCommand(this);
-			EditTourDialogCommand = new OpenEditTourDialogCommand(this);
+			AddTourDialogCommand = new RelayCommand((_) => {
+				var dialog = new TourDialog(this);
+				dialog.ShowDialog();
+			});
+			EditTourDialogCommand = new OpenEditTourDialogCommand(this); 
+
 			DeleteTourCommand = new DeleteTourCommand(this);
 		}
 

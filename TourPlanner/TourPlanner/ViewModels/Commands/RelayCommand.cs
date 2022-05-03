@@ -14,7 +14,7 @@ namespace TourPlanner.ViewModels.Commands
     public class RelayCommand : BaseCommand {
         public Action<object?> ExecuteAction { get; set; }
 
-	    public RelayCommand(Action<object?> executeAction, Func<object, bool>? canExecuteAction = null) {
+	    public RelayCommand(Action<object?> executeAction, Predicate<object?>? canExecuteAction = null) {
 	        ExecuteAction = executeAction;
 	        CanExecuteAction = canExecuteAction;
         }

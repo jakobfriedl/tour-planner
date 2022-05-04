@@ -19,8 +19,11 @@ namespace TourPlanner.DataAccessLayer.REST
 		}
 
 		public async Task<Tour> GetTourInformation(Tour tour) {
-		    var url = "http://www.mapquestapi.com/directions/v2/route?" +
-		              $"key={_key}&from={tour.Start}&to={tour.Destination}&unit=k";
+			var routeType = tour.TransportType == TransportType.Bike ? "bicycle" :
+				tour.TransportType == TransportType.Walk ? "pedestrian" : "fastest"; 
+
+			var url = "http://www.mapquestapi.com/directions/v2/route?" + 
+							$"key={_key}&from={tour.Start}&to={tour.Destination}&unit=k&routeType={routeType}";
 
 		    var json = JsonNode.Parse(await _client.GetStringAsync(url));
 		    tour.Distance = json["route"]["distance"].GetValue<double>();

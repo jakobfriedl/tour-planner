@@ -44,7 +44,7 @@ namespace TourPlanner.ViewModels.Commands {
 				TourDialogViewModel.TourDialogDescription,
 				TourDialogViewModel.TourDialogStart,
 				TourDialogViewModel.TourDialogDestination,
-				TourDialogViewModel.TourDialogTransportType);
+				(TransportType)TourDialogViewModel.TourDialogTransportType);
 
 			try {
 				if (!IsUpdate) {

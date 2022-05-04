@@ -84,14 +84,12 @@
                      Text="{Binding TourDialogDestination, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      x:Name="TourDestinationTextBox"/>
             <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource FormTextBlockStyle}">Transport Type*:</TextBlock>
-            <ComboBox Grid.Row="5" Grid.Column="1" 
-                      x:Name="TourTransportTypeComboBox">
-                <!--SelectedValue="{Binding TourDialogTransportType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
-                <!-- make dynamic based on enum TransportType --> 
-                <ComboBoxItem IsSelected="True">Car</ComboBoxItem>
-                <ComboBoxItem>Bus</ComboBoxItem>
-                <ComboBoxItem>Bike</ComboBoxItem>
-                <ComboBoxItem>Walk</ComboBoxItem>
+            <ComboBox Grid.Row="5" Grid.Column="1" x:Name="TourTransportTypeComboBox"
+                      SelectedIndex="{Binding TourDialogTransportType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem IsSelected="True"  Content="Car"/>
+                <ComboBoxItem Content="Bus"/>
+                <ComboBoxItem Content="Bike"/>
+                <ComboBoxItem Content="Walk"/>
             </ComboBox>
         </Grid>
 

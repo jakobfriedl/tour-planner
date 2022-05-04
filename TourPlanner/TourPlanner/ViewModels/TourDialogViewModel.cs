@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using TourPlanner.BusinessLayer;
 using TourPlanner.BusinessLayer.Exceptions;
@@ -23,7 +24,7 @@ namespace TourPlanner.ViewModels
 		public string TourDialogDescription { get; set; } = string.Empty;
 		public string TourDialogStart { get; set; } = string.Empty;
 		public string TourDialogDestination { get; set; } = string.Empty;
-		public TransportType TourDialogTransportType { get; set; }
+		public int TourDialogTransportType { get; set; }
 
 	    public string TourDialogHeading { get; set; } = "Create a new tour";
 	    
@@ -35,7 +36,7 @@ namespace TourPlanner.ViewModels
 		        TourDialogDescription = tourToUpdate.Description;
 		        TourDialogStart = tourToUpdate.Start;
 		        TourDialogDestination = tourToUpdate.Destination;
-		        TourDialogTransportType = tourToUpdate.TransportType;
+		        TourDialogTransportType = (int)tourToUpdate.TransportType;
 		        TourDialogHeading = $"Edit tour \"{tourToUpdate.Name}\"";
 		        isUpdate = true;
 	        }
@@ -45,15 +46,11 @@ namespace TourPlanner.ViewModels
         }
 
 		public async Task<Tour> GetCreatedTour(Tour tour){
-			try {
-				return await ManagerFactory.GetTourManager().CreateTour(tour);
-			} catch (InvalidLocationException) { throw; }
+			return await ManagerFactory.GetTourManager().CreateTour(tour);
 		}
 
 		public async Task<Tour> GetUpdatedTour(Tour tour) {
-			try {
-				return await ManagerFactory.GetTourManager().UpdateTour(tour);
-			} catch (InvalidLocationException) { throw; }
+			return await ManagerFactory.GetTourManager().UpdateTour(tour);
 		}
 	}
 }

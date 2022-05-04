@@ -23,18 +23,20 @@ namespace TourPlanner.ViewModels
         public string LogListHeading { get; set; }
         public ObservableCollection<Log> Logs { get; set; }
 
-        public void Init(Tour selectedTour) {
-	        if (selectedTour == null) return; 
+        public void UpdateView(Tour selectedTour) {
+	        if (selectedTour == null) return;
 
 	        AddLogDialogCommand = new RelayCommand((_) => {
 		        var dialog = new LogDialog(this, selectedTour);
 		        dialog.ShowDialog();
-            });
+	        });
+	        OnPropertyChanged(nameof(AddLogDialogCommand));
 
-	        Logs = new ObservableCollection<Log>(GetLogs(selectedTour));
+			Logs = new ObservableCollection<Log>(GetLogs(selectedTour));
             OnPropertyChanged(nameof(Logs));
-	        LogListHeading = $"Logs for \"{selectedTour.Name}\""; 
-            OnPropertyChanged(nameof(LogListHeading));
+
+	        LogListHeading = $"Logs for \"{selectedTour.Name}\"";
+			OnPropertyChanged(nameof(LogListHeading));
         }
 
         public void AddLog(Log log) {

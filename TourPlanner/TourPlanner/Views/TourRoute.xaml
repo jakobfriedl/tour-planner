@@ -18,6 +18,6 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Style="{StaticResource HeadingStyle}" Text="{Binding SelectedTour.Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <Image Grid.Row="1" Source="{Binding RouteImageSource}"></Image>
+            <Image Grid.Row="1" Source="{Binding SelectedTour.RouteImageSource}"></Image>
         </Grid>
 </UserControl>

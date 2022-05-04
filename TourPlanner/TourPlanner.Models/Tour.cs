@@ -23,6 +23,8 @@ namespace TourPlanner.Models
 		public string DisplayDistance { get; set; }
 		public string DisplayTime { get; set; }
 
+		public byte[] RouteImageSource { get; set; }
+
 		public Tour(string name) {
 			Name = name;
 		}

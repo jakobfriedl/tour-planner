@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Navigation;
 using TourPlanner.BusinessLayer;
 using TourPlanner.Models;
+using TourPlanner.Utility;
 using TourPlanner.ViewModels.Abstract;
 using TourPlanner.ViewModels.Commands;
 using TourPlanner.Views;
@@ -28,7 +29,6 @@ namespace TourPlanner.ViewModels
 
 		public LogListViewModel LogListViewModel { get; set; }
 
-		public byte[]? RouteImageSource { get; set; } 
 		private Tour _selectedTour = null!; 
 		public Tour SelectedTour {
 			get => _selectedTour;
@@ -36,35 +36,30 @@ namespace TourPlanner.ViewModels
 				_selectedTour = value ?? new Tour("No Tour selected");
 				OnPropertyChanged(nameof(SelectedTour));
 
+				// Cache Image to byte-array property of tour in order to be able to close file descriptor 
 				if (_selectedTour.ImagePath is not null) {
 					var path = Path.Combine(Directory.GetCurrentDirectory(), _selectedTour.ImagePath);
 					using (var stream = File.Open(path, FileMode.Open)) {
-						RouteImageSource = ReadFully(stream);
+						_selectedTour.RouteImageSource = stream.ReadFully(); // Stream to byte-array, function in Utility/ViewModelHelper.cs
 					}
-					OnPropertyChanged(nameof(RouteImageSource));
+					OnPropertyChanged(nameof(SelectedTour));
 				}
 
+				// Update EditTourDialogCommand to edit selected tour
 				EditTourDialogCommand = new OpenEditTourDialogCommand(this);
 				OnPropertyChanged(nameof(EditTourDialogCommand));
 
-				LogListViewModel.Init(SelectedTour);
+				// Update LogListView with Logs of current SelectedTour
+				LogListViewModel.UpdateView(SelectedTour); 
 			}
 		}
 
-		public static byte[] ReadFully(Stream input) {
-			var buffer = new byte[16 * 1024];
-			using (var ms = new MemoryStream()) {
-				int read;
-				while ((read = input.Read(buffer, 0, buffer.Length)) > 0) {
-					ms.Write(buffer, 0, read);
-				}
-				return ms.ToArray();
-			}
-		}
-
+		/// <summary>
+		/// Constructor for TourListViewModel, Gets tours from database and initializes commands
+		/// </summary>
+		/// <param name="logListViewModel">LogListViewModel, in order to update LogList when SelectedTour is changed</param>
 		public TourListViewModel(LogListViewModel logListViewModel) {
 			LogListViewModel = logListViewModel;
-			LogListViewModel.Init(SelectedTour);
 
 			Tours = new ObservableCollection<Tour>(GetTours());
 			SelectedTour = Tours.FirstOrDefault()!;

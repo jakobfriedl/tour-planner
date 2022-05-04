@@ -15,7 +15,7 @@ namespace TourPlanner.ViewModels
         public Action CloseAction { get; }
         public ICommand SubmitCommand { get; }
 
-        public TourListViewModel TourListViewModel { get; }
+        public Tour SelectedTour { get; }
 
         public int LogDialogLogId { get; set; } = 0;
         public string LogDialogStartDateTime { get; set; } = string.Empty;
@@ -26,9 +26,9 @@ namespace TourPlanner.ViewModels
 
         public string LogDialogHeading { get; set; }
 
-        public LogDialogViewModel(LogListViewModel logListViewModel, TourListViewModel tourListViewModel, Action closeAction) {
-	        TourListViewModel = tourListViewModel; 
-	        LogDialogHeading = $"Create a new log for \"{TourListViewModel.SelectedTour.Name}\"";
+        public LogDialogViewModel(LogListViewModel logListViewModel, Tour selectedTour, Action closeAction) {
+	        SelectedTour = selectedTour; 
+	        LogDialogHeading = $"Create a new log for \"{SelectedTour.Name}\"";
 
 	        SubmitCommand = new SubmitLogCommand(this, logListViewModel, false); 
 	        CloseAction = closeAction;

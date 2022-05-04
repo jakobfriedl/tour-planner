@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,29 +16,33 @@ namespace TourPlanner.ViewModels
 {
 	public class LogListViewModel : BaseViewModel
     {
-	    public ICommand AddLogDialogCommand { get; }
+	    public ICommand AddLogDialogCommand { get; set; }
         public ICommand EditLogDialogCommand { get; }
         public ICommand DeleteLogCommand { get; }
 
         public string LogListHeading { get; set; }
         public ObservableCollection<Log> Logs { get; set; }
 
-        public LogListViewModel(TourListViewModel tourListViewModel) {
-	        AddLogDialogCommand = new RelayCommand((_) => {
-		        var dialog = new LogDialog(this, tourListViewModel);
-		        dialog.ShowDialog();
-            }); 
+        public void Init(Tour selectedTour) {
+	        if (selectedTour == null) return; 
 
-	        Logs = new ObservableCollection<Log>(GetLogs(tourListViewModel));
-	        LogListHeading = $"Logs for \"{tourListViewModel.SelectedTour.Name}\""; 
+	        AddLogDialogCommand = new RelayCommand((_) => {
+		        var dialog = new LogDialog(this, selectedTour);
+		        dialog.ShowDialog();
+            });
+
+	        Logs = new ObservableCollection<Log>(GetLogs(selectedTour));
+            OnPropertyChanged(nameof(Logs));
+	        LogListHeading = $"Logs for \"{selectedTour.Name}\""; 
+            OnPropertyChanged(nameof(LogListHeading));
         }
 
         public void AddLog(Log log) {
             Logs.Add(log);
         }
 
-        private IEnumerable<Log> GetLogs(TourListViewModel tourListViewModel) {
-            return ManagerFactory.GetLogManager().GetLogs(tourListViewModel.SelectedTour.Id);
+        private IEnumerable<Log> GetLogs(Tour selectedTour) {
+            return ManagerFactory.GetLogManager().GetLogs(selectedTour.Id);
         }
     }
 }

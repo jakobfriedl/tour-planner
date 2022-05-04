@@ -31,8 +31,7 @@ namespace TourPlanner.BusinessLayer
 	    }
 
 		public async Task<Tour> UpdateTour(Tour tour) {
-			return await UpdateInformation(tour);
-			// return await SaveImage(await UpdateInformation(tour)); 
+			return await SaveImage(await UpdateInformation(tour)); 
 		}
 
 		public bool DeleteTour(int id) {

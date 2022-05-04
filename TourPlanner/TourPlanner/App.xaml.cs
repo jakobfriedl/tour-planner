@@ -20,9 +20,9 @@ namespace TourPlanner
 	    private void App_OnStartup(object sender, StartupEventArgs e) {
 		    var searchBarViewModel = new SearchBarViewModel();
 		    var menuStripViewModel = new MenuStripViewModel();
-		    var tourListViewModel = new TourListViewModel();
+		    var logListViewModel = new LogListViewModel();
+		    var tourListViewModel = new TourListViewModel(logListViewModel);
 		    var tourDetailsViewModel = new TourDetailsViewModel(tourListViewModel);
-		    var logListViewModel = new LogListViewModel(tourListViewModel);
 
 		    var mainViewModel = new MainWindowViewModel(searchBarViewModel, menuStripViewModel, tourListViewModel,
 			    tourDetailsViewModel, logListViewModel);

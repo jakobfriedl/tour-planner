@@ -26,7 +26,9 @@ namespace TourPlanner.ViewModels
 
 		public ObservableCollection<Tour> Tours { get; set; }
 
-		public string RouteImageSource { get; set; } = string.Empty; 
+		public LogListViewModel LogListViewModel { get; set; }
+
+		public byte[]? RouteImageSource { get; set; } 
 		private Tour _selectedTour = null!; 
 		public Tour SelectedTour {
 			get => _selectedTour;
@@ -34,15 +36,36 @@ namespace TourPlanner.ViewModels
 				_selectedTour = value ?? new Tour("No Tour selected");
 				OnPropertyChanged(nameof(SelectedTour));
 
-				RouteImageSource = $"{Directory.GetCurrentDirectory()}\\{_selectedTour.ImagePath}";
-				OnPropertyChanged(nameof(RouteImageSource));
+				if (_selectedTour.ImagePath is not null) {
+					var path = Path.Combine(Directory.GetCurrentDirectory(), _selectedTour.ImagePath);
+					using (var stream = File.Open(path, FileMode.Open)) {
+						RouteImageSource = ReadFully(stream);
+					}
+					OnPropertyChanged(nameof(RouteImageSource));
+				}
 
 				EditTourDialogCommand = new OpenEditTourDialogCommand(this);
 				OnPropertyChanged(nameof(EditTourDialogCommand));
+
+				LogListViewModel.Init(SelectedTour);
 			}
 		}
 
-		public TourListViewModel() {
+		public static byte[] ReadFully(Stream input) {
+			var buffer = new byte[16 * 1024];
+			using (var ms = new MemoryStream()) {
+				int read;
+				while ((read = input.Read(buffer, 0, buffer.Length)) > 0) {
+					ms.Write(buffer, 0, read);
+				}
+				return ms.ToArray();
+			}
+		}
+
+		public TourListViewModel(LogListViewModel logListViewModel) {
+			LogListViewModel = logListViewModel;
+			LogListViewModel.Init(SelectedTour);
+
 			Tours = new ObservableCollection<Tour>(GetTours());
 			SelectedTour = Tours.FirstOrDefault()!;
 
@@ -50,8 +73,7 @@ namespace TourPlanner.ViewModels
 				var dialog = new TourDialog(this);
 				dialog.ShowDialog();
 			});
-			EditTourDialogCommand = new OpenEditTourDialogCommand(this); 
-
+			EditTourDialogCommand = new OpenEditTourDialogCommand(this);
 			DeleteTourCommand = new DeleteTourCommand(this);
 		}
 

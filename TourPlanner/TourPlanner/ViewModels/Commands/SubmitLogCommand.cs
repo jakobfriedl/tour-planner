@@ -48,7 +48,7 @@ namespace TourPlanner.ViewModels.Commands
         }
 
         public override void Execute(object? parameter) {
-	        var log = new Log(LogDialogViewModel.TourListViewModel.SelectedTour.Id,
+	        var log = new Log(LogDialogViewModel.SelectedTour.Id,
 				_startDateTime,
 		        _totalTime,
 		        LogDialogViewModel.LogDialogComment,

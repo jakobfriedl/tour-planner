@@ -22,3 +22,4 @@
 |28.04.2022|5h|Jakob|Start TourLog Implementation|
 |29.04.2022|3h|Jakob|Save TourLogs in Database and add show them in the view|
 |04.05.2022|3h|Jakob|Clean up code and fix errors|
+|05.05.2022|2h|Jakob|Implement DeleteLog and Start with UpdateLog|

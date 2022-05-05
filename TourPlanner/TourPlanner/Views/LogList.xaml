@@ -38,13 +38,15 @@
             <TextBlock DockPanel.Dock="Left" Text="{Binding LogListHeading}"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Command="{Binding AddLogDialogCommand}">+</Button>
-                <Button>-</Button>
+                <Button Command="{Binding DeleteLogCommand}">-</Button>
+                <Button Command="{Binding EditLogDialogCommand}">E</Button>
             </StackPanel>
         </DockPanel>
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding Logs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" 
-                  CanUserReorderColumns="True" CanUserSortColumns="True">
+                  CanUserReorderColumns="True" CanUserSortColumns="True"
+                  SelectedItem="{Binding SelectedLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Start Date/Time" Width="20*" IsReadOnly="True" 
                                     Binding="{Binding DateTime, StringFormat=R}"/>

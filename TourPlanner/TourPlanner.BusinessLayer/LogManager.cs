@@ -8,11 +8,19 @@ using TourPlanner.Models;
 
 namespace TourPlanner.BusinessLayer
 {
-    public class LogManager : ILogManager
-    {
+    public class LogManager : ILogManager {
+	    private readonly LogDAO _logDao;
+
+	    public LogManager() {
+		    _logDao = new LogDAO(new Database()); 
+	    }
+
+	    public LogManager(Database db) {
+		    _logDao = new LogDAO(db); 
+	    }
+
 	    public Log CreateLog(Log log) {
-		    var logDAO = new LogDAO(new Database());
-			return logDAO.AddNewLog(log);
+			return _logDao.AddNewLog(log);
 	    }
 
 	    public Log UpdateLog(Log log) {
@@ -20,12 +28,11 @@ namespace TourPlanner.BusinessLayer
 	    }
 
 	    public bool DeleteLog(int id) {
-		    throw new NotImplementedException();
+		    return _logDao.DeleteLog(id); 
 	    }
 
 	    public IEnumerable<Log> GetLogs(int tourId) {
-		    var logDAO = new LogDAO(new Database());
-		    return logDAO.GetLogsByTourId(tourId); 
+		    return _logDao.GetLogsByTourId(tourId); 
 	    }
     }
 }

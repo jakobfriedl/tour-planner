@@ -30,7 +30,6 @@ namespace TourPlanner.DataAccessLayer.SQL
 			"SET name=@name, description=@description, start=@start, destination=@destination, transport_type=@transportType, distance=@distance, time=@time " +
 			"WHERE id=@id;";
 
-
 		public TourDAO(IDatabase database) {
 		    _db = database; 
 	    }
@@ -88,6 +87,11 @@ namespace TourPlanner.DataAccessLayer.SQL
 			return _db.ExecuteNonQuery(cmd); 
 	    }
 
+		/// <summary>
+		/// Save Updated tour object in database 
+		/// </summary>
+		/// <param name="tour">Updated object</param>
+		/// <returns>Updated Tour</returns>
 		public Tour UpdateTour(Tour tour) {
 			var cmd = _db.CreateCommand(SqlUpdateTour);
 			_db.DefineParameter(cmd, "@name", DbType.String, tour.Name);

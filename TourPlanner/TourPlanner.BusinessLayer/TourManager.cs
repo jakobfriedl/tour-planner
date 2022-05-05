@@ -17,16 +17,25 @@ using TourPlanner.Models;
 
 namespace TourPlanner.BusinessLayer
 {
-    internal class TourManager : ITourManager
-    {
-	    /// <summary>
+    internal class TourManager : ITourManager {
+	    private readonly TourDAO _tourDao;
+
+	    public TourManager() {
+		    _tourDao = new TourDAO(new Database()); 
+	    }
+
+	    public TourManager(Database db) {
+		    _tourDao = new TourDAO(db);
+	    }
+
+		/// <summary>
 		/// Create a tour by getting the needed information from the http-client,
 		/// creating a db-entry and afterwards saving the image on the filesystem and
 		/// the image-path in the db
 		/// </summary>
 		/// <param name="tour">Has name, description, start, dest., and transport type</param>
 		/// <returns></returns>
-	    public async Task<Tour> CreateTour(Tour tour) {
+		public async Task<Tour> CreateTour(Tour tour) {
 		    return await SaveImage(await SaveInformation(tour));
 	    }
 
@@ -35,13 +44,11 @@ namespace TourPlanner.BusinessLayer
 		}
 
 		public bool DeleteTour(int id) {
-			var tourDao = new TourDAO(new Database());
-			return tourDao.DeleteTour(id); 
+			return _tourDao.DeleteTour(id); 
 		}
 
 	    public IEnumerable<Tour> GetTours() {
-		    var tourDao = new TourDAO(new Database());
-		    return tourDao.GetTours();
+		    return _tourDao.GetTours();
 	    }
 
 		/// <summary>
@@ -64,13 +71,11 @@ namespace TourPlanner.BusinessLayer
 		}
 
 		private async Task<Tour> SaveInformation(Tour tour) {
-			var tourDao = new TourDAO(new Database());
-			return tourDao.AddNewTour(await GetInformation(tour));
+			return _tourDao.AddNewTour(await GetInformation(tour));
 		}
 
 		private async Task<Tour> UpdateInformation(Tour tour) {
-			var tourDao = new TourDAO(new Database());
-			return tourDao.UpdateTour(await GetInformation(tour)); 
+			return _tourDao.UpdateTour(await GetInformation(tour)); 
 		}
 
 		/// <summary>
@@ -83,12 +88,11 @@ namespace TourPlanner.BusinessLayer
 
 		    // Save image from REST Request to png-File
 		    var imageBytes = await http.GetTourImageBytes(tour);
-		    tour.ImagePath = $"{ConfigManager.GetConfig().ImageLocation}\\{tour.Id}.png";
+		    tour.ImagePath = Path.Combine(ConfigManager.GetConfig().ImageLocation!, $"{tour.Id}.png");
 
 		    await File.WriteAllBytesAsync(tour.ImagePath, imageBytes);
 
-		    var tourDao = new TourDAO(new Database());
-		    tourDao.SetImagePath(tour.Id, tour.ImagePath);
+		    _tourDao.SetImagePath(tour.Id, tour.ImagePath);
 
 		    return tour; 
 	    }

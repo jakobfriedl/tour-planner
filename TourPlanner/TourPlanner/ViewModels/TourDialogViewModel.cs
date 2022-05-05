@@ -24,7 +24,7 @@ namespace TourPlanner.ViewModels
 		public string TourDialogDescription { get; set; } = string.Empty;
 		public string TourDialogStart { get; set; } = string.Empty;
 		public string TourDialogDestination { get; set; } = string.Empty;
-		public int TourDialogTransportType { get; set; }
+		public int TourDialogTransportType { get; set; } = 0; 
 
 	    public string TourDialogHeading { get; set; } = "Create a new tour";
 	    
@@ -36,7 +36,6 @@ namespace TourPlanner.ViewModels
 		        TourDialogDescription = tourToUpdate.Description;
 		        TourDialogStart = tourToUpdate.Start;
 		        TourDialogDestination = tourToUpdate.Destination;
-		        TourDialogTransportType = (int)tourToUpdate.TransportType;
 		        TourDialogHeading = $"Edit tour \"{tourToUpdate.Name}\"";
 		        isUpdate = true;
 	        }

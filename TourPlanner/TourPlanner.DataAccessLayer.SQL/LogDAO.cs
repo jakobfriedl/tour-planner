@@ -17,23 +17,34 @@ namespace TourPlanner.DataAccessLayer.SQL
     public class LogDAO : ILogDAO {
 	    private readonly IDatabase _db;
 
-	    private const string SqlGetLogByLogId = "SELECT * FROM \"log\" WHERE id=@id;"; 
+		private const string SqlGetLogByLogId = "SELECT * FROM \"log\" WHERE id=@id;"; 
 	    private const string SqlGetLogsByTourId = "SELECT * FROM \"log\" WHERE tour_id=@tourId;"; 
 	    private const string SqlInsertLog = "" +
 	        "INSERT INTO \"log\"(tour_id, date_time, total_time, comment, difficulty, rating) " +
 	        "VALUES (@tourId, @dateTime, @totalTime, @comment, @difficulty, @rating);" +
-			"SELECT CAST(lastval() AS integer);";  
+			"SELECT CAST(lastval() AS integer);";
+	    private const string SqlDeleteLog = "DELETE FROM \"log\" WHERE @id=id;";
 
-	    public LogDAO(IDatabase database) {
+		public LogDAO(IDatabase database) {
 		    _db = database; 
 	    }
 
+		/// <summary>
+		/// Get log by logId
+		/// </summary>
+		/// <param name="id">LogId</param>
+		/// <returns>Log object</returns>
 	    public Log GetLogByLogId(int id) {
 		    var cmd = _db.CreateCommand(SqlGetLogByLogId);
 			_db.DefineParameter(cmd, "@id", DbType.Int32, id);
 		    return QueryLogs(cmd).FirstOrDefault()!; 
 	    }
 
+		/// <summary>
+		/// Get logs from a specific Tour
+		/// </summary>
+		/// <param name="tourId">TourID</param>
+		/// <returns>List of Logs</returns>
 	    public IEnumerable<Log> GetLogsByTourId(int tourId) {
 		    var cmd = _db.CreateCommand(SqlGetLogsByTourId);
 			_db.DefineParameter(cmd, "@tourId", DbType.Int32, tourId);
@@ -56,7 +67,9 @@ namespace TourPlanner.DataAccessLayer.SQL
 	    }
 
 	    public bool DeleteLog(int id) {
-		    throw new NotImplementedException();
+		    var cmd = _db.CreateCommand(SqlDeleteLog); 
+			_db.DefineParameter(cmd, "@id", DbType.Int32, id);
+			return _db.ExecuteNonQuery(cmd) > 0; 
 	    }
 
 	    private IEnumerable<Log> QueryLogs(DbCommand cmd) {

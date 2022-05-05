@@ -21,8 +21,8 @@ namespace TourPlanner.Views
     /// </summary>
     public partial class LogDialog : Window
     {
-        public LogDialog(LogListViewModel logListViewModel, Tour selectedTour) {
-	        DataContext = new LogDialogViewModel(logListViewModel, selectedTour, this.Close); 
+        public LogDialog(LogListViewModel logListViewModel, Tour selectedTour, Log? logToUpdate = null) {
+	        DataContext = new LogDialogViewModel(logListViewModel, selectedTour, logToUpdate, this.Close); 
             InitializeComponent();
         }
     }

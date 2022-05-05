@@ -26,11 +26,23 @@ namespace TourPlanner.ViewModels
 
         public string LogDialogHeading { get; set; }
 
-        public LogDialogViewModel(LogListViewModel logListViewModel, Tour selectedTour, Action closeAction) {
-	        SelectedTour = selectedTour; 
+        public LogDialogViewModel(LogListViewModel logListViewModel, Tour selectedTour, Log? logToUpdate, Action closeAction) {
+	        SelectedTour = selectedTour;
 	        LogDialogHeading = $"Create a new log for \"{SelectedTour.Name}\"";
-
-	        SubmitCommand = new SubmitLogCommand(this, logListViewModel, false); 
+	        
+	        var isUpdate = false;
+	        if (logToUpdate is not null) {
+		        LogDialogLogId = logToUpdate.Id;
+		        LogDialogStartDateTime = string.Empty;
+		        LogDialogEndDateTime = string.Empty;
+		        LogDialogComment = logToUpdate.Comment;
+		        LogDialogDifficulty = logToUpdate.Difficulty;
+		        LogDialogRating = logToUpdate.Rating;
+		        LogDialogHeading = $"Edit log for \"{SelectedTour.Name}\""; 
+		        isUpdate = true;
+            }
+	        
+	        SubmitCommand = new SubmitLogCommand(this, logListViewModel, isUpdate); 
 	        CloseAction = closeAction;
         }
 

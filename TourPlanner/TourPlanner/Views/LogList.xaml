@@ -49,7 +49,7 @@
                   SelectedItem="{Binding SelectedLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Start Date/Time" Width="20*" IsReadOnly="True" 
-                                    Binding="{Binding DateTime, StringFormat=R}"/>
+                                    Binding="{Binding StartTime, StringFormat=R}"/>
                 <DataGridTextColumn Header="Tour Duration" Width="10*" IsReadOnly="True" 
                                     Binding="{Binding DisplayTime}"/>
                 <DataGridTextColumn Header="Comment" Width="25*" IsReadOnly="True"

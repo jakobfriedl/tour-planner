@@ -102,7 +102,9 @@ namespace TourPlanner.DataAccessLayer.SQL
 			_db.DefineParameter(cmd, "@distance", DbType.Double, tour.Distance);
 			_db.DefineParameter(cmd, "@time", DbType.Int32, tour.EstimatedTime);
 			_db.DefineParameter(cmd, "@id", DbType.Int32, tour.Id);
-			_db.ExecuteNonQuery(cmd);
+			if (_db.ExecuteNonQuery(cmd) <= 0) {
+				// Log TourUpdate error; 
+			}
 			return GetTourByTourId(tour.Id);
 		}
 

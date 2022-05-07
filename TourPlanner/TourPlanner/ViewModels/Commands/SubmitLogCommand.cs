@@ -26,7 +26,7 @@ namespace TourPlanner.ViewModels.Commands
         }
 
 		/// <summary>
-		/// Validate Input-Fields
+		/// Validate Input-Fields, check if StartTime is before EndTime
 		/// </summary>
 		/// <returns>True if all input fields are filled out correctly</returns>
         public override bool CanExecute(object? parameter) {
@@ -47,9 +47,14 @@ namespace TourPlanner.ViewModels.Commands
 	               base.CanExecute(parameter);
         }
 
+		/// <summary>
+		/// Execute command, Create Log in DB or update existing log
+		/// </summary>
         public override void Execute(object? parameter) {
-	        var log = new Log(LogDialogViewModel.SelectedTour.Id,
-				_startDateTime,
+	        var log = new Log(LogDialogViewModel.LogDialogLogId, 
+		        LogDialogViewModel.SelectedTour.Id,
+		        _startDateTime,
+		        _endDateTime, 
 		        _totalTime,
 		        LogDialogViewModel.LogDialogComment,
 		        LogDialogViewModel.LogDialogDifficulty,
@@ -58,6 +63,9 @@ namespace TourPlanner.ViewModels.Commands
 	        if (!IsUpdate) {
 				log = LogDialogViewModel.GetCreatedLog(log); 
 				LogListViewModel.AddLog(log);
+	        } else {
+		        log = LogDialogViewModel.GetUpdatedLog(log); 
+				LogListViewModel.ReplaceLog(log);
 	        }
 
 	        LogDialogViewModel.CloseAction(); 

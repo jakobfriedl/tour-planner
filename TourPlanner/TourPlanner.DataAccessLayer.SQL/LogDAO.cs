@@ -20,10 +20,13 @@ namespace TourPlanner.DataAccessLayer.SQL
 		private const string SqlGetLogByLogId = "SELECT * FROM \"log\" WHERE id=@id;"; 
 	    private const string SqlGetLogsByTourId = "SELECT * FROM \"log\" WHERE tour_id=@tourId;"; 
 	    private const string SqlInsertLog = "" +
-	        "INSERT INTO \"log\"(tour_id, date_time, total_time, comment, difficulty, rating) " +
-	        "VALUES (@tourId, @dateTime, @totalTime, @comment, @difficulty, @rating);" +
+	        "INSERT INTO \"log\"(tour_id, start_time, end_time, total_time, comment, difficulty, rating) " +
+	        "VALUES (@tourId, @startTime, @endTime, @totalTime, @comment, @difficulty, @rating);" +
 			"SELECT CAST(lastval() AS integer);";
 	    private const string SqlDeleteLog = "DELETE FROM \"log\" WHERE @id=id;";
+	    private const string SqlUpdateLog = "UPDATE \"log\" " +
+             "SET start_time=@startTime, end_time=@endTime, total_time=@totalTime, comment=@comment, difficulty=@difficulty, rating=@rating " +
+             "WHERE id=@id;";
 
 		public LogDAO(IDatabase database) {
 		    _db = database; 
@@ -54,7 +57,8 @@ namespace TourPlanner.DataAccessLayer.SQL
 	    public Log AddNewLog(Log log) {
 		    var cmd = _db.CreateCommand(SqlInsertLog); 
 			_db.DefineParameter(cmd, "@tourId", DbType.Int32, log.TourId);
-			_db.DefineParameter(cmd, "@dateTime", DbType.DateTime2, log.DateTime);
+			_db.DefineParameter(cmd, "@startTime", DbType.DateTime2, log.StartTime);
+			_db.DefineParameter(cmd, "@endTime", DbType.DateTime2, log.EndTime);
 			_db.DefineParameter(cmd, "@totalTime", DbType.Int32, log.TotalTime);
 			_db.DefineParameter(cmd, "@comment", DbType.String, log.Comment);
 			_db.DefineParameter(cmd, "@difficulty", DbType.Int32, log.Difficulty);
@@ -63,7 +67,18 @@ namespace TourPlanner.DataAccessLayer.SQL
 	    }
 
 	    public Log UpdateLog(Log log) {
-		    throw new NotImplementedException();
+		    var cmd = _db.CreateCommand(SqlUpdateLog); 
+			_db.DefineParameter(cmd, "@startTime", DbType.DateTime2,  log.StartTime);
+			_db.DefineParameter(cmd, "@endTime", DbType.DateTime2, log.EndTime);
+			_db.DefineParameter(cmd, "@totalTime", DbType.Int32, log.TotalTime);
+			_db.DefineParameter(cmd, "@comment", DbType.String, log.Comment);
+			_db.DefineParameter(cmd, "@difficulty", DbType.Int32, log.Difficulty);
+			_db.DefineParameter(cmd, "@rating", DbType.Int32, log.Rating);
+			_db.DefineParameter(cmd, "@id", DbType.Int32, log.Id);
+			if (_db.ExecuteNonQuery(cmd) <= 0) {
+				// Log LogUpdate error
+			}
+			return GetLogByLogId(log.Id); 
 	    }
 
 	    public bool DeleteLog(int id) {
@@ -81,7 +96,8 @@ namespace TourPlanner.DataAccessLayer.SQL
 			    logs.Add(new Log(
 					(int)reader["id"],
 					(int)reader["tour_id"],
-					(DateTime)reader["date_time"],
+					(DateTime)reader["start_time"],
+					(DateTime)reader["end_time"],
 					(int)reader["total_time"],
 					(string)reader["comment"],
 					(int)reader["difficulty"],

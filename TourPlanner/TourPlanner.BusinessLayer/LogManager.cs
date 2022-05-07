@@ -24,7 +24,7 @@ namespace TourPlanner.BusinessLayer
 	    }
 
 	    public Log UpdateLog(Log log) {
-		    throw new NotImplementedException();
+		    return _logDao.UpdateLog(log); 
 	    }
 
 	    public bool DeleteLog(int id) {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,8 +34,9 @@ namespace TourPlanner.ViewModels
 	        var isUpdate = false;
 	        if (logToUpdate is not null) {
 		        LogDialogLogId = logToUpdate.Id;
-		        LogDialogStartDateTime = string.Empty;
-		        LogDialogEndDateTime = string.Empty;
+                // Convert DateTime object to correct string representation
+		        LogDialogStartDateTime = $"{logToUpdate.StartTime.ToLongDateString()} {logToUpdate.StartTime.ToLongTimeString()}";
+		        LogDialogEndDateTime = $"{logToUpdate.EndTime.ToLongDateString()} {logToUpdate.EndTime.ToLongTimeString()}"; 
 		        LogDialogComment = logToUpdate.Comment;
 		        LogDialogDifficulty = logToUpdate.Difficulty;
 		        LogDialogRating = logToUpdate.Rating;
@@ -48,6 +50,10 @@ namespace TourPlanner.ViewModels
 
         public Log GetCreatedLog(Log log) {
 	        return ManagerFactory.GetLogManager().CreateLog(log); 
+        }
+
+        public Log GetUpdatedLog(Log log) {
+	        return ManagerFactory.GetLogManager().UpdateLog(log); 
         }
     }
 }

@@ -63,27 +63,33 @@ namespace TourPlanner.ViewModels
 			OnPropertyChanged(nameof(EditLogDialogCommand));
         }
 
-        public void AddLog(Log log) {
-            Logs.Add(log);
-            SelectedLog = log; 
-        }
-
-        private IEnumerable<Log> GetLogs(Tour selectedTour) {
-            return ManagerFactory.GetLogManager().GetLogs(selectedTour.Id);
-        }
-
         public bool IsEmpty() {
 	        return Logs.Count <= 0; 
         }
 
-        public bool DeleteLog() {
-	        return ManagerFactory.GetLogManager().DeleteLog(SelectedLog.Id); 
+        public void AddLog(Log log) {
+            Logs.Add(log);
+            SelectedLog = log; 
         }
 
         public void RemoveSelectedLog() {
 	        var toRemove = SelectedLog;
 	        SelectedLog = Logs.FirstOrDefault()!;
 	        Logs.Remove(toRemove);
+        }
+
+        public void ReplaceLog(Log log) {
+	        var l = Logs.FirstOrDefault(l => l.Id == log.Id);
+	        Logs[Logs.IndexOf(l)] = log;
+	        SelectedLog = log;
+        }
+        
+        private IEnumerable<Log> GetLogs(Tour selectedTour) {
+            return ManagerFactory.GetLogManager().GetLogs(selectedTour.Id);
+        }
+        
+        public bool DeleteLog() {
+	        return ManagerFactory.GetLogManager().DeleteLog(SelectedLog.Id); 
         }
     }
 }

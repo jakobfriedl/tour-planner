@@ -71,6 +71,10 @@ namespace TourPlanner.ViewModels
 			EditTourDialogCommand = new OpenEditTourDialogCommand(this);
 			DeleteTourCommand = new DeleteTourCommand(this);
 		}
+		
+		public bool IsEmpty() {
+			return Tours.Count <= 0; 
+		}
 
 		public void AddTour(Tour tour) {
 			Tours.Add(tour);
@@ -88,9 +92,6 @@ namespace TourPlanner.ViewModels
 			SelectedTour = tour; 
 		}
 
-		public bool IsEmpty() {
-			return Tours.Count <= 0; 
-		}
 
 		public IEnumerable<Tour> GetTours() {
 			return ManagerFactory.GetTourManager().GetTours(); 

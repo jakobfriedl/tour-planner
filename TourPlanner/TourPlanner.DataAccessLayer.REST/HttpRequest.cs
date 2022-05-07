@@ -18,6 +18,11 @@ namespace TourPlanner.DataAccessLayer.REST
 			_client = client; 
 		}
 
+		/// <summary>
+		/// Get Tour Information from MapQuest API (Distance and Time)
+		/// </summary>
+		/// <param name="tour">Tour to get information from</param>
+		/// <returns>Tour with all distance and time information</returns>
 		public async Task<Tour> GetTourInformation(Tour tour) {
 			var routeType = tour.TransportType == TransportType.Bike ? "bicycle" :
 				tour.TransportType == TransportType.Walk ? "pedestrian" : "fastest"; 
@@ -32,6 +37,11 @@ namespace TourPlanner.DataAccessLayer.REST
 		    return tour;
 		}
 
+		/// <summary>
+		/// Get Route image from MapQuest Static Map API 
+		/// </summary>
+		/// <param name="tour">Tour to get image from</param>
+		/// <returns>Image as byte array</returns>
 	    public async Task<byte[]> GetTourImageBytes(Tour tour) {
 		    var url = "https://open.mapquestapi.com/staticmap/v5/map?" +
 		              $"key={_key}&start={tour.Start}&end={tour.Destination}";

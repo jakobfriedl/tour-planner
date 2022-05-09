@@ -21,14 +21,16 @@ namespace TourPlanner.DataAccessLayer.SQL
 		private const string SqlGetAllTours = "SELECT * FROM \"tour\" ORDER BY id asc;"; 
 		private const string SqlGetTourById = "SELECT * FROM \"tour\" WHERE id=@id;";
 		private const string SqlInsertTour = "" + 
-         "INSERT INTO \"tour\"(name, description, start, destination, transport_type, distance, time)" +
-         "VALUES (@name, @description, @start, @destination, @transportType, @distance, @time);" +
-         "SELECT CAST(lastval() AS integer);";
+		    "INSERT INTO \"tour\"(name, description, start, destination, transport_type, distance, time)" +
+			"VALUES (@name, @description, @start, @destination, @transportType, @distance, @time);" +
+			"SELECT CAST(lastval() AS integer);";
 		private const string SqlSetTourImagePath = "UPDATE \"tour\" SET image_path=@imagePath WHERE id=@id;";
 		private const string SqlDeleteTour = "DELETE FROM \"tour\" WHERE id=@id;"; 
 		private const string SqlUpdateTour = "UPDATE \"tour\" " +
 			"SET name=@name, description=@description, start=@start, destination=@destination, transport_type=@transportType, distance=@distance, time=@time " +
 			"WHERE id=@id;";
+		private const string SqlSearchTours = "SELECT * FROM \"tour\" " +
+		    "WHERE name LIKE @searchTerm OR description LIKE @searchTerm OR start LIKE @searchTerm OR destination LIKE @searchTerm;";
 
 		public TourDAO(IDatabase database) {
 		    _db = database; 
@@ -39,7 +41,7 @@ namespace TourPlanner.DataAccessLayer.SQL
 		/// </summary>
 		/// <param name="id">TourID</param>
 		/// <returns>Tour</returns>
-	    public Tour GetTourByTourId(int id) {
+	    private Tour GetTourByTourId(int id) {
 		    var cmd = _db.CreateCommand(SqlGetTourById); 
 			_db.DefineParameter(cmd, "@id", DbType.Int32, id);
 			return QueryTours(cmd).FirstOrDefault()!; 
@@ -116,6 +118,17 @@ namespace TourPlanner.DataAccessLayer.SQL
 			var cmd = _db.CreateCommand(SqlGetAllTours);
 		    return QueryTours(cmd);
 	    }
+
+		/// <summary>
+		/// Search Tours for specific string in name, description, start or destination
+		/// </summary>
+		/// <param name="searchTerm">Search term, later concatenated with %-wildcard</param>
+		/// <returns>List of matching tours, returns all tours if nothing is searched</returns>
+		public IEnumerable<Tour> SearchTours(string searchTerm) {
+			var cmd = _db.CreateCommand(SqlSearchTours);
+			_db.DefineParameter(cmd, "@searchTerm", DbType.String, $"{searchTerm}%");
+			return string.IsNullOrEmpty(searchTerm) ? GetTours() : QueryTours(cmd); 
+		}
 
 		/// <summary>
 		/// Query the database for Tours

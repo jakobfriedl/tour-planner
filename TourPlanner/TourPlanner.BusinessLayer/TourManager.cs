@@ -51,6 +51,10 @@ namespace TourPlanner.BusinessLayer
 		    return _tourDao.GetTours();
 	    }
 
+	    public IEnumerable<Tour> SearchTours(string searchTerm) {
+		    return _tourDao.SearchTours(searchTerm); 
+	    }
+
 		/// <summary>
 		/// Get Initial Information for Tour from API and save this information to database
 		/// </summary>

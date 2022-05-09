@@ -37,7 +37,7 @@ namespace TourPlanner.DataAccessLayer.SQL
 		/// </summary>
 		/// <param name="id">LogId</param>
 		/// <returns>Log object</returns>
-	    public Log GetLogByLogId(int id) {
+	    private Log GetLogByLogId(int id) {
 		    var cmd = _db.CreateCommand(SqlGetLogByLogId);
 			_db.DefineParameter(cmd, "@id", DbType.Int32, id);
 		    return QueryLogs(cmd).FirstOrDefault()!; 
@@ -87,6 +87,9 @@ namespace TourPlanner.DataAccessLayer.SQL
 			return _db.ExecuteNonQuery(cmd) > 0; 
 	    }
 
+		/// <summary>
+		/// Query the database for logs
+		/// </summary>
 	    private IEnumerable<Log> QueryLogs(DbCommand cmd) {
 		    var logs = new ObservableCollection<Log>();
 

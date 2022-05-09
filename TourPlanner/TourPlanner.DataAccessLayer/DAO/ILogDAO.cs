@@ -7,9 +7,7 @@ using TourPlanner.Models;
 
 namespace TourPlanner.DataAccessLayer.DAO
 {
-    public interface ILogDAO
-    {
-	    Log GetLogByLogId(int id);
+    public interface ILogDAO {
 	    IEnumerable<Log> GetLogsByTourId(int tourId);
 	    Log AddNewLog(Log log);
 	    Log UpdateLog(Log log);

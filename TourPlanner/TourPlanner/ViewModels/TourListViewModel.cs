@@ -25,11 +25,19 @@ namespace TourPlanner.ViewModels
 		public ICommand EditTourDialogCommand { get; set; }
 		public ICommand DeleteTourCommand { get; }
 
-		public ObservableCollection<Tour> Tours { get; set; }
+		private ObservableCollection<Tour> _tours;
+		public ObservableCollection<Tour> Tours {
+			get => _tours;
+			set {
+				_tours = value;
+				OnPropertyChanged(nameof(Tours));
+				SelectedTour = _tours.FirstOrDefault()!; 
+			} 
+		}
 
 		public LogListViewModel LogListViewModel { get; set; }
 
-		private Tour _selectedTour = null!; 
+		private Tour _selectedTour = null!;
 		public Tour SelectedTour {
 			get => _selectedTour;
 			set {

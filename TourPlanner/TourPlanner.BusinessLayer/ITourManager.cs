@@ -13,5 +13,6 @@ namespace TourPlanner.BusinessLayer
 	    Task<Tour> UpdateTour(Tour tour);
 	    bool DeleteTour(int id); 
 	    IEnumerable<Tour> GetTours();
+	    IEnumerable<Tour> SearchTours(string searchTerm);
     }
 }

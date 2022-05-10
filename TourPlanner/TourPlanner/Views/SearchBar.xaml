@@ -19,7 +19,7 @@
         </Grid.ColumnDefinitions>
         <wpfx:WatermarkTextBox Grid.Column="0" Watermark="Search..." x:Name="SearchTextBox"
                                Text="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Grid.Column="1" x:Name="SearchButton" Content="Search"
+        <Button Grid.Column="1" x:Name="SearchButton" Content="Search" IsDefault="True"
                 Command="{Binding SearchCommand}"/>
     </Grid>
 </UserControl>

@@ -29,6 +29,13 @@ namespace TourPlanner.DataAccessLayer.SQL
 	    public DbCommand CreateCommand(string cmdText) {
 		    return new NpgsqlCommand(cmdText); 
 	    }
+		
+	    /// <summary>
+		/// Declares and initializes parameter with a value
+		/// </summary>
+		public void DefineParameter(DbCommand cmd, string name, DbType type, object value) {
+		    cmd.Parameters[DeclareParameter(cmd, name, type)].Value = value; 
+	    }
 
 	    /// <summary>
 		/// Creates new Command Parameter
@@ -38,7 +45,7 @@ namespace TourPlanner.DataAccessLayer.SQL
 		/// <param name="type">Parameter type</param>
 		/// <returns>Index of newly created parameter</returns>
 		/// <exception cref="ArgumentException">Throws Exception if parameter already exists</exception>
-	    public int DeclareParameter(DbCommand cmd, string name, DbType type) {
+	    private int DeclareParameter(DbCommand cmd, string name, DbType type) {
 		    if (!cmd.Parameters.Contains(name)) {
 			    return cmd.Parameters.Add(new NpgsqlParameter(name, type)); 
 		    }
@@ -46,17 +53,10 @@ namespace TourPlanner.DataAccessLayer.SQL
 	    }
 
 		/// <summary>
-		/// Declares and initializes parameter with a value
-		/// </summary>
-		public void DefineParameter(DbCommand cmd, string name, DbType type, object value) {
-		    cmd.Parameters[DeclareParameter(cmd, name, type)].Value = value; 
-	    }
-
-		/// <summary>
 		/// Sets value of a parameter
 		/// </summary>
 		/// <exception cref="ArgumentException">Throws exception if parameter does not exist</exception>
-	    public void SetParameter(DbCommand cmd, string name, object value) {
+	    private void SetParameter(DbCommand cmd, string name, object value) {
 		    if (cmd.Parameters.Contains(name)) cmd.Parameters[name].Value = value;
 		    else throw new ArgumentException($"Parameter {name} does not exist");
 	    }

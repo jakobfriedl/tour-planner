@@ -13,10 +13,8 @@ namespace TourPlanner.DataAccessLayer.Configuration
     public static class ConfigManager
     {
 	    public static TourPlannerConfig GetConfig() {
-		    var configPath =
-			    Directory.GetCurrentDirectory()
-			    + "\\Config\\settings.json"; 
-
+		    var configPath = Path.Combine(Directory.GetCurrentDirectory(), $"Config\\settings.json"); 
+			    
 		    IConfiguration config = new ConfigurationBuilder()
 			    .AddJsonFile(configPath, false, true)
 			    .Build();

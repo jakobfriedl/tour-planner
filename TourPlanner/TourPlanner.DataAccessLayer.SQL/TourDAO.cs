@@ -29,8 +29,9 @@ namespace TourPlanner.DataAccessLayer.SQL
 		private const string SqlUpdateTour = "UPDATE \"tour\" " +
 			"SET name=@name, description=@description, start=@start, destination=@destination, transport_type=@transportType, distance=@distance, time=@time " +
 			"WHERE id=@id;";
-		private const string SqlSearchTours = "SELECT * FROM \"tour\" " +
-		    "WHERE name LIKE @searchTerm OR description LIKE @searchTerm OR start LIKE @searchTerm OR destination LIKE @searchTerm;";
+		private const string SqlSearchTours = "SELECT DISTINCT tour.* FROM \"tour\" LEFT JOIN log ON (tour.id = log.tour_id) " +
+		    "WHERE name LIKE @searchTerm OR description LIKE @searchTerm OR start LIKE @searchTerm OR destination LIKE @searchTerm " +
+		    "OR log.comment LIKE @searchTerm;";
 
 		public TourDAO(IDatabase database) {
 		    _db = database; 
@@ -122,11 +123,11 @@ namespace TourPlanner.DataAccessLayer.SQL
 		/// <summary>
 		/// Search Tours for specific string in name, description, start or destination
 		/// </summary>
-		/// <param name="searchTerm">Search term, later concatenated with %-wildcard</param>
+		/// <param name="searchTerm">Search term, later put between %-wildcards</param>
 		/// <returns>List of matching tours, returns all tours if nothing is searched</returns>
 		public IEnumerable<Tour> SearchTours(string searchTerm) {
 			var cmd = _db.CreateCommand(SqlSearchTours);
-			_db.DefineParameter(cmd, "@searchTerm", DbType.String, $"{searchTerm}%");
+			_db.DefineParameter(cmd, "@searchTerm", DbType.String, $"%{searchTerm}%");
 			return string.IsNullOrEmpty(searchTerm) ? GetTours() : QueryTours(cmd); 
 		}
 

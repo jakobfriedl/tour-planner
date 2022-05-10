@@ -24,3 +24,4 @@
 |04.05.2022|3h|Jakob|Clean up code and fix errors|
 |05.05.2022|2h|Jakob|Implement DeleteLog and Start with UpdateLog|
 |07.05.2022|1h|Jakob|Finish UpdateLog|
+|10.05.2022|2h|Jakob|Complete Search feature|

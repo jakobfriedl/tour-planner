@@ -17,8 +17,8 @@ namespace TourPlanner.Models
 		public double Distance { get; set; } = 0;
 		public int EstimatedTime { get; set; } = 0; 
 		public string ImagePath { get; set; }
-		public int? Popularity { get; set; } = 0;
-		public int? ChildFriendliness { get; set; } = 0;
+		public double? Popularity { get; set; } = 0;
+		public double? ChildFriendliness { get; set; } = 0;
 
 		public string DisplayDistance { get; set; }
 		public string DisplayTime { get; set; }
@@ -39,7 +39,7 @@ namespace TourPlanner.Models
 			TransportType = transportType;
 		}
 
-		public Tour(int id, string name, string description, string start, string destination, TransportType transportType, double distance, int estimatedTime, string imagePath, int popularity, int childFriendliness) {
+		public Tour(int id, string name, string description, string start, string destination, TransportType transportType, double distance, int estimatedTime, string imagePath, double popularity, double childFriendliness) {
 			Id = id;
 			Name = name;
 			Description = description;

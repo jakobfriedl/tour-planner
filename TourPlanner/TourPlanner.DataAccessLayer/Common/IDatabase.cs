@@ -8,6 +8,7 @@ namespace TourPlanner.DataAccessLayer.Common {
 
 		IDataReader ExecuteReader(DbCommand cmd);
 		int ExecuteScalar(DbCommand cmd);
+		double ExecuteScalarToDouble(DbCommand cmd); 
 		int ExecuteNonQuery(DbCommand cmd); 
 	}
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TourPlanner.Models;
 
-namespace TourPlanner.BusinessLayer
+namespace TourPlanner.BusinessLayer.Abstract
 {
     public interface ILogManager {
 	    Log CreateLog(Log log);

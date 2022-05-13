@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.Models;
 
-namespace TourPlanner.BusinessLayer
+namespace TourPlanner.BusinessLayer.Abstract
 {
     public interface ITourManager {
 	    Task<Tour> CreateTour(Tour tour);

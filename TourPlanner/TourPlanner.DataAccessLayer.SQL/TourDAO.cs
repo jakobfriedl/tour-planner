@@ -137,6 +137,8 @@ namespace TourPlanner.DataAccessLayer.SQL
 		private IEnumerable<Tour> QueryTours(DbCommand cmd) {
 		    var tours = new ObservableCollection<Tour>();
 
+		    var statDao = new StatDAO(_db); 
+
 		    using var reader = _db.ExecuteReader(cmd);
 		    while (reader.Read()) {
 			    tours.Add(new Tour(
@@ -149,8 +151,8 @@ namespace TourPlanner.DataAccessLayer.SQL
 				    (double)reader["distance"],
 				    (int)reader["time"],
 				    (string)reader["image_path"],
-				    (int)reader["popularity"],
-				    (int)reader["child_friendliness"]
+				    statDao.GetPopularity((int)reader["id"]),
+				    statDao.GetChildFriendliness((int)reader["id"])
 			    ));
 		    }
 		    

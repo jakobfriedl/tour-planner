@@ -80,6 +80,12 @@ namespace TourPlanner.DataAccessLayer.SQL
 		    return Convert.ToInt32(cmd.ExecuteScalar());
 		}
 
+		public double ExecuteScalarToDouble(DbCommand cmd) {
+			cmd.Connection = Connect();
+			cmd.Prepare();
+			return Convert.ToDouble(cmd.ExecuteScalar());
+		}
+
 		/// <summary>
 		/// Execute Command NonQuery
 		/// </summary>

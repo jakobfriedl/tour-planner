@@ -9,8 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Navigation;
 using Npgsql;
 using Npgsql.Replication.PgOutput.Messages;
+using TourPlanner.BusinessLayer.Abstract;
 using TourPlanner.BusinessLayer.Exceptions;
 using TourPlanner.DataAccessLayer.Configuration;
+using TourPlanner.DataAccessLayer.DAO;
 using TourPlanner.DataAccessLayer.REST;
 using TourPlanner.DataAccessLayer.SQL;
 using TourPlanner.Models;
@@ -18,7 +20,7 @@ using TourPlanner.Models;
 namespace TourPlanner.BusinessLayer
 {
     internal class TourManager : ITourManager {
-	    private readonly TourDAO _tourDao;
+	    private readonly ITourDAO _tourDao;
 
 	    public TourManager() {
 		    _tourDao = new TourDAO(new Database()); 

@@ -13,5 +13,6 @@ namespace TourPlanner.DataAccessLayer.DAO
 	    Tour UpdateTour(Tour tour); 
 	    int SetImagePath(int id, string imagePath);
 	    IEnumerable<Tour> GetTours();
+	    IEnumerable<Tour> SearchTours(string searchTerm);
     }
 }

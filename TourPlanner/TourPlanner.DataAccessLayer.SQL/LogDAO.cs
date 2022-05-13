@@ -28,7 +28,7 @@ namespace TourPlanner.DataAccessLayer.SQL
              "SET start_time=@startTime, end_time=@endTime, total_time=@totalTime, comment=@comment, difficulty=@difficulty, rating=@rating " +
              "WHERE id=@id;";
 
-		public LogDAO(IDatabase database) {
+	    public LogDAO(IDatabase database) {
 		    _db = database; 
 	    }
 
@@ -87,15 +87,14 @@ namespace TourPlanner.DataAccessLayer.SQL
 			return _db.ExecuteNonQuery(cmd) > 0; 
 	    }
 
-		/// <summary>
+	    /// <summary>
 		/// Query the database for logs
 		/// </summary>
 	    private IEnumerable<Log> QueryLogs(DbCommand cmd) {
 		    var logs = new ObservableCollection<Log>();
 
 		    using var reader = _db.ExecuteReader(cmd);
-		    while (reader.Read())
-		    {
+		    while (reader.Read()) {
 			    logs.Add(new Log(
 					(int)reader["id"],
 					(int)reader["tour_id"],

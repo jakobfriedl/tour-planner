@@ -38,14 +38,7 @@ namespace TourPlanner.Models
 	        Difficulty = difficulty;
 	        Rating = rating;
 
-	        DisplayTime = FormatTime(TotalTime).ToString("G").Split(",")[0]; 
+	        DisplayTime = TimeSpan.FromSeconds(TotalTime).ToString("G").Split(",")[0]; 
         }
-
-        private TimeSpan FormatTime(int time) {
-	        var s = time % 60;
-	        var m = (time / 60) % 60;
-	        var h = (time / 3600);
-	        return new TimeSpan(h, m, s);
-        }
-	}
+    }
 }

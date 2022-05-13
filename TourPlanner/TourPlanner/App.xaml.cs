@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Windows;
+using TourPlanner.BusinessLayer;
 using TourPlanner.ViewModels;
 using TourPlanner.Views;
 
@@ -29,7 +30,7 @@ namespace TourPlanner
 
 		    var main = new MainWindow(mainViewModel);
 
-		    main.Show(); 
+		    main.Show();
 	    }
     }
 }

@@ -33,6 +33,10 @@ namespace TourPlanner.BusinessLayer
 		    return _statDao.GetAvgDifficulty(id); 
 	    }
 
+	    public int GetAvgDuration(int id) {
+		    return _statDao.GetAvgDuration(id); 
+	    }
+
 	    public double GetPopularity(int id) {
 		    return _statDao.GetPopularity(id); 
 	    }

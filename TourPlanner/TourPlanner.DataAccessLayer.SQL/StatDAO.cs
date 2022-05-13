@@ -7,9 +7,10 @@ namespace TourPlanner.DataAccessLayer.SQL {
 	public class StatDAO : IStatDAO {
 		private readonly IDatabase _db;
 
+		private const string SqlGetLogCount = "SELECT COUNT(*) FROM \"log\" WHERE tour_id=@tourId;";
 		private const string SqlGetAvgRating = "SELECT CAST(AVG(rating) AS double precision) FROM \"log\" WHERE tour_id=@tourId;";
 		private const string SqlGetAvgDifficulty = "SELECT CAST(AVG(difficulty) AS double precision) FROM \"log\" WHERE tour_id=@tourId;";
-		private const string SqlGetLogCount = "SELECT COUNT(*) FROM \"log\" WHERE tour_id=@tourId;";
+		private const string SqlGetAvgDuration = "SELECT CAST(AVG(total_time) AS integer) FROM \"log\" WHERE tour_id=@tourId;";
 
 		public StatDAO(IDatabase database) {
 			_db = database;
@@ -39,6 +40,12 @@ namespace TourPlanner.DataAccessLayer.SQL {
 			} catch (InvalidCastException) {
 				return 0;
 			}
+		}
+
+		public int GetAvgDuration(int id) {
+			var cmd = _db.CreateCommand(SqlGetAvgDuration);
+			_db.DefineParameter(cmd, "@tourId", DbType.Int32, id);
+			return _db.ExecuteScalar(cmd); 
 		}
 
 		/// <summary>

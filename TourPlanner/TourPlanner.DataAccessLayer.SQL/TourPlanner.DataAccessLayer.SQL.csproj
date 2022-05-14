@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Npgsql" Version="6.0.4" />
+    <PackageReference Include="QuestPDF" Version="2022.5.0" />
   </ItemGroup>
 
   <ItemGroup>

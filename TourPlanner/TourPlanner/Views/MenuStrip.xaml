@@ -12,8 +12,8 @@
                 <MenuItem Command="{Binding OpenSettingsCommand}" Header="_Config"></MenuItem>
                 <MenuItem Header="_Export"></MenuItem>
                 <MenuItem Header="_Import"></MenuItem>
-                <MenuItem Header="_Tour Report"></MenuItem>
-                <MenuItem Header="_Summarize Report"></MenuItem>
+                <MenuItem Command="{Binding TourReportCommand}" Header="_Tour Report"></MenuItem>
+                <MenuItem Command="{Binding SummarizeReportCommand}" Header="_Summarize Report"></MenuItem>
             </MenuItem>
             <MenuItem HorizontalAlignment="Right" Header="_Help"></MenuItem>
         </Menu>

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
+using Microsoft.Extensions.Logging;
 using TourPlanner.DataAccessLayer.Common;
 using TourPlanner.DataAccessLayer.DAO;
 using TourPlanner.Models;
@@ -15,6 +16,7 @@ using TourPlanner.Models;
 namespace TourPlanner.DataAccessLayer.SQL
 {
     public class LogDAO : ILogDAO {
+	    private readonly ILogger _logger;
 	    private readonly IDatabase _db;
 
 		private const string SqlGetLogByLogId = "SELECT * FROM \"log\" WHERE id=@id;"; 
@@ -29,7 +31,8 @@ namespace TourPlanner.DataAccessLayer.SQL
              "WHERE id=@id;";
 
 	    public LogDAO(IDatabase database) {
-		    _db = database; 
+		    _db = database;
+		    _logger = new LoggerFactory().CreateLogger(nameof(LogDAO)); 
 	    }
 
 		/// <summary>
@@ -76,7 +79,9 @@ namespace TourPlanner.DataAccessLayer.SQL
 			_db.DefineParameter(cmd, "@rating", DbType.Int32, log.Rating);
 			_db.DefineParameter(cmd, "@id", DbType.Int32, log.Id);
 			if (_db.ExecuteNonQuery(cmd) <= 0) {
-				// Log LogUpdate error
+				_logger.LogWarning($"Could not update log. Log [id:{log.Id}] does not exist.", DateTimeOffset.UtcNow);
+			} else {
+				_logger.LogInformation($"Log [id:{log.Id}] updated.", DateTimeOffset.UtcNow);
 			}
 			return GetLogByLogId(log.Id); 
 	    }
@@ -84,7 +89,12 @@ namespace TourPlanner.DataAccessLayer.SQL
 	    public bool DeleteLog(int id) {
 		    var cmd = _db.CreateCommand(SqlDeleteLog); 
 			_db.DefineParameter(cmd, "@id", DbType.Int32, id);
-			return _db.ExecuteNonQuery(cmd) > 0; 
+			if (_db.ExecuteNonQuery(cmd) <= 0) {
+				_logger.LogWarning($"Could not delete log. Log [id:{id}] does not exist.", DateTimeOffset.UtcNow);
+				return false; 
+			}
+			_logger.LogInformation($"Log [id:{id}] deleted.", DateTimeOffset.UtcNow);
+			return true; 
 	    }
 
 	    /// <summary>

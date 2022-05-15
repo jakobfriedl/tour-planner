@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.Logging;
 using Npgsql;
 using TourPlanner.DataAccessLayer.Common;
 using TourPlanner.DataAccessLayer.Configuration;
@@ -16,6 +17,7 @@ using TourPlanner.Models;
 namespace TourPlanner.DataAccessLayer.SQL
 {
     public class TourDAO : ITourDAO {
+	    private readonly ILogger _logger; 
 	    private readonly IDatabase _db;
 
 		private const string SqlGetAllTours = "SELECT * FROM \"tour\" ORDER BY id asc;"; 
@@ -34,8 +36,9 @@ namespace TourPlanner.DataAccessLayer.SQL
 		    "OR log.comment LIKE @searchTerm;";
 
 		public TourDAO(IDatabase database) {
-		    _db = database; 
-	    }
+		    _db = database;
+		    _logger = new LoggerFactory().CreateLogger(nameof(TourDAO)); 
+		}
 
 		/// <summary>
 		/// Get Tour Object By TourID
@@ -73,7 +76,12 @@ namespace TourPlanner.DataAccessLayer.SQL
 		public bool DeleteTour(int id) {
 			var cmd = _db.CreateCommand(SqlDeleteTour); 
 			_db.DefineParameter(cmd, "@id", DbType.Int32, id);
-			return _db.ExecuteNonQuery(cmd) > 0; 
+			if (_db.ExecuteNonQuery(cmd) <= 0) {
+				_logger.LogWarning($"Could not delete tour. Tour [id:{id}] does not exist.", DateTimeOffset.UtcNow);
+				return false;
+			}
+			_logger.LogInformation($"Tour [id:{id}] deleted.", DateTimeOffset.UtcNow);
+			return true;
 		}
 
 		/// <summary>
@@ -106,7 +114,9 @@ namespace TourPlanner.DataAccessLayer.SQL
 			_db.DefineParameter(cmd, "@time", DbType.Int32, tour.EstimatedTime);
 			_db.DefineParameter(cmd, "@id", DbType.Int32, tour.Id);
 			if (_db.ExecuteNonQuery(cmd) <= 0) {
-				// Log TourUpdate error; 
+				_logger.LogWarning($"Could not update tour. Tour [id:{tour.Id}] does not exist.", DateTimeOffset.UtcNow);
+			} else {
+				_logger.LogInformation($"Tour [id:{tour.Id}] updated.", DateTimeOffset.UtcNow);
 			}
 			return GetTourByTourId(tour.Id);
 		}

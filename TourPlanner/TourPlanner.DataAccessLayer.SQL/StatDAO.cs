@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Data;
+using Microsoft.Extensions.Logging;
 using TourPlanner.DataAccessLayer.Common;
 using TourPlanner.DataAccessLayer.DAO;
 
 namespace TourPlanner.DataAccessLayer.SQL {
 	public class StatDAO : IStatDAO {
+		private readonly ILogger _logger; 
 		private readonly IDatabase _db;
 
 		private const string SqlGetLogCount = "SELECT COUNT(*) FROM \"log\" WHERE tour_id=@tourId;";
@@ -14,6 +16,7 @@ namespace TourPlanner.DataAccessLayer.SQL {
 
 		public StatDAO(IDatabase database) {
 			_db = database;
+			_logger = new LoggerFactory().CreateLogger(nameof(StatDAO)); 
 		}
 		
 		public int GetLogCount(int id) {
@@ -27,7 +30,8 @@ namespace TourPlanner.DataAccessLayer.SQL {
 			_db.DefineParameter(cmd, "@tourId", DbType.Int32, id);
 			try {
 				return Math.Round(_db.ExecuteScalarToDouble(cmd), 2);
-			} catch (InvalidCastException) {
+			} catch (InvalidCastException e) {
+				_logger.LogError($"Invalid Cast Exception {e}.");
 				return 0;
 			}
 		}
@@ -37,7 +41,8 @@ namespace TourPlanner.DataAccessLayer.SQL {
 			_db.DefineParameter(cmd, "@tourId", DbType.Int32, id);
 			try {
 				return Math.Round(_db.ExecuteScalarToDouble(cmd), 2);
-			} catch (InvalidCastException) {
+			} catch (InvalidCastException e) {
+				_logger.LogError($"Invalid Cast Exception {e}.");
 				return 0;
 			}
 		}

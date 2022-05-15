@@ -68,7 +68,9 @@ namespace TourPlanner.BusinessLayer
 
 		    try {
 			    tour = await http.GetTourInformation(tour);
-		    } catch (NullReferenceException) { throw new InvalidLocationException(); }
+		    } catch (NullReferenceException) {
+			    throw new InvalidLocationException();
+		    }
 
 		    // Check for Invalid Locations
 			if(tour.Distance == 0 || tour.EstimatedTime == 0) throw new InvalidLocationException();

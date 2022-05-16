@@ -24,6 +24,7 @@ namespace TourPlanner.ViewModels
 		public ICommand AddTourDialogCommand { get; }
 		public ICommand EditTourDialogCommand { get; set; }
 		public ICommand DeleteTourCommand { get; }
+		public ICommand SwapDirectionCommand { get; }
 
 		private ObservableCollection<Tour> _tours;
 		public ObservableCollection<Tour> Tours {
@@ -78,6 +79,16 @@ namespace TourPlanner.ViewModels
 			});
 			EditTourDialogCommand = new OpenEditTourDialogCommand(this);
 			DeleteTourCommand = new DeleteTourCommand(this);
+
+			// Unique feature: quickly swap start and destination from specific tour
+			SwapDirectionCommand = new RelayCommand(async (_) => {
+				if (!IsEmpty()) {
+					(SelectedTour.Start, SelectedTour.Destination) = (SelectedTour.Destination, SelectedTour.Start);
+					OnPropertyChanged(nameof(SelectedTour));
+				}
+				// save changes
+				await GetUpdatedTour(SelectedTour); 
+			}); 
 		}
 		
 		public bool IsEmpty() {
@@ -100,13 +111,24 @@ namespace TourPlanner.ViewModels
 			SelectedTour = tour; 
 		}
 
-
 		public IEnumerable<Tour> GetTours() {
 			return ManagerFactory.GetTourManager().GetTours(); 
 		}
 
 		public bool DeleteTour() {
+			// Delete Route Image
+			if (File.Exists(Path.Combine(Directory.GetCurrentDirectory(), SelectedTour.ImagePath))) {
+				File.Delete(Path.Combine(Directory.GetCurrentDirectory(), SelectedTour.ImagePath));
+			}
 			return ManagerFactory.GetTourManager().DeleteTour(SelectedTour.Id); 
+		}
+
+		public async Task<Tour> GetCreatedTour(Tour tour) {
+			return await ManagerFactory.GetTourManager().CreateTour(tour);
+		}
+
+		public async Task<Tour> GetUpdatedTour(Tour tour) {
+			return await ManagerFactory.GetTourManager().UpdateTour(tour);
 		}
 	}
 }

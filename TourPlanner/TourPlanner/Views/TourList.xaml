@@ -38,6 +38,7 @@
                 <Button x:Name="AddTourButton" Command="{Binding AddTourDialogCommand}">+</Button>
                 <Button x:Name="RemoveTourButton" Command="{Binding DeleteTourCommand}">-</Button>
                 <Button x:Name="EditTourButton" Command="{Binding EditTourDialogCommand}">E</Button>
+                <Button x:Name="SwapDirectionButton" Command="{Binding SwapDirectionCommand}" Content="S"/>
             </StackPanel>
         </DockPanel>
 

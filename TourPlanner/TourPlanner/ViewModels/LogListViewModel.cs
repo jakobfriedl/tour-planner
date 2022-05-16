@@ -89,7 +89,27 @@ namespace TourPlanner.ViewModels
         }
         
         public bool DeleteLog() {
-	        return ManagerFactory.GetLogManager().DeleteLog(SelectedLog.Id); 
+	        var r = ManagerFactory.GetLogManager().DeleteLog(SelectedLog.Id);
+	        UpdateStats();
+	        return r; 
         }
-    }
+
+        public Log GetCreatedLog(Log log) {
+	        log = ManagerFactory.GetLogManager().CreateLog(log);
+	        UpdateStats();
+	        return log;
+        }
+
+        public Log GetUpdatedLog(Log log) {
+	        log = ManagerFactory.GetLogManager().UpdateLog(log);
+	        UpdateStats();
+	        return log;
+        }
+
+        private void UpdateStats() {
+	        SelectedTour.Popularity = ManagerFactory.GetStatManager().GetPopularity(SelectedTour.Id);
+	        SelectedTour.ChildFriendliness = ManagerFactory.GetStatManager().GetChildFriendliness(SelectedTour.Id);
+	        OnPropertyChanged(nameof(SelectedTour));
+        }
+	}
 }

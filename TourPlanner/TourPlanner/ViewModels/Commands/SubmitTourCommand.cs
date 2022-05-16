@@ -48,10 +48,10 @@ namespace TourPlanner.ViewModels.Commands {
 
 			try {
 				if (!IsUpdate) {
-					tour = await TourDialogViewModel.GetCreatedTour(tour);
+					tour = await TourListViewModel.GetCreatedTour(tour);
 					TourListViewModel.AddTour(tour); // Add new Tout to TourListViewModel to update List
 				} else {
-					tour = await TourDialogViewModel.GetUpdatedTour(tour); 
+					tour = await TourListViewModel.GetUpdatedTour(tour); 
 					TourListViewModel.ReplaceTour(tour);
 				}
 			} catch (InvalidLocationException) {

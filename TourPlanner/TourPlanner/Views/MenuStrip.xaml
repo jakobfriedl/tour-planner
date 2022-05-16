@@ -10,8 +10,8 @@
         <Menu Name="MainMenu" VerticalAlignment="Top">
             <MenuItem Header="_Options">
                 <MenuItem Command="{Binding OpenSettingsCommand}" Header="_Config"></MenuItem>
-                <MenuItem Header="_Export"></MenuItem>
-                <MenuItem Header="_Import"></MenuItem>
+                <MenuItem Command="{Binding ExportToursCommand}" Header="_Export"></MenuItem>
+                <MenuItem Command="{Binding ImportToursCommand}" Header="_Import"></MenuItem>
                 <MenuItem Command="{Binding TourReportCommand}" Header="_Tour Report"></MenuItem>
                 <MenuItem Command="{Binding SummarizeReportCommand}" Header="_Summarize Report"></MenuItem>
             </MenuItem>

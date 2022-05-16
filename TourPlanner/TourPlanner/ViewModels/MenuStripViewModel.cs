@@ -12,15 +12,19 @@ namespace TourPlanner.ViewModels
 {
     public class MenuStripViewModel : BaseViewModel
     {
+        public ICommand OpenSettingsCommand { get; }
+        public ICommand ExportToursCommand { get; }
+        public ICommand ImportToursCommand { get; }
         public ICommand TourReportCommand { get; }
         public ICommand SummarizeReportCommand { get; }
-        public ICommand OpenSettingsCommand { get; }
 
         public MenuStripViewModel(TourListViewModel tourListViewModel, LogListViewModel logListViewModel)
         {
+            OpenSettingsCommand = new OpenSettingsCommand();
+            ExportToursCommand = new ExportToursCommand();
+            ImportToursCommand = new ImportToursCommand();
             TourReportCommand = new TourReportCommand(tourListViewModel, logListViewModel);
             SummarizeReportCommand = new SummarizeReportCommand(tourListViewModel, logListViewModel);
-            OpenSettingsCommand = new OpenSettingsCommand();
         }
     }
 }

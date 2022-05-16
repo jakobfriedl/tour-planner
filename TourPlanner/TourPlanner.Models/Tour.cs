@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace TourPlanner.Models
@@ -25,6 +26,24 @@ namespace TourPlanner.Models
 
 		public byte[] RouteImageSource { get; set; }
 
+		[JsonConstructor]
+		public Tour(int id, string name, string description, string start, string destination, TransportType transportType, double distance, int estimatedTime, string imagePath, double popularity, double childFriendliness, string displayDistance, string displayTime, byte[] routeImageSource)
+		{
+			Id = id;
+			Name = name;
+			Description = description;
+			Start = start;
+			Destination = destination;
+			TransportType = transportType;
+			Distance = distance;
+			EstimatedTime = estimatedTime;
+			ImagePath = imagePath;
+			Popularity = popularity;
+			ChildFriendliness = childFriendliness;
+			DisplayDistance = displayDistance;
+			DisplayTime = displayTime;
+		}
+
 		public Tour(string name) {
 			Name = name;
 		}
@@ -39,7 +58,8 @@ namespace TourPlanner.Models
 			TransportType = transportType;
 		}
 
-		public Tour(int id, string name, string description, string start, string destination, TransportType transportType, double distance, int estimatedTime, string imagePath, double popularity, double childFriendliness) {
+		public Tour(int id, string name, string description, string start, string destination, TransportType transportType, double distance, int estimatedTime, string imagePath, double popularity, double childFriendliness)
+		{
 			Id = id;
 			Name = name;
 			Description = description;
@@ -53,7 +73,7 @@ namespace TourPlanner.Models
 			ChildFriendliness = childFriendliness;
 
 			DisplayDistance = $"{Math.Round(distance, 2)} km";
-			DisplayTime = TimeSpan.FromSeconds(EstimatedTime).ToString("G").Split(',')[0]; 
+			DisplayTime = TimeSpan.FromSeconds(EstimatedTime).ToString("G").Split(',')[0];
 		}
 	}
 }

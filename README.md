@@ -17,14 +17,16 @@ SWEN2 SS2022 Semesterproject - by Jakob Friedl (if20b089) & Philipp Haider (if20
 │   │   │   │   ├── [*]Command.cs
 │   │   │   ├── [*]ViewModel.cs
 │   │   ├── Views // UserControls and dialog windows
+│   │   │   ├── [*].xaml
 │   ├── TourPlanner.BusinessLayer 
 │   │   ├── Abstract // interfaces
 │   │   ├── Exceptions // custom exceptions 
 │   │   ├── [*]Manager.cs 
 │   ├── TourPlanner.DataAccessLayer
-│   │   ├── Common // interfaces
+│   │   ├── Common // interfaces for database and http-request
 │   │   ├── Configuration // custom config management
 │   │   ├── DAO // interfaces for DAO
+│   │   │   ├── I[*]DAO.cs
 │   ├── TourPlanner.DataAccessLayer.REST 
 │   │   ├── HttpRequest.cs // calls to MapQuest API
 │   ├── TourPlanner.DataAccessLayer.SQL
@@ -32,8 +34,8 @@ SWEN2 SS2022 Semesterproject - by Jakob Friedl (if20b089) & Philipp Haider (if20
 │   │   ├── [*]DAO.cs
 │   ├── TourPlanner.Models
 ├── tests
-│   ├── TourPlanner.Tests // Unit Tests for the Presentation Layer
-│   ├── TourPlannerBL.Tests // Unit Tests for the Business Layer
+│   ├── TourPlanner.Tests // Unit Tests for Presentation Layer classes
+│   ├── TourPlannerBL.Tests // Unit Tests for Business Layer classes
 ```
 
 This C#-WPF application was developed with regard to the MVVM (Model-View-ViewModel) Design Pattern. All logic of View components is defined in the corresponding ViewModel. The communication between ViewModels is ensured via dependency injection in the App.xaml.cs file in the presentation layer. Events are handelt with Commands and DataBindings. The project is divided into several layers, where each layer is separated by the definition of the single responsibility principle.  
@@ -43,6 +45,7 @@ This C#-WPF application was developed with regard to the MVVM (Model-View-ViewMo
 - Command Pattern
 - Factory Pattern
 - Observer Pattern 
+- ...
 
 ## Features 
 - Create Tours (Metrics automatically queried from API or calculated)
@@ -56,12 +59,12 @@ This C#-WPF application was developed with regard to the MVVM (Model-View-ViewMo
 - Import and Export Tours with Logs in Json-Format
 - Custom configuration file allowing the user to change image-path, database-access, etc. 
 - Validated User-Input 
-- Unique Feature: TODO 
+- Unique Feature: Quickly swap the direction of a tour (start and destination) with the Swap Button
 
 ## Development Process and Design
 
 ### Frontend
-The frontend of the application consists of multiple UserControls that design the look of a specific component (e.g the search-bar or log-list). The window can be resized and is fully responsive. If the tour or log list gets too long, the app automatically provides a vertical scrollbar. When creating/editing a tour or log, the user is prompted with an modal dialog. In order to avoid duplicate code, Create and Edit use the same UserControl. Edit only fills the fields with the already existing data from the selected tour or log. 
+The frontend of the application consists of multiple UserControls that design the look of a specific component (e.g the search-bar or log-list). The window can be resized and is fully responsive. If the tour or log list gets too long, the app automatically provides a vertical scrollbar. When creating/editing a tour or log, the user is prompted with an modal dialog. In order to avoid duplicate code, Create and Edit use the same UserControl. Edit furthermore fills the fields with the already existing data from the selected tour or log. 
 
 ![UI Wireframe](./docs/UI.png)
 
@@ -95,6 +98,8 @@ TODO
 ![CreateTour](./resources/img-1.png)
 
 ![TourRoute](./resources/img-2.png)
+
+![TourReport](./resources/img-4.png)
 
 ![SummarizeReport](./resources/img-3.png)
 

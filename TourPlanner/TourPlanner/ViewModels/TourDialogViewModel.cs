@@ -19,6 +19,8 @@ namespace TourPlanner.ViewModels
 		public Action CloseAction { get; }
 	    public ICommand SubmitCommand { get; }
 
+		public TourListViewModel TourListViewModel { get; }
+
 	    public int TourDialogId { get; set; } = 0; 
 	    public string TourDialogName { get; set; } = string.Empty;
 		public string TourDialogDescription { get; set; } = string.Empty;
@@ -29,6 +31,8 @@ namespace TourPlanner.ViewModels
 	    public string TourDialogHeading { get; set; } = "Create a new tour";
 	    
         public TourDialogViewModel(TourListViewModel tourListViewModel, Action closeAction, Tour? tourToUpdate) {
+	        TourListViewModel = tourListViewModel; 
+
 	        var isUpdate = false; 
 	        if (tourToUpdate is not null) {
 		        TourDialogId = tourToUpdate.Id; 
@@ -43,13 +47,5 @@ namespace TourPlanner.ViewModels
 	        SubmitCommand = new SubmitTourCommand(this, tourListViewModel, isUpdate);
 			CloseAction = closeAction; 
         }
-
-		public async Task<Tour> GetCreatedTour(Tour tour){
-			return await ManagerFactory.GetTourManager().CreateTour(tour);
-		}
-
-		public async Task<Tour> GetUpdatedTour(Tour tour) {
-			return await ManagerFactory.GetTourManager().UpdateTour(tour);
-		}
-	}
+    }
 }

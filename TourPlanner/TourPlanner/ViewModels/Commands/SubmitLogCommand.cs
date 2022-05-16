@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Navigation;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
@@ -61,10 +62,10 @@ namespace TourPlanner.ViewModels.Commands
 		        LogDialogViewModel.LogDialogRating);
 
 	        if (!IsUpdate) {
-				log = LogDialogViewModel.GetCreatedLog(log); 
+				log = LogListViewModel.GetCreatedLog(log); 
 				LogListViewModel.AddLog(log);
 	        } else {
-		        log = LogDialogViewModel.GetUpdatedLog(log); 
+		        log = LogListViewModel.GetUpdatedLog(log); 
 				LogListViewModel.ReplaceLog(log);
 	        }
 

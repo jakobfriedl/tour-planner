@@ -26,3 +26,5 @@
 |07.05.2022|1h|Jakob|Finish UpdateLog|
 |10.05.2022|2h|Jakob|Complete Search feature|
 |13.05.2022|2h|Jakob|Implement calculation of computed values|
+|15.05.2022|1h|Jakob|Start Protocol|
+|16.05.2022|1h|Jakob|Implement Unique Feature|

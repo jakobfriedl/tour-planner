@@ -16,7 +16,7 @@ namespace TourPlanner.ViewModels.Commands
 	    private readonly string _application; 
 
 	    public OpenSettingsCommand() {
-		    _settingsLocation = $"{Directory.GetCurrentDirectory()}\\Config";
+		    _settingsLocation = Path.Combine(Directory.GetCurrentDirectory(), "Config");
 		    _application = "explorer.exe"; 
 	    }
 

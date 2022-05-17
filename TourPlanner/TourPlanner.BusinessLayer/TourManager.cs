@@ -19,15 +19,15 @@ using TourPlanner.Models;
 
 namespace TourPlanner.BusinessLayer
 {
-    internal class TourManager : ITourManager {
+    public class TourManager : ITourManager {
 	    private readonly ITourDAO _tourDao;
 
 	    public TourManager() {
 		    _tourDao = new TourDAO(new Database()); 
 	    }
 
-	    public TourManager(Database db) {
-		    _tourDao = new TourDAO(db);
+	    public TourManager(ITourDAO tourDao) {
+		    _tourDao = tourDao;
 	    }
 
 		/// <summary>
@@ -63,12 +63,14 @@ namespace TourPlanner.BusinessLayer
 		/// <param name="tour">Tour to create</param>
 		/// <returns>Tour with distance and time and id</returns>
 		/// <exception cref="InvalidLocationException">Invalid Locations that could not be found, or the same location twice</exception>
-	    private async Task<Tour> GetInformation(Tour tour) {
+	    public async Task<Tour> GetInformation(Tour tour) {
 		    var http = new HttpRequest(new HttpClient());
 
 		    try {
 			    tour = await http.GetTourInformation(tour);
-		    } catch (NullReferenceException) { throw new InvalidLocationException(); }
+		    } catch (NullReferenceException) {
+			    throw new InvalidLocationException();
+		    }
 
 		    // Check for Invalid Locations
 			if(tour.Distance == 0 || tour.EstimatedTime == 0) throw new InvalidLocationException();
@@ -76,7 +78,7 @@ namespace TourPlanner.BusinessLayer
 			return tour; 
 		}
 
-		private async Task<Tour> SaveInformation(Tour tour) {
+		public async Task<Tour> SaveInformation(Tour tour) {
 			return _tourDao.AddNewTour(await GetInformation(tour));
 		}
 

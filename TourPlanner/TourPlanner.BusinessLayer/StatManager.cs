@@ -17,8 +17,8 @@ namespace TourPlanner.BusinessLayer
 		    _statDao = new StatDAO(new Database());
 	    }
 
-	    public StatManager(Database db) {
-		    _statDao = new StatDAO(db);
+	    public StatManager(IStatDAO statDao) {
+		    _statDao = statDao;
 	    }
 
 		public int GetLogCount(int id) {

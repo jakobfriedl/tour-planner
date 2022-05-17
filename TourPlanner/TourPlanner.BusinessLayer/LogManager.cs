@@ -17,8 +17,8 @@ namespace TourPlanner.BusinessLayer
 		    _logDao = new LogDAO(new Database()); 
 	    }
 
-	    public LogManager(Database db) {
-		    _logDao = new LogDAO(db); 
+	    public LogManager(ILogDAO logDao) {
+		    _logDao = logDao; 
 	    }
 
 	    public Log CreateLog(Log log) {

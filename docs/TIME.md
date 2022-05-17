@@ -28,3 +28,4 @@
 |13.05.2022|2h|Jakob|Implement calculation of computed values|
 |15.05.2022|1h|Jakob|Start Protocol|
 |16.05.2022|1h|Jakob|Implement Unique Feature|
+|17.05.2022|2h|Jakob|Start UnitTesting Manager-Classes|

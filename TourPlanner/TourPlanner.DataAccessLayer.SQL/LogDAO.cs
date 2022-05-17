@@ -22,8 +22,8 @@ namespace TourPlanner.DataAccessLayer.SQL
 		private const string SqlGetLogByLogId = "SELECT * FROM \"log\" WHERE id=@id;"; 
 	    private const string SqlGetLogsByTourId = "SELECT * FROM \"log\" WHERE tour_id=@tourId;"; 
 	    private const string SqlInsertLog = "" +
-	        "INSERT INTO \"log\"(tour_id, start_time, end_time, total_time, comment, difficulty, rating) " +
-	        "VALUES (@tourId, @startTime, @endTime, @totalTime, @comment, @difficulty, @rating);" +
+	        "INSERT INTO \"log\"(tour_id, start_time, end_time, total_time, log_start, log_destination, comment, difficulty, rating) " +
+	        "VALUES (@tourId, @startTime, @endTime, @totalTime, @start, @destination, @comment, @difficulty, @rating);" +
 			"SELECT CAST(lastval() AS integer);";
 	    private const string SqlDeleteLog = "DELETE FROM \"log\" WHERE @id=id;";
 	    private const string SqlUpdateLog = "UPDATE \"log\" " +
@@ -63,6 +63,8 @@ namespace TourPlanner.DataAccessLayer.SQL
 			_db.DefineParameter(cmd, "@startTime", DbType.DateTime2, log.StartTime);
 			_db.DefineParameter(cmd, "@endTime", DbType.DateTime2, log.EndTime);
 			_db.DefineParameter(cmd, "@totalTime", DbType.Int32, log.TotalTime);
+			_db.DefineParameter(cmd, "@start", DbType.String, log.Start);
+			_db.DefineParameter(cmd, "@destination", DbType.String, log.Destination);
 			_db.DefineParameter(cmd, "@comment", DbType.String, log.Comment);
 			_db.DefineParameter(cmd, "@difficulty", DbType.Int32, log.Difficulty);
 			_db.DefineParameter(cmd, "@rating", DbType.Int32, log.Rating);
@@ -74,6 +76,8 @@ namespace TourPlanner.DataAccessLayer.SQL
 			_db.DefineParameter(cmd, "@startTime", DbType.DateTime2,  log.StartTime);
 			_db.DefineParameter(cmd, "@endTime", DbType.DateTime2, log.EndTime);
 			_db.DefineParameter(cmd, "@totalTime", DbType.Int32, log.TotalTime);
+			_db.DefineParameter(cmd, "@start", DbType.String, log.Start);
+			_db.DefineParameter(cmd, "@destination", DbType.String, log.Destination);
 			_db.DefineParameter(cmd, "@comment", DbType.String, log.Comment);
 			_db.DefineParameter(cmd, "@difficulty", DbType.Int32, log.Difficulty);
 			_db.DefineParameter(cmd, "@rating", DbType.Int32, log.Rating);
@@ -111,6 +115,8 @@ namespace TourPlanner.DataAccessLayer.SQL
 					(DateTime)reader["start_time"],
 					(DateTime)reader["end_time"],
 					(int)reader["total_time"],
+					(string)reader["log_start"],
+					(string)reader["log_destination"],
 					(string)reader["comment"],
 					(int)reader["difficulty"],
 					(int)reader["rating"]

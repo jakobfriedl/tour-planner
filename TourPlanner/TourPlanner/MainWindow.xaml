@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
-        Title="Tour Planner" Height="600" Width="500">
+        Title="Tour Planner" Height="600" Width="600">
   
     <Grid>
         <Grid.RowDefinitions>

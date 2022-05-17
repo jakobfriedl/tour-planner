@@ -48,6 +48,10 @@
                   CanUserReorderColumns="True" CanUserSortColumns="True"
                   SelectedItem="{Binding SelectedLog, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Start" Width="20*" IsReadOnly="True"
+                                    Binding="{Binding Start}"/>
+                <DataGridTextColumn Header="Destination" Width="20*" IsReadOnly="True"
+                                    Binding="{Binding Destination}"/>
                 <DataGridTextColumn Header="Start Date/Time" Width="20*" IsReadOnly="True" 
                                     Binding="{Binding StartTime, StringFormat=R}"/>
                 <DataGridTextColumn Header="Tour Duration" Width="10*" IsReadOnly="True" 

@@ -23,16 +23,21 @@ namespace TourPlanner.DataAccessLayer.REST
 		/// </summary>
 		/// <param name="tour">Tour to get information from</param>
 		/// <returns>Tour with all distance and time information</returns>
-		public async Task<Tour> GetTourInformation(Tour tour) {
+		public virtual async Task<Tour> GetTourInformation(Tour tour) {
 			var routeType = tour.TransportType == TransportType.Bike ? "bicycle" :
 				tour.TransportType == TransportType.Walk ? "pedestrian" : "fastest"; 
 
 			var url = "http://www.mapquestapi.com/directions/v2/route?" + 
 							$"key={_key}&from={tour.Start}&to={tour.Destination}&unit=k&routeType={routeType}";
 
-		    var json = JsonNode.Parse(await _client.GetStringAsync(url));
-		    tour.Distance = json["route"]["distance"].GetValue<double>();
-		    tour.EstimatedTime = json["route"]["time"].GetValue<int>();
+			try {
+				var json = JsonNode.Parse(await _client.GetStringAsync(url));
+				tour.Distance = json["route"]["distance"].GetValue<double>();
+				tour.EstimatedTime = json["route"]["time"].GetValue<int>();
+			} catch (HttpRequestException) {
+				// Log
+			}
+		    
 
 		    return tour;
 		}
@@ -42,10 +47,10 @@ namespace TourPlanner.DataAccessLayer.REST
 		/// </summary>
 		/// <param name="tour">Tour to get image from</param>
 		/// <returns>Image as byte array</returns>
-	    public async Task<byte[]> GetTourImageBytes(Tour tour) {
+	    public virtual async Task<byte[]> GetTourImageBytes(Tour tour) {
 		    var url = "https://open.mapquestapi.com/staticmap/v5/map?" +
 		              $"key={_key}&start={tour.Start}&end={tour.Destination}";
-		    return await _client.GetByteArrayAsync(url) ;
-	    }
+			return await _client.GetByteArrayAsync(url);
+		}
     }
 }

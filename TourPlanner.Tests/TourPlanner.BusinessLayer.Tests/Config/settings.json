@@ -1,0 +1,11 @@
+﻿{
+  "image-location": "Resources\\tour-img",
+  "db": {
+    "host": "localhost",
+    "port": 5432, 
+    "username": "postgres",
+    "password": "postgres",
+    "database": "TourPlanner"
+  },
+  "api-key": "jq6DBzkCek4Z6yQGoGGHgGnteiF4SoUe"
+}

@@ -54,8 +54,10 @@ namespace TourPlanner.ViewModels.Commands
 	        var log = new Log(LogDialogViewModel.LogDialogLogId, 
 		        LogDialogViewModel.SelectedTour.Id,
 		        _startDateTime,
-		        _endDateTime, 
+		        _endDateTime,
 		        _totalTime,
+				LogDialogViewModel.SelectedTour.Start,
+				LogDialogViewModel.SelectedTour.Destination,
 		        LogDialogViewModel.LogDialogComment,
 		        LogDialogViewModel.LogDialogDifficulty,
 		        LogDialogViewModel.LogDialogRating);

@@ -100,7 +100,6 @@ namespace TourPlanner.ViewModels
 			SelectedTour = tour; 
 		}
 
-
 		public IEnumerable<Tour> GetTours() {
 			return ManagerFactory.GetTourManager().GetTours(); 
 		}

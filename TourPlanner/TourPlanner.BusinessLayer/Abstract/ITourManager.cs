@@ -14,5 +14,7 @@ namespace TourPlanner.BusinessLayer.Abstract
 	    bool DeleteTour(int id); 
 	    IEnumerable<Tour> GetTours();
 	    IEnumerable<Tour> SearchTours(string searchTerm);
+	    Task<Tour> GetInformation(Tour tour);
+	    Task<Tour> SaveInformation(Tour tour);
     }
 }

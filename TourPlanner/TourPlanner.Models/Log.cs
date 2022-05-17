@@ -11,6 +11,8 @@ namespace TourPlanner.Models
         public int TourId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+		public string Start { get; set; }
+		public string Destination { get; set; }
         public int TotalTime { get; set; }
         public string Comment { get; set; }
         public int Difficulty { get; set; }
@@ -18,22 +20,26 @@ namespace TourPlanner.Models
 
 		public string DisplayTime { get; set; }
 
-        public Log(int tourId, DateTime startTime, DateTime endTime, int totalTime, string comment, int difficulty, int rating) {
+        public Log(int tourId, DateTime startTime, DateTime endTime, int totalTime, string start, string destination, string comment, int difficulty, int rating) {
 	        TourId = tourId;
 	        StartTime = startTime; 
 	        EndTime = endTime;
 	        TotalTime = totalTime;
+			Start = start;
+			Destination = destination;
 	        Comment = comment;
 	        Difficulty = difficulty;
 	        Rating = rating;
         }
 
-        public Log(int id, int tourId, DateTime startTime, DateTime endTime, int totalTime, string comment, int difficulty, int rating) {
+        public Log(int id, int tourId, DateTime startTime, DateTime endTime, int totalTime, string start, string destination, string comment, int difficulty, int rating) {
 	        Id = id;
 	        TourId = tourId;
 	        StartTime = startTime; 
 	        EndTime = endTime;
-	        TotalTime = totalTime;
+			TotalTime = totalTime;
+	        Start = start;
+	        Destination = destination; 
 	        Comment = comment;
 	        Difficulty = difficulty;
 	        Rating = rating;

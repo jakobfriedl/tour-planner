@@ -52,8 +52,8 @@
                                     Binding="{Binding Start}"/>
                 <DataGridTextColumn Header="Destination" Width="15*" IsReadOnly="True"
                                     Binding="{Binding Destination}"/>
-                <DataGridTextColumn Header="Start Date/Time" Width="25*" IsReadOnly="True" 
-                                    Binding="{Binding StartTime, StringFormat=R}"/>
+                <DataGridTextColumn Header="Start Date and Time" Width="25*" IsReadOnly="True" 
+                                    Binding="{Binding StartTime, StringFormat='{}{0:dd.MM.yyyy hh:mm:ss}'}"/>
                 <DataGridTextColumn Header="Tour Duration" Width="20*" IsReadOnly="True" 
                                     Binding="{Binding DisplayTime}"/>
                 <DataGridTextColumn Header="Comment" Width="20*" IsReadOnly="True"

@@ -9,7 +9,7 @@ SWEN2 SS2022 Semesterproject - by Jakob Friedl (if20b089) & Philipp Haider (if20
 ├── src 
 │   ├── TourPlanner
 │   │   ├── Config 
-│   │   │   ├── settings.json // custom configuration 
+│   │   │   ├── settings.json // custom configuration, copied to output directory 
 │   │   ├── Utility // helper classes
 │   │   ├── ViewModels
 │   │   │   ├── Abstract // abstract base classes
@@ -20,8 +20,10 @@ SWEN2 SS2022 Semesterproject - by Jakob Friedl (if20b089) & Philipp Haider (if20
 │   │   │   ├── [*].xaml
 │   ├── TourPlanner.BusinessLayer 
 │   │   ├── Abstract // interfaces
+│   │   │   ├── I[*]Manager.cs 
 │   │   ├── Exceptions // custom exceptions 
 │   │   ├── [*]Manager.cs 
+│   │   ├── [*]ReportGeneration.cs
 │   ├── TourPlanner.DataAccessLayer
 │   │   ├── Common // interfaces for database and http-request
 │   │   ├── Configuration // custom config management
@@ -45,6 +47,7 @@ This C#-WPF application was developed with regard to the MVVM (Model-View-ViewMo
 - Command Pattern
 - Factory Pattern
 - Observer Pattern 
+- Dependency Injection
 - ...
 
 ## Features 
@@ -59,7 +62,9 @@ This C#-WPF application was developed with regard to the MVVM (Model-View-ViewMo
 - Import and Export Tours with Logs in Json-Format
 - Custom configuration file allowing the user to change image-path, database-access, etc. 
 - Validated User-Input 
-- Unique Feature: Quickly swap the direction of a tour (start and destination) with the Swap Button
+
+## Unique Feature 
+The unique feature of the TourPlanner Project is a button that instantly swaps the start and destination of the selected tour. Furthermore, all logs now contain information about the start and destination. Thus, logs in both directions are stored in the database and shown for the selected tour. This unique feature was chosen because, from own experience, such an feature is highly useful and requested. 
 
 ## Development Process and Design
 
@@ -70,7 +75,7 @@ The frontend of the application consists of multiple UserControls that design th
 
 ### Models 
 
-The models are placed in a separate layer so that all other layers have access to them and to avoid code duplication. 
+The models are placed in a separate layer so that all other layers have access to them and to avoid code duplication. There are two kinds of Data-Models used in the project, the Tour-Model and the Log-Model. Both classes contain all necessary properties and multiple constructors for Tour- and Log-objects. 
 
 ### Backend 
 
@@ -79,8 +84,9 @@ When a button is pressed, its command executes a function on the ViewModel which
 ![DB Diagram](./docs/DB.png)
 
 ### Unit Tests
+In terms of unit-testing, there is one test-project regarding the Business Layer as well as one project for testing code of the Presentation Layer. Since we do not want to manipulate our database storage with unit-tests, the SQL-DAL is usually mocked when it is referenced in the business layer tests. 
 
-TODO 
+When it comes to the Business Layer, the tests cover all Manager-classes and test the HTTP-Request when creating a new tour, or the calculation of the popularity and child-friendliness values, for example. In addition, the test cases check if all Business Layer functions return the correct value to the Presentation Layer.
 
 ## Lessons learned 
 - Building complex WPF-Apps 

@@ -37,12 +37,22 @@ namespace TourPlanner.BusinessLayer
 		    return _statDao.GetAvgDuration(id); 
 	    }
 
+	    /// <summary>
+	    /// Calculate Popularity: Count * Avg-Rating 
+	    /// </summary>
+	    /// <param name="id">Tour Id</param>
+	    /// <returns>Popularity to 2 decimal digits</returns>
 	    public double GetPopularity(int id) {
-		    return _statDao.GetPopularity(id); 
-	    }
+			return GetLogCount(id) * GetAvgRating(id);
+		}
 
-	    public double GetChildFriendliness(int id) {
-		    return _statDao.GetChildFriendliness(id); 
-	    }
+	    /// <summary>
+	    /// Calculate Child-Friendliness: 10 - Avg-Difficulty
+	    /// </summary>
+	    /// <param name="id">Tour Id</param>
+	    /// <returns>0 if there are no logs, otherwise child-friendliness to 2 decimal digits</returns>
+		public double GetChildFriendliness(int id) {
+		    return GetLogCount(id) <= 0 ? 0 : 10 - GetAvgDifficulty(id);
+		}
     }
 }

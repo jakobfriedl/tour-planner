@@ -13,7 +13,7 @@ using TourPlanner.Models;
 
 namespace TourPlannerBL.Tests
 {
-    public class Class1 {
+    public class LogManager_Test {
 	    private ILogManager _manager;
 	    private readonly Log _log = new Log(0, DateTime.Now, DateTime.Now, 100, "Start", "Destination", "Comment", 5, 5); 
 	    private readonly Log _log2 = new Log(9, 0, DateTime.Now, DateTime.Now, 300, "Start", "Destination", "Comment2", 1, 10); 

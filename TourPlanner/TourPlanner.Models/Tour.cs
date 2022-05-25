@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TourPlanner.Models
 {
@@ -20,10 +15,10 @@ namespace TourPlanner.Models
 		public double? Popularity { get; set; } = 0;
 		public double? ChildFriendliness { get; set; } = 0;
 
-		public string DisplayDistance { get; set; }
-		public string DisplayTime { get; set; }
+		public string DisplayDistance { get; set; } = "0 km"; 
+		public string DisplayTime { get; set; } = "0:00:00:00"; 
 
-		public byte[] RouteImageSource { get; set; }
+		public byte[]? RouteImageSource { get; set; }
 
 		public Tour(string name) {
 			Name = name;

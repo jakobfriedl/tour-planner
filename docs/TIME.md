@@ -29,3 +29,4 @@
 |15.05.2022|1h|Jakob|Start Protocol|
 |16.05.2022|1h|Jakob|Implement Unique Feature|
 |17.05.2022|2h|Jakob|Start UnitTesting Manager-Classes|
+|25.05.2022|3h|Jakob|Implement Logging to Console using Microsoft.Extensions.Logging|

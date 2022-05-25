@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using TourPlanner.BusinessLayer;
-using TourPlanner.BusinessLayer.Exceptions;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
 using TourPlanner.ViewModels.Commands;
-using TourPlanner.Views;
 
 namespace TourPlanner.ViewModels
 {

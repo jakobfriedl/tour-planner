@@ -1,10 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
 using TourPlanner.BusinessLayer;
 using TourPlanner.BusinessLayer.Abstract;
 using TourPlanner.DataAccessLayer.DAO;
-using TourPlanner.Models;
 
 namespace TourPlannerBL.Tests {
 	public class StatManager_Test {

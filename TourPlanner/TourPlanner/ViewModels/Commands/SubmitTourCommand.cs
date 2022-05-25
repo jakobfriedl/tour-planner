@@ -1,8 +1,4 @@
-﻿using System;
-using System.Reflection.Metadata;
-using System.Windows;
-using Npgsql;
-using TourPlanner.BusinessLayer;
+﻿using System.Windows;
 using TourPlanner.BusinessLayer.Exceptions;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;

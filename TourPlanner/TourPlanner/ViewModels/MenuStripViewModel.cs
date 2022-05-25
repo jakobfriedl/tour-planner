@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using TourPlanner.Models;
+﻿using System.Windows.Input;
+using Microsoft.Extensions.Logging;
 using TourPlanner.ViewModels.Abstract;
 using TourPlanner.ViewModels.Commands;
 
@@ -16,10 +11,9 @@ namespace TourPlanner.ViewModels
         public ICommand SummarizeReportCommand { get; }
         public ICommand OpenSettingsCommand { get; }
 
-        public MenuStripViewModel(TourListViewModel tourListViewModel, LogListViewModel logListViewModel)
-        {
-            TourReportCommand = new TourReportCommand(tourListViewModel, logListViewModel);
-            SummarizeReportCommand = new SummarizeReportCommand(tourListViewModel, logListViewModel);
+        public MenuStripViewModel(ILogger logger, TourListViewModel tourListViewModel, LogListViewModel logListViewModel) {
+            TourReportCommand = new TourReportCommand(logger, tourListViewModel, logListViewModel);
+            SummarizeReportCommand = new SummarizeReportCommand(logger, tourListViewModel, logListViewModel);
             OpenSettingsCommand = new OpenSettingsCommand();
         }
     }

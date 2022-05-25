@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TourPlanner.DataAccessLayer.DAO
+﻿namespace TourPlanner.DataAccessLayer.DAO
 {
     public interface IStatDAO {
 	    int GetLogCount(int id);

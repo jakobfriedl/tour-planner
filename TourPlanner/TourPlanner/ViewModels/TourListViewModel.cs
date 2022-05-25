@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Navigation;
+using Microsoft.Extensions.Logging;
 using TourPlanner.BusinessLayer;
 using TourPlanner.Models;
 using TourPlanner.Utility;
@@ -20,7 +15,9 @@ using TourPlanner.Views;
 namespace TourPlanner.ViewModels
 {
 	public class TourListViewModel : BaseViewModel {
-		
+
+		private readonly ILogger _logger; 
+
 		public ICommand AddTourDialogCommand { get; }
 		public ICommand EditTourDialogCommand { get; set; }
 		public ICommand DeleteTourCommand { get; }
@@ -66,8 +63,8 @@ namespace TourPlanner.ViewModels
 		/// <summary>
 		/// Constructor for TourListViewModel, Gets tours from database and initializes commands
 		/// </summary>
-		/// <param name="logListViewModel">LogListViewModel, in order to update LogList when SelectedTour is changed</param>
-		public TourListViewModel(LogListViewModel logListViewModel) {
+		public TourListViewModel(ILogger logger, LogListViewModel logListViewModel) {
+			_logger = logger; 
 			LogListViewModel = logListViewModel;
 
 			Tours = new ObservableCollection<Tour>(GetTours());
@@ -112,7 +109,7 @@ namespace TourPlanner.ViewModels
 		}
 
 		public IEnumerable<Tour> GetTours() {
-			return ManagerFactory.GetTourManager().GetTours(); 
+			return ManagerFactory.GetTourManager(_logger).GetTours(); 
 		}
 
 		public bool DeleteTour() {
@@ -120,15 +117,15 @@ namespace TourPlanner.ViewModels
 			if (File.Exists(Path.Combine(Directory.GetCurrentDirectory(), SelectedTour.ImagePath))) {
 				File.Delete(Path.Combine(Directory.GetCurrentDirectory(), SelectedTour.ImagePath));
 			}
-			return ManagerFactory.GetTourManager().DeleteTour(SelectedTour.Id); 
+			return ManagerFactory.GetTourManager(_logger).DeleteTour(SelectedTour.Id); 
 		}
 
 		public async Task<Tour> GetCreatedTour(Tour tour) {
-			return await ManagerFactory.GetTourManager().CreateTour(tour);
+			return await ManagerFactory.GetTourManager(_logger).CreateTour(tour);
 		}
 
 		public async Task<Tour> GetUpdatedTour(Tour tour) {
-			return await ManagerFactory.GetTourManager().UpdateTour(tour);
+			return await ManagerFactory.GetTourManager(_logger).UpdateTour(tour);
 		}
 	}
 }

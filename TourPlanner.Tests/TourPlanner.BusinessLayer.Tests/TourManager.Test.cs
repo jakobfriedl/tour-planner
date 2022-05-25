@@ -1,18 +1,12 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using NUnit.Framework;
 using Moq;
-using Moq.Language;
+using NUnit.Framework;
 using TourPlanner.BusinessLayer;
 using TourPlanner.BusinessLayer.Abstract;
 using TourPlanner.BusinessLayer.Exceptions;
-using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.DataAccessLayer.DAO;
-using TourPlanner.DataAccessLayer.REST;
 using TourPlanner.Models;
 
 namespace TourPlannerBL.Tests

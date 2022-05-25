@@ -1,20 +1,21 @@
 using System;
 using System.Net.Http;
-using System.Security.Policy;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using TourPlanner.DataAccessLayer.Common;
 using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.Models;
 
 namespace TourPlanner.DataAccessLayer.REST
 {
-    public class HttpRequest : IHttpRequest
-    {
+    public class HttpRequest : IHttpRequest {
+	    private readonly ILogger _logger; 
 		private readonly string? _key = ConfigManager.GetConfig().ApiKey;
 		private readonly HttpClient _client; 
 
-		public HttpRequest(HttpClient client) {
+		public HttpRequest(ILogger logger, HttpClient client) {
+			_logger = logger;
 			_client = client; 
 		}
 
@@ -30,16 +31,11 @@ namespace TourPlanner.DataAccessLayer.REST
 			var url = "http://www.mapquestapi.com/directions/v2/route?" + 
 							$"key={_key}&from={tour.Start}&to={tour.Destination}&unit=k&routeType={routeType}";
 
-			try {
-				var json = JsonNode.Parse(await _client.GetStringAsync(url));
-				tour.Distance = json["route"]["distance"].GetValue<double>();
-				tour.EstimatedTime = json["route"]["time"].GetValue<int>();
-			} catch (HttpRequestException) {
-				// Log
-			}
-		    
-
-		    return tour;
+			
+			var json = JsonNode.Parse(await _client.GetStringAsync(url));
+			tour.Distance = json["route"]["distance"].GetValue<double>();
+			tour.EstimatedTime = json["route"]["time"].GetValue<int>();
+			return tour;
 		}
 
 		/// <summary>

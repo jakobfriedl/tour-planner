@@ -4,10 +4,6 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Media;
 using Microsoft.Extensions.Logging;
 using TourPlanner.DataAccessLayer.Common;
 using TourPlanner.DataAccessLayer.DAO;
@@ -30,9 +26,9 @@ namespace TourPlanner.DataAccessLayer.SQL
              "SET start_time=@startTime, end_time=@endTime, total_time=@totalTime, comment=@comment, difficulty=@difficulty, rating=@rating " +
              "WHERE id=@id;";
 
-	    public LogDAO(IDatabase database) {
+	    public LogDAO(IDatabase database, ILogger logger) {
 		    _db = database;
-		    _logger = new LoggerFactory().CreateLogger(nameof(LogDAO)); 
+		    _logger = logger;
 	    }
 
 		/// <summary>
@@ -54,7 +50,8 @@ namespace TourPlanner.DataAccessLayer.SQL
 	    public IEnumerable<Log> GetLogsByTourId(int tourId) {
 		    var cmd = _db.CreateCommand(SqlGetLogsByTourId);
 			_db.DefineParameter(cmd, "@tourId", DbType.Int32, tourId);
-		    return QueryLogs(cmd); 
+			_logger.LogInformation($"Retrieved Logs for tour [id: {tourId}] from Database {DateTime.UtcNow}");
+			return QueryLogs(cmd); 
 	    }
 
 	    public Log AddNewLog(Log log) {
@@ -122,7 +119,6 @@ namespace TourPlanner.DataAccessLayer.SQL
 					(int)reader["rating"]
 			    ));
 		    }
-
 		    return logs;
 		}
     }

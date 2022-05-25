@@ -14,9 +14,9 @@ namespace TourPlanner.DataAccessLayer.SQL {
 		private const string SqlGetAvgDifficulty = "SELECT CAST(AVG(difficulty) AS double precision) FROM \"log\" WHERE tour_id=@tourId;";
 		private const string SqlGetAvgDuration = "SELECT CAST(AVG(total_time) AS integer) FROM \"log\" WHERE tour_id=@tourId;";
 
-		public StatDAO(IDatabase database) {
+		public StatDAO(IDatabase database, ILogger logger) {
 			_db = database;
-			_logger = new LoggerFactory().CreateLogger(nameof(StatDAO)); 
+			_logger = logger; 
 		}
 		
 		public int GetLogCount(int id) {
@@ -31,7 +31,7 @@ namespace TourPlanner.DataAccessLayer.SQL {
 			try {
 				return Math.Round(_db.ExecuteScalarToDouble(cmd), 2);
 			} catch (InvalidCastException e) {
-				_logger.LogError($"Invalid Cast Exception {e}.");
+				_logger.LogWarning($"Invalid Cast Exception. No Logs for tour [id: {id}] have been found. Average Rating is set to 0. {DateTime.UtcNow}");
 				return 0;
 			}
 		}
@@ -42,7 +42,7 @@ namespace TourPlanner.DataAccessLayer.SQL {
 			try {
 				return Math.Round(_db.ExecuteScalarToDouble(cmd), 2);
 			} catch (InvalidCastException e) {
-				_logger.LogError($"Invalid Cast Exception {e}.");
+				_logger.LogWarning($"Invalid Cast Exception. No Logs for tour [id: {id}] have been found. Average Difficulty is set to 0. {DateTime.UtcNow}");
 				return 0;
 			}
 		}

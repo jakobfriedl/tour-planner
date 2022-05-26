@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using TourPlanner.BusinessLayer;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
 using TourPlanner.ViewModels.Commands;
@@ -22,7 +24,12 @@ namespace TourPlanner.ViewModels
         {
             OpenSettingsCommand = new OpenSettingsCommand();
             ExportToursCommand = new ExportToursCommand();
-            ImportToursCommand = new ImportToursCommand();
+            ImportToursCommand = new RelayCommand(_ =>
+            {
+                var import = new ImportTours();
+                import.Import();
+                tourListViewModel.GetToursImport();
+            });
             TourReportCommand = new TourReportCommand(tourListViewModel, logListViewModel);
             SummarizeReportCommand = new SummarizeReportCommand(tourListViewModel, logListViewModel);
         }

@@ -18,6 +18,11 @@ namespace TourPlanner.Models
 
 		public string DisplayTime { get; set; }
 
+        public Log()
+        {
+
+        }
+
         public Log(int tourId, DateTime startTime, DateTime endTime, int totalTime, string comment, int difficulty, int rating) {
 	        TourId = tourId;
 	        StartTime = startTime; 

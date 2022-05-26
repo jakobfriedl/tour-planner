@@ -26,6 +26,11 @@ namespace TourPlanner.Models
 
 		public byte[] RouteImageSource { get; set; }
 
+        public Tour()
+        {
+
+        }
+
 		[JsonConstructor]
 		public Tour(int id, string name, string description, string start, string destination, TransportType transportType, double distance, int estimatedTime, string imagePath, double popularity, double childFriendliness, string displayDistance, string displayTime, byte[] routeImageSource)
 		{
@@ -42,6 +47,7 @@ namespace TourPlanner.Models
 			ChildFriendliness = childFriendliness;
 			DisplayDistance = displayDistance;
 			DisplayTime = displayTime;
+			RouteImageSource = routeImageSource;
 		}
 
 		public Tour(string name) {

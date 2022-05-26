@@ -24,6 +24,11 @@ namespace TourPlanner.BusinessLayer
             byte[] TourImg = File.ReadAllBytes(selectedTour.ImagePath);
             var ReportPath = "Resources/reports/";
 
+            if (!Directory.Exists(ReportPath))
+            {
+                Directory.CreateDirectory(ReportPath);
+            }
+
             var document = Document.Create(container =>
             {
                 container.Page(page =>

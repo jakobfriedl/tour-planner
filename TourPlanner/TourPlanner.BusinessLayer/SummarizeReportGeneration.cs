@@ -10,6 +10,7 @@ using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using System.Windows;
 using TourPlanner.DataAccessLayer.SQL;
+using System.IO;
 
 namespace TourPlanner.BusinessLayer
 {
@@ -23,6 +24,11 @@ namespace TourPlanner.BusinessLayer
             Logs = logs;
             Tours = tours;
             var ReportPath = "Resources/reports/";
+
+            if (!Directory.Exists(ReportPath))
+            {
+                Directory.CreateDirectory(ReportPath);
+            }
 
             var document = Document.Create(container =>
             {

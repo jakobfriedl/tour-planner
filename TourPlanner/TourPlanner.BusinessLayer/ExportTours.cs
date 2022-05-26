@@ -23,9 +23,9 @@ namespace TourPlanner.BusinessLayer
 
             TourManager tourManager = new TourManager();
             LogManager logManager = new LogManager();
-            TourObjectsCollection tourObjectsCollection = new TourObjectsCollection();
+            Models.JSON.TourObjectsCollection tourObjectsCollection = new Models.JSON.TourObjectsCollection();
 
-            ObservableCollection<Tour> Tours = new ObservableCollection<Tour>(tourManager.GetTours());
+            List<Tour> Tours = new List<Tour>(tourManager.GetTours());
 
             if (!Tours.Any())
             {
@@ -37,12 +37,11 @@ namespace TourPlanner.BusinessLayer
             foreach (Tour t in Tours)
             {
                 byte[] imageArray = File.ReadAllBytes(t.ImagePath);
-                //string base64ImageRepresentation = Convert.ToBase64String(imageArray);
-                string base64ImageRepresentation = "img";
-                TourObject tourObject = new TourObject(t, base64ImageRepresentation, new ObservableCollection<Log>(logManager.GetLogs(t.Id)));
+                string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+                TourObject tourObject = new TourObject(t, base64ImageRepresentation, new List<Log>(logManager.GetLogs(t.Id)));
                 tourObjectsCollection.TourObjects.Add(tourObject);
             }
-            string jsonString = JsonConvert.SerializeObject(tourObjectsCollection.TourObjects);
+            string jsonString = JsonConvert.SerializeObject(tourObjectsCollection, Formatting.Indented);
             jsonFile.WriteLine(jsonString);
 
             jsonFile.Flush();

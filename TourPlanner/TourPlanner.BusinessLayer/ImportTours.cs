@@ -10,6 +10,9 @@ using Newtonsoft.Json;
 using TourPlanner.Models;
 using Newtonsoft.Json.Linq;
 using static System.Net.Mime.MediaTypeNames;
+using TourPlanner.Models.JSON;
+using TourPlanner.DataAccessLayer.SQL;
+using TourPlanner.DataAccessLayer.Configuration;
 
 namespace TourPlanner.BusinessLayer
 {
@@ -32,24 +35,26 @@ namespace TourPlanner.BusinessLayer
             if(importFilePath == null)
             {
                 MessageBox.Show($"No Import Filen chosen.", "No Import File", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-            TourObjectsCollection tourObjectsCollection = new TourObjectsCollection();
-            //var img = Image.FromStream(new MemoryStream(Convert.FromBase64String(base64String)));
+            TourDAO tourDAO = new TourDAO(new Database());
+            LogDAO logDAO = new LogDAO(new Database());
 
             var importFile = File.ReadAllText(importFilePath);
-            //List<TourObject> tourObjectsList = JsonConvert.DeserializeObject<List<TourObject>>(importFile);
-            //var tours = JsonConvert.DeserializeObject<List<TourObject>>(importFile);
-
-
-            var obj = JsonConvert.DeserializeObject<dynamic>(importFile);
-            for (int i = 0; i < obj.Count; i++)
+            TourObjectsCollection tourObjectsList = JsonConvert.DeserializeObject<TourObjectsCollection>(importFile);
+            foreach (var tourObject in tourObjectsList.TourObjects)
             {
-                byte[] data = null;
-                var item = obj[i].Tour;
-                Tour tour = new Tour((int)item.Id, (string)item.Name, (string)item.Description, (string)item.Start, (string)item.Destination, (TransportType)item.TransportType, (double)item.Distance, (int)item.EstimatedTime, (string)item.ImagePath, (double)item.Popularity, (double)item.ChildFriendliness, (string)item.DisplayDistance, (string)item.DisplayTime, data);
+                Tour newTour = tourDAO.AddNewTour(tourObject.Tour);
+                newTour.ImagePath = Path.Combine(ConfigManager.GetConfig().ImageLocation!, $"{newTour.Id}.png");
+                tourDAO.SetImagePath(newTour.Id, newTour.ImagePath);
 
-                byte[] img = Convert.FromBase64String(obj[i].Image);
-                
+                byte[] imageBytes = Convert.FromBase64String(tourObject.ImageInBase64);
+                File.WriteAllBytesAsync(newTour.ImagePath, imageBytes);
+                foreach (var log in tourObject.Logs)
+                {
+                    log.TourId = newTour.Id;
+                    logDAO.AddNewLog(log);
+                }
             }
         }
     }

@@ -11,7 +11,7 @@ namespace TourPlanner.Models
 {
     public class TourObject
     {
-        public TourObject(Tour tour, string image, ObservableCollection<Log> logs)
+        public TourObject(Tour tour, string image, List<Log> logs)
         {
             Tour = tour;
             ImageInBase64 = image;
@@ -25,6 +25,6 @@ namespace TourPlanner.Models
         public string ImageInBase64 { get; set; }
 
         [JsonProperty("Logs")]
-        public ObservableCollection<Log> Logs { get; set; } = new ObservableCollection<Log>();
+        public List<Log> Logs { get; set; } = new List<Log>();
     }
 }

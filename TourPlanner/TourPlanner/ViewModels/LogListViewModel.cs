@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics.Metrics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using TourPlanner.BusinessLayer;
 using TourPlanner.Models;
@@ -16,7 +10,7 @@ using TourPlanner.Views;
 
 namespace TourPlanner.ViewModels
 {
-	public class LogListViewModel : BaseViewModel
+    public class LogListViewModel : BaseViewModel
     {
 	    public ICommand? AddLogDialogCommand { get; set; }
         public ICommand? DeleteLogCommand { get; set; }

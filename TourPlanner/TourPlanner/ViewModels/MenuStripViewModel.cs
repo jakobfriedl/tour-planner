@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,8 @@ namespace TourPlanner.ViewModels
             {
                 var import = new ImportTours();
                 import.Import();
-                tourListViewModel.GetToursImport();
+                tourListViewModel.Tours = new ObservableCollection<Tour>(tourListViewModel.GetTours());
+                OnPropertyChanged(nameof(TourListViewModel));
             });
             TourReportCommand = new TourReportCommand(tourListViewModel, logListViewModel);
             SummarizeReportCommand = new SummarizeReportCommand(tourListViewModel, logListViewModel);

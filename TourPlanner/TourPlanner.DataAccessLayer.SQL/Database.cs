@@ -65,35 +65,45 @@ namespace TourPlanner.DataAccessLayer.SQL
 		/// Execute Command with DataReader and close connection after executing
 		/// </summary>
 		/// <returns>DataReader</returns>
-	    public IDataReader ExecuteReader(DbCommand cmd) {
-		    cmd.Connection = Connect();
+		public IDataReader ExecuteReader(DbCommand cmd)
+		{
+			cmd.Connection = Connect();
 			cmd.Prepare();
-		    return cmd.ExecuteReader(CommandBehavior.CloseConnection); 
-	    }
+			return cmd.ExecuteReader(CommandBehavior.CloseConnection);
+		}
 
 		/// <summary>
 		/// Execute Command Scalar
 		/// </summary>
-		public int ExecuteScalar(DbCommand cmd) {
-		    cmd.Connection = Connect();
-		    cmd.Prepare();
-		    return Convert.ToInt32(cmd.ExecuteScalar());
-		}
-
-		public double ExecuteScalarToDouble(DbCommand cmd) {
+		public int ExecuteScalar(DbCommand cmd)
+		{
 			cmd.Connection = Connect();
 			cmd.Prepare();
-			return Convert.ToDouble(cmd.ExecuteScalar());
+			var value = Convert.ToInt32(cmd.ExecuteScalar());
+			cmd.Connection.Close();
+			return value;
+		}
+
+		public double ExecuteScalarToDouble(DbCommand cmd)
+		{
+			cmd.Connection = Connect();
+			cmd.Prepare();
+			var value = Convert.ToDouble(cmd.ExecuteScalar());
+			cmd.Connection.Close();
+			return value;
 		}
 
 		/// <summary>
 		/// Execute Command NonQuery
 		/// </summary>
 		/// <returns>Number of rows affected by the command</returns>
-		public int ExecuteNonQuery(DbCommand cmd) {
+		public int ExecuteNonQuery(DbCommand cmd)
+		{
 			cmd.Connection = Connect();
 			cmd.Prepare();
-			return cmd.ExecuteNonQuery(); 
+			var value = cmd.ExecuteNonQuery();
+			cmd.Connection.Close();
+			return value;
 		}
-    }
+	}
 }

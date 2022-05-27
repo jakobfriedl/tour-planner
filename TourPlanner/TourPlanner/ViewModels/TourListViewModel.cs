@@ -108,15 +108,5 @@ namespace TourPlanner.ViewModels
 		public bool DeleteTour() {
 			return ManagerFactory.GetTourManager().DeleteTour(SelectedTour.Id); 
 		}
-
-		public void GetToursImport()
-		{
-			Tours.Clear();
-			foreach (var tour in ManagerFactory.GetTourManager().GetTours())
-            {
-				Tours.Add(tour);
-            }
-			OnPropertyChanged(nameof(Tours));
-		}
 	}
 }

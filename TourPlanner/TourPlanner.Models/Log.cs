@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,12 +19,21 @@ namespace TourPlanner.Models
 
 		public string DisplayTime { get; set; }
 
-        public Log()
-        {
+        [JsonConstructor]
+		public Log(int id, int tourId, DateTime startTime, DateTime endTime, int totalTime, string comment, int difficulty, int rating, string displayTime)
+		{
+			Id = id;
+			TourId = tourId;
+			StartTime = startTime;
+			EndTime = endTime;
+			TotalTime = totalTime;
+			Comment = comment;
+			Difficulty = difficulty;
+			Rating = rating;
+			DisplayTime = displayTime;
+		}
 
-        }
-
-        public Log(int tourId, DateTime startTime, DateTime endTime, int totalTime, string comment, int difficulty, int rating) {
+		public Log(int tourId, DateTime startTime, DateTime endTime, int totalTime, string comment, int difficulty, int rating) {
 	        TourId = tourId;
 	        StartTime = startTime; 
 	        EndTime = endTime;

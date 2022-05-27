@@ -11,3 +11,4 @@
 |16.05.2022|6h|Philipp|Started with Import and Export, Exports works; Imports is in Debugging|
 |25.05.2022|4h|Philipp|Debug and fix Imports|
 |26.05.2022|4h|Philipp|Finished Import Export|
+|27.05.2022|2h|Philipp|Found and Fixed Bug|

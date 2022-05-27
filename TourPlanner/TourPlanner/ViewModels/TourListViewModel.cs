@@ -87,7 +87,7 @@ namespace TourPlanner.ViewModels
 				await GetUpdatedTour(SelectedTour); 
 			}); 
 		}
-		
+
 		public bool IsEmpty() {
 			return Tours.Count <= 0; 
 		}

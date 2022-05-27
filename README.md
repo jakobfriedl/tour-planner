@@ -36,7 +36,6 @@ SWEN2 SS2022 Semesterproject - by Jakob Friedl (if20b089) & Philipp Haider (if20
 │   │   ├── [*]DAO.cs
 │   ├── TourPlanner.Models
 ├── tests
-│   ├── TourPlanner.Tests // Unit Tests for Presentation Layer classes
 │   ├── TourPlannerBL.Tests // Unit Tests for Business Layer classes
 ```
 
@@ -84,9 +83,11 @@ When a button is pressed, its command executes a function on the ViewModel which
 ![DB Diagram](./docs/DB.png)
 
 ### Unit Tests
-In terms of unit-testing, there is one test-project regarding the Business Layer as well as one project for testing code of the Presentation Layer. Since we do not want to manipulate our database storage with unit-tests, the SQL-DAL is usually mocked when it is referenced in the business layer tests. 
+In terms of unit-testing, there is one test-project regarding the Business Layer. Since we do not want to manipulate our database storage with unit-tests, the SQL-DAL is usually mocked when it is referenced in the business layer tests. 
 
-When it comes to the Business Layer, the tests cover all Manager-classes and test the HTTP-Request when creating a new tour, or the calculation of the popularity and child-friendliness values, for example. In addition, the test cases check if all Business Layer functions return the correct value to the Presentation Layer.
+When it comes to the Business Layer, the tests cover all Manager-classes and test the HTTP-Request when creating a new tour, or the calculation of the popularity and child-friendliness values, for example. In addition, the test cases check if all Business Layer functions return the correct value to the Presentation Layer. In total there are 20 unit-tests that verify the correct behavior of the application.  
+
+![Tests](./resources/Tests.png)
 
 ## Lessons learned 
 - Building complex WPF-Apps 

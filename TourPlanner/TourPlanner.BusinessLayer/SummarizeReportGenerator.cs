@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using Microsoft.Extensions.Logging;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.DataAccessLayer.SQL;
 using TourPlanner.Models;
 
 namespace TourPlanner.BusinessLayer {
-	public class SummarizeReportGeneration {
-		private ObservableCollection<Log>? Logs;
-		private ObservableCollection<Tour>? Tours;
+	public class SummarizeReportGenerator {
+		private ObservableCollection<Log>? _logs;
+		private ObservableCollection<Tour>? _tours;
 
-		public void SummarizeReportGenerator(ILogger logger, ObservableCollection<Tour> tours, ObservableCollection<Log> logs) {
+		public void CreateSummarizeReport(ILogger logger, ObservableCollection<Tour> tours, ObservableCollection<Log> logs) {
 			var stats = new StatDAO(new Database(), logger);
-			Logs = logs;
-			Tours = tours;
-			var ReportPath = "Resources/reports/";
+			_logs = logs;
+			_tours = tours;
 
 			var document = Document.Create(container => {
 				container.Page(page => {
@@ -49,7 +50,7 @@ namespace TourPlanner.BusinessLayer {
 									header.Cell().BorderBottom(2).BorderColor(Colors.Black).AlignRight()
 										.Text("avg. Duration");
 								});
-								foreach (var t in Tours) {
+								foreach (var t in _tours) {
 									table.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten2).Text(t.Name)
 										.FontSize(12);
 									table.Cell().BorderBottom(1).BorderColor(Colors.Grey.Lighten2)
@@ -71,7 +72,7 @@ namespace TourPlanner.BusinessLayer {
 						});
 				});
 			});
-			document.GeneratePdf($"{ReportPath}summarized.pdf");
+			document.GeneratePdf(Path.Combine(ConfigManager.GetConfig().ReportLocation, "summarized.pdf"));
 			logger.LogInformation($"Created summarized report. {DateTime.UtcNow}");
 		}
 	}

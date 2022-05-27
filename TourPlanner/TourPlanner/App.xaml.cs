@@ -12,6 +12,7 @@ namespace TourPlanner
     {
 	    private void App_OnStartup(object sender, StartupEventArgs e) {
 
+			// Create Logger Instance 
 		    var loggerFactory = LoggerFactory.Create(builder => {
 			    builder.AddConsole();
 		    });

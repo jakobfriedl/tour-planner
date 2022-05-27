@@ -27,8 +27,8 @@ namespace TourPlanner.ViewModels.Commands {
 		/// <param name="parameter"></param>
 		public override void Execute(object? parameter) {
 			var filename = Path.Combine(_reportLocation, TourListViewModel.SelectedTour.Id.ToString() + ".pdf");
-			var tourReport = new TourReportGeneration();
-			tourReport.TourReportGenerator(_logger, TourListViewModel.SelectedTour, LogListViewModel.Logs);
+			var tourReport = new TourReportGenerator();
+			tourReport.CreateTourReport(_logger, TourListViewModel.SelectedTour, LogListViewModel.Logs);
 			if (File.Exists(filename)) {
 				var p = new Process();
 				p.StartInfo.FileName = filename;

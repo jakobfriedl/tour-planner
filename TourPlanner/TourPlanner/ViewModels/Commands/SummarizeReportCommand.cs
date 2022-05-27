@@ -24,8 +24,8 @@ namespace TourPlanner.ViewModels.Commands {
 
 		public override void Execute(object? parameter) {
 			var filename = Path.Combine(_reportLocation, "summarized.pdf");
-			var summarizeReport = new SummarizeReportGeneration();
-			summarizeReport.SummarizeReportGenerator(_logger, TourListViewModel.Tours, LogListViewModel.Logs);
+			var summarizeReport = new SummarizeReportGenerator();
+			summarizeReport.CreateSummarizeReport(_logger, TourListViewModel.Tours, LogListViewModel.Logs);
 
 			if (File.Exists(filename)) {
 				var p = new Process();

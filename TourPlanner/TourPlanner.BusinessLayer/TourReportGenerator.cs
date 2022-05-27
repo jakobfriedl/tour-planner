@@ -5,18 +5,18 @@ using Microsoft.Extensions.Logging;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.Models;
 
 namespace TourPlanner.BusinessLayer {
-	public class TourReportGeneration {
+	public class TourReportGenerator {
 		/// <summary>
 		/// creates the PDF Report for a specific Tour and saves it in "bin/Debug/Resources/reports/"
 		/// </summary>
 		/// <param name="selectedTour"></param>
 		/// <param name="logs"></param>
-		public void TourReportGenerator(ILogger logger, Tour selectedTour, ObservableCollection<Log> logs) {
-			var TourImg = File.ReadAllBytes(selectedTour.ImagePath);
-			var ReportPath = "Resources/reports/";
+		public void CreateTourReport(ILogger logger, Tour selectedTour, ObservableCollection<Log> logs) {
+			var tourImg = File.ReadAllBytes(selectedTour.ImagePath);
 
 			var document = Document.Create(container => {
 				container.Page(page => {
@@ -41,7 +41,7 @@ namespace TourPlanner.BusinessLayer {
 									x.Item().Text($"Popularity : {selectedTour.Popularity}");
 									x.Item().Text($"Child Friendliness: {selectedTour.ChildFriendliness}");
 								});
-								row.ConstantItem(200).Height(200).Image(TourImg, ImageScaling.FitArea);
+								row.ConstantItem(200).Height(200).Image(tourImg, ImageScaling.FitArea);
 							});
 							column.Item().AlignLeft().Text("Logs:").SemiBold().FontSize(20)
 								.FontColor(Colors.Blue.Medium);
@@ -84,7 +84,7 @@ namespace TourPlanner.BusinessLayer {
 						});
 				});
 			});
-			document.GeneratePdf($"{ReportPath}{selectedTour.Id}.pdf");
+			document.GeneratePdf(Path.Combine(ConfigManager.GetConfig().ReportLocation, $"{selectedTour.Id}.pdf"));
 			logger.LogInformation($"Created tour-report for tour [id: {selectedTour.Id}]. {DateTime.UtcNow}");
 		}
 	}

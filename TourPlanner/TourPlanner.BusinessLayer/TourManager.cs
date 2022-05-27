@@ -25,6 +25,7 @@ namespace TourPlanner.BusinessLayer
 
 	    public TourManager(ITourDAO tourDao) {
 		    _tourDao = tourDao;
+			_logger = new LoggerFactory().CreateLogger<TourManager>();
 	    }
 
 		/// <summary>

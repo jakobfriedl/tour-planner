@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using TourPlanner.BusinessLayer;
-using TourPlanner.Models;
+﻿using System.Windows.Input;
+using Microsoft.Extensions.Logging;
 using TourPlanner.ViewModels.Abstract;
 using TourPlanner.ViewModels.Commands;
 
@@ -20,8 +12,8 @@ namespace TourPlanner.ViewModels
         public ICommand ImportToursCommand { get; }
         public ICommand TourReportCommand { get; }
         public ICommand SummarizeReportCommand { get; }
-
-        public MenuStripViewModel(TourListViewModel tourListViewModel, LogListViewModel logListViewModel)
+        
+        public MenuStripViewModel(ILogger logger, TourListViewModel tourListViewModel, LogListViewModel logListViewModel)
         {
             OpenSettingsCommand = new OpenSettingsCommand();
             ExportToursCommand = new ExportToursCommand();
@@ -32,8 +24,8 @@ namespace TourPlanner.ViewModels
                 tourListViewModel.Tours = new ObservableCollection<Tour>(tourListViewModel.GetTours());
                 OnPropertyChanged(nameof(TourListViewModel));
             });
-            TourReportCommand = new TourReportCommand(tourListViewModel, logListViewModel);
-            SummarizeReportCommand = new SummarizeReportCommand(tourListViewModel, logListViewModel);
+            TourReportCommand = new TourReportCommand(logger,tourListViewModel, logListViewModel);
+            SummarizeReportCommand = new SummarizeReportCommand(logger, tourListViewModel, logListViewModel);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using Microsoft.Extensions.Logging;
 using TourPlanner.BusinessLayer;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
@@ -10,8 +11,9 @@ using TourPlanner.Views;
 
 namespace TourPlanner.ViewModels
 {
-    public class LogListViewModel : BaseViewModel
-    {
+	public class LogListViewModel : BaseViewModel {
+		private readonly ILogger _logger; 
+
 	    public ICommand? AddLogDialogCommand { get; set; }
         public ICommand? DeleteLogCommand { get; set; }
         public ICommand? EditLogDialogCommand { get; set; }
@@ -35,6 +37,10 @@ namespace TourPlanner.ViewModels
 
         public string LogListHeading { get; set; } = "Logs";
         public ObservableCollection<Log> Logs { get; set; } = new();
+
+        public LogListViewModel(ILogger logger) {
+	        _logger = logger;
+        }
 
         public void UpdateView(Tour? selectedTour) {
 	        if (selectedTour == null) return;
@@ -79,11 +85,31 @@ namespace TourPlanner.ViewModels
         }
         
         private IEnumerable<Log> GetLogs(Tour selectedTour) {
-            return ManagerFactory.GetLogManager().GetLogs(selectedTour.Id);
+            return ManagerFactory.GetLogManager(_logger).GetLogs(selectedTour.Id);
         }
         
         public bool DeleteLog() {
-	        return ManagerFactory.GetLogManager().DeleteLog(SelectedLog.Id); 
+	        var r = ManagerFactory.GetLogManager(_logger).DeleteLog(SelectedLog.Id);
+	        UpdateStats();
+	        return r; 
         }
-    }
+
+        public Log GetCreatedLog(Log log) {
+	        log = ManagerFactory.GetLogManager(_logger).CreateLog(log);
+	        UpdateStats();
+	        return log;
+        }
+
+        public Log GetUpdatedLog(Log log) {
+	        log = ManagerFactory.GetLogManager(_logger).UpdateLog(log);
+	        UpdateStats();
+	        return log;
+        }
+
+        private void UpdateStats() {
+	        SelectedTour.Popularity = ManagerFactory.GetStatManager(_logger).GetPopularity(SelectedTour.Id);
+	        SelectedTour.ChildFriendliness = ManagerFactory.GetStatManager(_logger).GetChildFriendliness(SelectedTour.Id);
+	        OnPropertyChanged(nameof(SelectedTour));
+        }
+	}
 }

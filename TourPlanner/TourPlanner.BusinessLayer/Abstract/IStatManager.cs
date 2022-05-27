@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TourPlanner.BusinessLayer.Abstract
+﻿namespace TourPlanner.BusinessLayer.Abstract
 {
     public interface IStatManager {
 		int GetLogCount(int id);

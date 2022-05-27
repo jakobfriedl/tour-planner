@@ -1,5 +1,6 @@
 ﻿{
-  "image-location": "Resources\\tour-img",
+  "image-location": "Resources/tour-img",
+  "report-location":  "Resources/reports", 
   "db": {
     "host": "localhost",
     "port": 5432, 

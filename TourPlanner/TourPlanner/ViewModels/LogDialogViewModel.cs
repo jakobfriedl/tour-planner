@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using TourPlanner.BusinessLayer;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
 using TourPlanner.ViewModels.Commands;
@@ -16,6 +10,7 @@ namespace TourPlanner.ViewModels
         public Action CloseAction { get; }
         public ICommand SubmitCommand { get; }
 
+        public LogListViewModel LogListViewModel { get; }
         public Tour SelectedTour { get; }
 
         public int LogDialogLogId { get; set; } = 0;
@@ -46,14 +41,6 @@ namespace TourPlanner.ViewModels
 	        
 	        SubmitCommand = new SubmitLogCommand(this, logListViewModel, isUpdate); 
 	        CloseAction = closeAction;
-        }
-
-        public Log GetCreatedLog(Log log) {
-	        return ManagerFactory.GetLogManager().CreateLog(log); 
-        }
-
-        public Log GetUpdatedLog(Log log) {
-	        return ManagerFactory.GetLogManager().UpdateLog(log); 
         }
     }
 }

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Navigation;
 using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
 
@@ -54,17 +49,19 @@ namespace TourPlanner.ViewModels.Commands
 	        var log = new Log(LogDialogViewModel.LogDialogLogId, 
 		        LogDialogViewModel.SelectedTour.Id,
 		        _startDateTime,
-		        _endDateTime, 
+		        _endDateTime,
 		        _totalTime,
+				LogDialogViewModel.SelectedTour.Start,
+				LogDialogViewModel.SelectedTour.Destination,
 		        LogDialogViewModel.LogDialogComment,
 		        LogDialogViewModel.LogDialogDifficulty,
 		        LogDialogViewModel.LogDialogRating);
 
 	        if (!IsUpdate) {
-				log = LogDialogViewModel.GetCreatedLog(log); 
+				log = LogListViewModel.GetCreatedLog(log); 
 				LogListViewModel.AddLog(log);
 	        } else {
-		        log = LogDialogViewModel.GetUpdatedLog(log); 
+		        log = LogListViewModel.GetUpdatedLog(log); 
 				LogListViewModel.ReplaceLog(log);
 	        }
 

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.ViewModels.Abstract;
 
 namespace TourPlanner.ViewModels.Commands
@@ -16,7 +10,7 @@ namespace TourPlanner.ViewModels.Commands
 	    private readonly string _application; 
 
 	    public OpenSettingsCommand() {
-		    _settingsLocation = $"{Directory.GetCurrentDirectory()}\\Config";
+		    _settingsLocation = Path.Combine(Directory.GetCurrentDirectory(), "Config");
 		    _application = "explorer.exe"; 
 	    }
 

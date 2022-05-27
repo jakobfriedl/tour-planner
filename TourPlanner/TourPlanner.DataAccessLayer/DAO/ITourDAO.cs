@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TourPlanner.Models;
 
 namespace TourPlanner.DataAccessLayer.DAO
@@ -11,7 +7,7 @@ namespace TourPlanner.DataAccessLayer.DAO
 	    Tour AddNewTour(Tour tour);
 	    bool DeleteTour(int id);
 	    Tour UpdateTour(Tour tour); 
-	    int SetImagePath(int id, string imagePath);
+	    void SetImagePath(int id, string imagePath);
 	    IEnumerable<Tour> GetTours();
 	    IEnumerable<Tour> SearchTours(string searchTerm);
     }

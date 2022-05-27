@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 using TourPlanner.BusinessLayer.Abstract;
 using TourPlanner.DataAccessLayer.DAO;
 using TourPlanner.DataAccessLayer.SQL;
@@ -11,14 +8,16 @@ using TourPlanner.Models;
 namespace TourPlanner.BusinessLayer
 {
     public class LogManager : ILogManager {
+		private readonly ILogger _logger;
 	    private readonly ILogDAO _logDao;
 
-	    public LogManager() {
-		    _logDao = new LogDAO(new Database()); 
+	    public LogManager(ILogger logger) {
+		    _logger = logger; 
+		    _logDao = new LogDAO(new Database(), logger); 
 	    }
 
-	    public LogManager(Database db) {
-		    _logDao = new LogDAO(db); 
+	    public LogManager(ILogDAO logDao) {
+		    _logDao = logDao; 
 	    }
 
 	    public Log CreateLog(Log log) {

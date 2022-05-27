@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 using System.Windows;
-using TourPlanner.BusinessLayer;
+using Microsoft.Extensions.Logging;
 using TourPlanner.ViewModels;
-using TourPlanner.Views;
 
 namespace TourPlanner
 {
@@ -19,11 +11,19 @@ namespace TourPlanner
     public partial class App : Application
     {
 	    private void App_OnStartup(object sender, StartupEventArgs e) {
-		    var logListViewModel = new LogListViewModel();
-		    var tourListViewModel = new TourListViewModel(logListViewModel);
-			var menuStripViewModel = new MenuStripViewModel(tourListViewModel, logListViewModel);
+
+			// Create Logger Instance 
+		    var loggerFactory = LoggerFactory.Create(builder => {
+			    builder.AddConsole();
+		    });
+		    var logger = loggerFactory.CreateLogger("TourPlanner-Logger");
+		    logger.LogInformation($"Application started at {DateTime.UtcNow}"); 
+
+		    var logListViewModel = new LogListViewModel(logger);
+		    var tourListViewModel = new TourListViewModel(logger, logListViewModel);
+			var menuStripViewModel = new MenuStripViewModel(logger, tourListViewModel, logListViewModel);
 			var tourDetailsViewModel = new TourDetailsViewModel(tourListViewModel);
-		    var searchBarViewModel = new SearchBarViewModel(tourListViewModel);
+		    var searchBarViewModel = new SearchBarViewModel(logger, tourListViewModel);
 
 		    var mainViewModel = new MainWindowViewModel(searchBarViewModel, menuStripViewModel, tourListViewModel,
 			    tourDetailsViewModel, logListViewModel);

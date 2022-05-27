@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace TourPlanner.Models
 {
@@ -21,34 +15,15 @@ namespace TourPlanner.Models
 		public double? Popularity { get; set; } = 0;
 		public double? ChildFriendliness { get; set; } = 0;
 
-		public string DisplayDistance { get; set; }
-		public string DisplayTime { get; set; }
+		public string DisplayDistance { get; set; } = "0 km"; 
+		public string DisplayTime { get; set; } = "0:00:00:00"; 
 
-		public byte[] RouteImageSource { get; set; }
+		public byte[]? RouteImageSource { get; set; }
 
         public Tour()
         {
 
         }
-
-  //      [JsonConstructor]
-		//public Tour(int id, string name, string description, string start, string destination, TransportType transportType, double distance, int estimatedTime, string imagePath, double popularity, double childFriendliness, string displayDistance, string displayTime, byte[] routeImageSource)
-		//{
-		//	Id = id;
-		//	Name = name;
-		//	Description = description;
-		//	Start = start;
-		//	Destination = destination;
-		//	TransportType = transportType;
-		//	Distance = distance;
-		//	EstimatedTime = estimatedTime;
-		//	ImagePath = imagePath;
-		//	Popularity = popularity;
-		//	ChildFriendliness = childFriendliness;
-		//	DisplayDistance = displayDistance;
-		//	DisplayTime = displayTime;
-		//	RouteImageSource = routeImageSource;
-		//}
 
 		public Tour(string name) {
 			Name = name;

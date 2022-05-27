@@ -4,18 +4,15 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using Npgsql;
+using Microsoft.Extensions.Logging;
 using TourPlanner.DataAccessLayer.Common;
-using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.DataAccessLayer.DAO;
 using TourPlanner.Models;
 
 namespace TourPlanner.DataAccessLayer.SQL
 {
     public class TourDAO : ITourDAO {
+	    private readonly ILogger _logger; 
 	    private readonly IDatabase _db;
 
 		private const string SqlGetAllTours = "SELECT * FROM \"tour\" ORDER BY id asc;"; 
@@ -33,9 +30,10 @@ namespace TourPlanner.DataAccessLayer.SQL
 		    "WHERE name LIKE @searchTerm OR description LIKE @searchTerm OR start LIKE @searchTerm OR destination LIKE @searchTerm " +
 		    "OR log.comment LIKE @searchTerm;";
 
-		public TourDAO(IDatabase database) {
-		    _db = database; 
-	    }
+		public TourDAO(IDatabase database, ILogger logger) {
+		    _db = database;
+		    _logger = logger; 
+		}
 
 		/// <summary>
 		/// Get Tour Object By TourID
@@ -73,7 +71,12 @@ namespace TourPlanner.DataAccessLayer.SQL
 		public bool DeleteTour(int id) {
 			var cmd = _db.CreateCommand(SqlDeleteTour); 
 			_db.DefineParameter(cmd, "@id", DbType.Int32, id);
-			return _db.ExecuteNonQuery(cmd) > 0; 
+			if (_db.ExecuteNonQuery(cmd) <= 0) {
+				_logger.LogWarning($"Could not delete tour. Tour [id:{id}] does not exist. {DateTime.UtcNow}");
+				return false;
+			}
+			_logger.LogInformation($"Tour [id:{id}] deleted. {DateTime.UtcNow}");
+			return true;
 		}
 
 		/// <summary>
@@ -83,11 +86,15 @@ namespace TourPlanner.DataAccessLayer.SQL
 		/// <param name="id">ID of the tour</param>
 		/// <param name="imagePath">Relative Image path: Resources/tour-img/...</param>
 		/// <returns>Number of Rows changed</returns>
-	    public int SetImagePath(int id, string imagePath) {
+	    public void SetImagePath(int id, string imagePath) {
 		    var cmd = _db.CreateCommand(SqlSetTourImagePath);
 			_db.DefineParameter(cmd, "@imagePath", DbType.String, imagePath);
 			_db.DefineParameter(cmd, "@id", DbType.Int32, id);
-			return _db.ExecuteNonQuery(cmd); 
+			if (_db.ExecuteNonQuery(cmd) <= 0) {
+				_logger.LogWarning($"Could not set Image-Path [path: {imagePath}] on tour [id: {id}]. {DateTime.UtcNow}");
+			} else {
+				_logger.LogInformation($"Set Image-Path [path: {imagePath}] on tour [id: {id}]. {DateTime.UtcNow}");
+			}
 	    }
 
 		/// <summary>
@@ -106,7 +113,9 @@ namespace TourPlanner.DataAccessLayer.SQL
 			_db.DefineParameter(cmd, "@time", DbType.Int32, tour.EstimatedTime);
 			_db.DefineParameter(cmd, "@id", DbType.Int32, tour.Id);
 			if (_db.ExecuteNonQuery(cmd) <= 0) {
-				// Log TourUpdate error; 
+				_logger.LogWarning($"Could not update tour. Tour [id:{tour.Id}] does not exist. {DateTime.UtcNow}");
+			} else {
+				_logger.LogInformation($"Tour [id:{tour.Id}] updated. {DateTime.UtcNow}");
 			}
 			return GetTourByTourId(tour.Id);
 		}
@@ -128,6 +137,7 @@ namespace TourPlanner.DataAccessLayer.SQL
 		public IEnumerable<Tour> SearchTours(string searchTerm) {
 			var cmd = _db.CreateCommand(SqlSearchTours);
 			_db.DefineParameter(cmd, "@searchTerm", DbType.String, $"%{searchTerm}%");
+			_logger.LogInformation($"Searched for \"{searchTerm}\" in tour data. {DateTime.UtcNow}");
 			return string.IsNullOrEmpty(searchTerm) ? GetTours() : QueryTours(cmd); 
 		}
 
@@ -137,7 +147,7 @@ namespace TourPlanner.DataAccessLayer.SQL
 		private IEnumerable<Tour> QueryTours(DbCommand cmd) {
 		    var tours = new ObservableCollection<Tour>();
 
-		    var statDao = new StatDAO(_db); 
+		    var statDao = new StatDAO(_db, _logger); 
 
 		    using var reader = _db.ExecuteReader(cmd);
 		    while (reader.Read()) {
@@ -156,6 +166,7 @@ namespace TourPlanner.DataAccessLayer.SQL
 			    ));
 		    }
 		    
+			_logger.LogInformation($"Retrieved Tours from Database {DateTime.UtcNow}");
 		    return tours;
 	    }
     }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using System.Windows;
+﻿using System.Windows;
 using TourPlanner.ViewModels.Abstract;
 
 namespace TourPlanner.ViewModels.Commands {

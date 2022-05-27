@@ -1,20 +1,21 @@
 using System;
 using System.Net.Http;
-using System.Security.Policy;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using TourPlanner.DataAccessLayer.Common;
 using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.Models;
 
 namespace TourPlanner.DataAccessLayer.REST
 {
-    public class HttpRequest : IHttpRequest
-    {
+    public class HttpRequest : IHttpRequest {
+	    private readonly ILogger _logger; 
 		private readonly string? _key = ConfigManager.GetConfig().ApiKey;
 		private readonly HttpClient _client; 
 
-		public HttpRequest(HttpClient client) {
+		public HttpRequest(ILogger logger, HttpClient client) {
+			_logger = logger;
 			_client = client; 
 		}
 
@@ -23,18 +24,18 @@ namespace TourPlanner.DataAccessLayer.REST
 		/// </summary>
 		/// <param name="tour">Tour to get information from</param>
 		/// <returns>Tour with all distance and time information</returns>
-		public async Task<Tour> GetTourInformation(Tour tour) {
+		public virtual async Task<Tour> GetTourInformation(Tour tour) {
 			var routeType = tour.TransportType == TransportType.Bike ? "bicycle" :
 				tour.TransportType == TransportType.Walk ? "pedestrian" : "fastest"; 
 
 			var url = "http://www.mapquestapi.com/directions/v2/route?" + 
 							$"key={_key}&from={tour.Start}&to={tour.Destination}&unit=k&routeType={routeType}";
 
-		    var json = JsonNode.Parse(await _client.GetStringAsync(url));
-		    tour.Distance = json["route"]["distance"].GetValue<double>();
-		    tour.EstimatedTime = json["route"]["time"].GetValue<int>();
-
-		    return tour;
+			
+			var json = JsonNode.Parse(await _client.GetStringAsync(url));
+			tour.Distance = json["route"]["distance"].GetValue<double>();
+			tour.EstimatedTime = json["route"]["time"].GetValue<int>();
+			return tour;
 		}
 
 		/// <summary>
@@ -42,10 +43,10 @@ namespace TourPlanner.DataAccessLayer.REST
 		/// </summary>
 		/// <param name="tour">Tour to get image from</param>
 		/// <returns>Image as byte array</returns>
-	    public async Task<byte[]> GetTourImageBytes(Tour tour) {
+	    public virtual async Task<byte[]> GetTourImageBytes(Tour tour) {
 		    var url = "https://open.mapquestapi.com/staticmap/v5/map?" +
 		              $"key={_key}&start={tour.Start}&end={tour.Destination}";
-		    return await _client.GetByteArrayAsync(url) ;
-	    }
+			return await _client.GetByteArrayAsync(url);
+		}
     }
 }

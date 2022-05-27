@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.Models;
 
 namespace TourPlanner.BusinessLayer.Abstract
@@ -14,5 +10,7 @@ namespace TourPlanner.BusinessLayer.Abstract
 	    bool DeleteTour(int id); 
 	    IEnumerable<Tour> GetTours();
 	    IEnumerable<Tour> SearchTours(string searchTerm);
+	    Task<Tour> GetInformation(Tour tour);
+	    Task<Tour> SaveInformation(Tour tour);
     }
 }

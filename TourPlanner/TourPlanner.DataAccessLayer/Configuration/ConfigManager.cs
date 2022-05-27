@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Microsoft.Extensions.Configuration;
 
 namespace TourPlanner.DataAccessLayer.Configuration
@@ -21,6 +14,7 @@ namespace TourPlanner.DataAccessLayer.Configuration
 
 		    return new TourPlannerConfig {
 			    ImageLocation = config["image-location"],
+			    ReportLocation = config["report-location"],
 			    DatabaseHost = config["db:host"],
 			    DatabasePort = config["db:port"],
 			    DatabaseUsername = config["db:username"],

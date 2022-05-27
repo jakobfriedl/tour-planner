@@ -1,6 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using TourPlanner.ViewModels;
+﻿using System.Windows.Controls;
 
 namespace TourPlanner.Views
 {

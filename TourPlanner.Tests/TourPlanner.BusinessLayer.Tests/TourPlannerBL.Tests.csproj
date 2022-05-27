@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
@@ -23,6 +23,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\TourPlanner\TourPlanner.BusinessLayer\TourPlanner.BusinessLayer.csproj" />
     <ProjectReference Include="..\..\TourPlanner\TourPlanner.Models\TourPlanner.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Config\settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

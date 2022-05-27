@@ -1,5 +1,8 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Microsoft.Extensions.Logging;
+using TourPlanner.BusinessLayer;
+using TourPlanner.Models;
 using TourPlanner.ViewModels.Abstract;
 using TourPlanner.ViewModels.Commands;
 
@@ -16,10 +19,10 @@ namespace TourPlanner.ViewModels
         public MenuStripViewModel(ILogger logger, TourListViewModel tourListViewModel, LogListViewModel logListViewModel)
         {
             OpenSettingsCommand = new OpenSettingsCommand();
-            ExportToursCommand = new ExportToursCommand();
+            ExportToursCommand = new ExportToursCommand(logger);
             ImportToursCommand = new RelayCommand(_ =>
             {
-                var import = new ImportTours();
+                var import = new ImportTours(logger);
                 import.Import();
                 tourListViewModel.Tours = new ObservableCollection<Tour>(tourListViewModel.GetTours());
                 OnPropertyChanged(nameof(TourListViewModel));

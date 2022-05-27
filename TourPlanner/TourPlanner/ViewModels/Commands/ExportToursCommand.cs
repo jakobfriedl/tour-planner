@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using TourPlanner.BusinessLayer;
 using TourPlanner.ViewModels.Abstract;
 
@@ -11,21 +12,17 @@ namespace TourPlanner.ViewModels.Commands
 {
     public class ExportToursCommand : BaseCommand
     {
-        ExportTours exportTours = new ExportTours();
-        private readonly string _exportLocation;
+        private readonly ILogger _logger;
 
-        public ExportToursCommand(string exportLocation)
+        public ExportToursCommand(ILogger logger)
         {
-            _exportLocation = exportLocation;
-        }
-        public ExportToursCommand()
-        {
-            _exportLocation = $"{Directory.GetCurrentDirectory()}\\Resources\\exports";
+            _logger = logger;
         }
 
         public override void Execute(object? parameter)
         {
-            exportTours.Export(_exportLocation);
+            ExportTours exportTours = new ExportTours(_logger);
+            exportTours.Export();
         }
     }
 }

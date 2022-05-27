@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using System.IO;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using TourPlanner.Models;
 using Newtonsoft.Json.Linq;
@@ -19,6 +20,12 @@ namespace TourPlanner.BusinessLayer
     public class ImportTours
     {
         private string importFilePath { get; set; }
+        private readonly ILogger _logger;
+
+        public ImportTours(ILogger logger)
+        {
+            _logger = logger;
+        }
 
         public void chooseImportFile()
         {
@@ -37,8 +44,8 @@ namespace TourPlanner.BusinessLayer
                 MessageBox.Show($"No Import Filen chosen.", "No Import File", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            TourDAO tourDAO = new TourDAO(new Database());
-            LogDAO logDAO = new LogDAO(new Database());
+            TourDAO tourDAO = new TourDAO(new Database(), _logger);
+            LogDAO logDAO = new LogDAO(new Database(), _logger);
 
             var importFile = File.ReadAllText(importFilePath);
             TourObjectsCollection tourObjectsList = JsonConvert.DeserializeObject<TourObjectsCollection>(importFile);

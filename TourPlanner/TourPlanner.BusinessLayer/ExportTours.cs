@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.Logging;
 using TourPlanner.DataAccessLayer.SQL;
 using TourPlanner.Models;
 using static System.Net.Mime.MediaTypeNames;
@@ -16,13 +17,21 @@ namespace TourPlanner.BusinessLayer
 {
     public class ExportTours
     {
-        public void Export(string location)
+        private readonly ILogger _logger;
+
+        public ExportTours(ILogger logger)
         {
+            _logger = logger;
+        }
+
+        public void Export()
+        {
+            var location = $"{Directory.GetCurrentDirectory()}\\Resources\\exports"; 
             var exportJson = $"{location}\\exportTours.json";
             var application = "explorer.exe";
 
-            TourManager tourManager = new TourManager();
-            LogManager logManager = new LogManager();
+            TourManager tourManager = new TourManager(_logger);
+            LogManager logManager = new LogManager(_logger);
             Models.JSON.TourObjectsCollection tourObjectsCollection = new Models.JSON.TourObjectsCollection();
 
             List<Tour> Tours = new List<Tour>(tourManager.GetTours());

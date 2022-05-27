@@ -82,9 +82,9 @@ namespace TourPlanner.ViewModels
 				if (!IsEmpty()) {
 					(SelectedTour.Start, SelectedTour.Destination) = (SelectedTour.Destination, SelectedTour.Start);
 					OnPropertyChanged(nameof(SelectedTour));
+                    // save changes
+                    await GetUpdatedTour(SelectedTour);
 				}
-				// save changes
-				await GetUpdatedTour(SelectedTour); 
 			}); 
 		}
 
@@ -97,9 +97,12 @@ namespace TourPlanner.ViewModels
 		}
 
 		public void RemoveSelectedTour() {
-			var toRemove = SelectedTour; 
-			SelectedTour = Tours.FirstOrDefault()!;
-			Tours.Remove(toRemove);
+			var toRemove = SelectedTour;
+            Tours.Remove(toRemove);
+            if (!IsEmpty())
+            {
+                SelectedTour = Tours.FirstOrDefault()!;
+            }
 		}
 
 		public void ReplaceTour(Tour tour) {

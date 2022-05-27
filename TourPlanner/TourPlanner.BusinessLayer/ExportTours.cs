@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.Logging;
+using Microsoft.Win32;
 using TourPlanner.DataAccessLayer.SQL;
 using TourPlanner.Models;
 using static System.Net.Mime.MediaTypeNames;
@@ -38,10 +39,24 @@ namespace TourPlanner.BusinessLayer
 
             if (!Tours.Any())
             {
+                _logger.LogWarning($"No Tours to export. {DateTime.UtcNow}");
                 MessageBox.Show("You have no Tours to export.", "No Tours found", MessageBoxButton.OK,
                                 MessageBoxImage.Error);
                 return;
             }
+
+            if (!Directory.Exists(location))
+            {
+                _logger.LogWarning($"Directory does not exist: {location}. {DateTime.UtcNow}");
+                Directory.CreateDirectory(location);
+            }
+
+            SaveFileDialog openFileDialog = new SaveFileDialog();
+            openFileDialog.Filter = "json file(*.json)| *.json";
+            openFileDialog.Title = "Save the Export as JSON";
+            openFileDialog.ShowDialog();
+            exportJson = openFileDialog.FileName;
+
             StreamWriter jsonFile = new StreamWriter(exportJson);
             foreach (Tour t in Tours)
             {

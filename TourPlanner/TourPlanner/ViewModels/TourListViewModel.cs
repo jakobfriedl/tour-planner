@@ -77,7 +77,7 @@ namespace TourPlanner.ViewModels
 			EditTourDialogCommand = new OpenEditTourDialogCommand(this);
 			DeleteTourCommand = new DeleteTourCommand(this);
 
-			// Unique feature: quickly swap start and destination from specific tour
+			// Unique feature: quickly swap start and destination from specific tour 
 			SwapDirectionCommand = new RelayCommand(async (_) => {
 				if (!IsEmpty()) {
 					(SelectedTour.Start, SelectedTour.Destination) = (SelectedTour.Destination, SelectedTour.Start);
@@ -95,7 +95,7 @@ namespace TourPlanner.ViewModels
 		public void AddTour(Tour tour) {
 			Tours.Add(tour);
 		}
-
+		 
 		public void RemoveSelectedTour() {
 			var toRemove = SelectedTour;
             Tours.Remove(toRemove);

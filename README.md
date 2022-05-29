@@ -68,10 +68,10 @@ This C#-WPF application was developed with regard to the MVVM (Model-View-ViewMo
 - Custom configuration file allowing the user to change image-path, database-access, etc. 
 - Validated User-Input 
 
-## Unique Feature 
+### Unique Feature 
 The unique feature of the TourPlanner Project is a button that instantly swaps the start and destination of the selected tour. Furthermore, all logs now contain information about the start and destination. Thus, logs in both directions are stored in the database and shown for the selected tour. This unique feature was chosen because, from own experience, such an feature is highly useful and requested. 
 
-## Use Case Diagramm
+### Use Case Diagramm
 
 ![Use Cases](./docs/USE-CASE.png)
 

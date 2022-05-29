@@ -1,4 +1,3 @@
-using System;
 using System.Net.Http;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
@@ -25,9 +24,8 @@ namespace TourPlanner.DataAccessLayer.REST
 		/// <param name="tour">Tour to get information from</param>
 		/// <returns>Tour with all distance and time information</returns>
 		public virtual async Task<Tour> GetTourInformation(Tour tour) {
-
 			var url = "http://www.mapquestapi.com/directions/v2/route?" + 
-							$"key={_key}&from={tour.Start}&to={tour.Destination}&unit=k";
+			          $"key={_key}&from={tour.Start}&to={tour.Destination}&unit=k";
 			
 			var json = JsonNode.Parse(await _client.GetStringAsync(url));
 			tour.Distance = json["route"]["distance"].GetValue<double>();

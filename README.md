@@ -22,8 +22,11 @@ SWEN2 SS2022 Semesterproject - by Jakob Friedl (if20b089) & Philipp Haider (if20
 │   │   ├── Abstract // interfaces
 │   │   │   ├── I[*]Manager.cs 
 │   │   ├── Exceptions // custom exceptions 
+│   │   ├── ReportGeneration
+│   │   │   ├── [*]ReportGenerator.cs 
 │   │   ├── [*]Manager.cs 
-│   │   ├── [*]ReportGeneration.cs
+│   │   ├── ImportTours.cs 
+│   │   ├── ExportTours.cs 
 │   ├── TourPlanner.DataAccessLayer
 │   │   ├── Common // interfaces for database and http-request
 │   │   ├── Configuration // custom config management
@@ -35,6 +38,9 @@ SWEN2 SS2022 Semesterproject - by Jakob Friedl (if20b089) & Philipp Haider (if20
 │   │   ├── Database.cs
 │   │   ├── [*]DAO.cs
 │   ├── TourPlanner.Models
+│   │   ├── Json // Models for tour import and export
+│   │   ├── Tour.cs
+│   │   ├── Log.cs 
 ├── tests
 │   ├── TourPlannerBL.Tests // Unit Tests for Business Layer classes
 ```
@@ -65,6 +71,10 @@ This C#-WPF application was developed with regard to the MVVM (Model-View-ViewMo
 ## Unique Feature 
 The unique feature of the TourPlanner Project is a button that instantly swaps the start and destination of the selected tour. Furthermore, all logs now contain information about the start and destination. Thus, logs in both directions are stored in the database and shown for the selected tour. This unique feature was chosen because, from own experience, such an feature is highly useful and requested. 
 
+## Use Case Diagramm
+
+![Use Cases](./docs/USE-CASE.png)
+
 ## Development Process and Design
 
 ### Frontend
@@ -87,7 +97,7 @@ In terms of unit-testing, there is one test-project regarding the Business Layer
 
 When it comes to the Business Layer, the tests cover all Manager-classes and test the HTTP-Request when creating a new tour, or the calculation of the popularity and child-friendliness values, for example. In addition, the test cases check if all Business Layer functions return the correct value to the Presentation Layer. In total there are 20 unit-tests that verify the correct behavior of the application.  
 
-![Tests](./resources/Tests.png)
+![Tests](./docs/TESTS.png)
 
 ## Lessons learned 
 - Building complex WPF-Apps 
@@ -112,7 +122,47 @@ When it comes to the Business Layer, the tests cover all Manager-classes and tes
 
 ## Time Tracking
 
-TODO 
+| Date | Time | Name | Feature |
+|---|---|---|---|
+|25.02.2022|3h|Jakob|Project Setup and UI Wireframe|
+|05.03.2022|3h|Jakob|Project Structure and Views|
+|09.03.2022|4h|Jakob|Data Binding and SubView Structure|
+|12.03.2022|1h|Jakob|Add XAML for Buttons for adding/removing Tours/Logs|
+|18.03.2022|2h|Jakob|Open Dialog Window from ViewModel, implement basic Command Pattern|
+|18.03.2022|2h|Jakob|Rework and Improve Commands & Structure|
+|19.03.2022|1h|Jakob|Create New-Tour Form in Dialog|
+|09.04.2022|3h|Jakob|Implement Command and Data Binding for AddTour Dialog|
+|10.04.2022|2h|Jakob|Create settings.json file and parse contents|
+|11.04.2022|3h|Jakob|Start implementation of MapQuest Request|
+|13.04.2022|3h|Jakob|Update TourListVM when creating a new Tour, handling invalid input|
+|14.04.2022|2h|Philipp|Started DB integration|
+|16.04.2022|2h|Philipp|Research DAO|
+|21.04.2022|3h|Jakob|Implement TourInformation with Databinding, SelectedTour hardcoded|
+|22.04.2022|3h|Jakob|Databinding SelectedTour, Show Image in Route Tab|
+|23.04.2022|4h|Jakob|DB: Create Tour, GetAllTours for Observable Collection|
+|24.04.2022|2h|Jakob|Open Settings Folder, Exceptionhandling|
+|27.04.2022|2h|Jakob|Implement DeleteTour|
+|27.04.2022|4h|Jakob|Start UpdateTour (error with image replace), Display time and distance|
+|28.04.2022|5h|Jakob|Start TourLog Implementation|
+|29.04.2022|3h|Jakob|Save TourLogs in Database and add show them in the view|
+|29.04.2022|6h|Philipp|PDF-Report Generation started|
+|04.05.2022|3h|Jakob|Clean up code and fix errors|
+|05.05.2022|2h|Jakob|Implement DeleteLog and Start with UpdateLog|
+|07.05.2022|1h|Jakob|Finish UpdateLog|
+|10.05.2022|2h|Jakob|Complete Search feature|
+|11.05.2022|2h|Philipp|PDF-Report Generation continued|
+|12.05.2022|8h|Philipp|PDF-Report Generation finalized|
+|13.05.2022|2h|Jakob|Implement calculation of computed values|
+|14.05.2022|3h|Philipp|Finished Report createdn after Bug finding and fixing Project Dependencies Problems|
+|15.05.2022|1h|Jakob|Start Protocol|
+|16.05.2022|1h|Jakob|Implement Unique Feature|
+|16.05.2022|6h|Philipp|Started with Import and Export, Exports works; Imports is in Debugging|
+|17.05.2022|2h|Jakob|Start UnitTesting Manager-Classes|
+|25.05.2022|3h|Jakob|Implement Logging to Console using Microsoft.Extensions.Logging|
+|25.05.2022|4h|Philipp|Debug and fix Imports|
+|26.05.2022|4h|Philipp|Finished Import Export|
+|27.05.2022|2h|Philipp|Found and Fixed Bug|
+|29.05.2022|2h|Jakob|Clean Up Code|
 
 ## External Libraries
 

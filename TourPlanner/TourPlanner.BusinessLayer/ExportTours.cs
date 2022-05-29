@@ -1,84 +1,71 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
-using TourPlanner.DataAccessLayer.SQL;
+using Newtonsoft.Json;
+using TourPlanner.DataAccessLayer.Configuration;
 using TourPlanner.Models;
-using static System.Net.Mime.MediaTypeNames;
+using TourPlanner.Models.Json;
 
-namespace TourPlanner.BusinessLayer
-{
-    public class ExportTours
-    {
-        private readonly ILogger _logger;
+namespace TourPlanner.BusinessLayer {
+	public class ExportTours {
+		private readonly ILogger _logger;
 
-        public ExportTours(ILogger logger)
-        {
-            _logger = logger;
-        }
+		public ExportTours(ILogger logger) {
+			_logger = logger;
+		}
 
-        public void Export()
-        {
-            var location = $"{Directory.GetCurrentDirectory()}\\Resources\\exports"; 
-            var exportJson = $"{location}\\exportTours.json";
-            var application = "explorer.exe";
+		public void Export() {
+			var location = Path.Combine(Directory.GetCurrentDirectory(), ConfigManager.GetConfig().ExportLocation);
 
-            TourManager tourManager = new TourManager(_logger);
-            LogManager logManager = new LogManager(_logger);
-            Models.JSON.TourObjectsCollection tourObjectsCollection = new Models.JSON.TourObjectsCollection();
+			var tourManager = new TourManager(_logger);
+			var logManager = new LogManager(_logger);
+			var tourObjectCollection = new TourObjectCollection();
 
-            List<Tour> Tours = new List<Tour>(tourManager.GetTours());
+			var tours = new List<Tour>(tourManager.GetTours());
 
-            if (!Tours.Any())
-            {
-                _logger.LogWarning($"No Tours to export. {DateTime.UtcNow}");
-                MessageBox.Show("You have no Tours to export.", "No Tours found", MessageBoxButton.OK,
-                                MessageBoxImage.Error);
-                return;
-            }
+			if (!tours.Any()) {
+				_logger.LogWarning($"No Tours to export. {DateTime.UtcNow}");
+				MessageBox.Show("You have no Tours to export.", "No Tours found", MessageBoxButton.OK,
+					MessageBoxImage.Error);
+				return;
+			}
 
-            if (!Directory.Exists(location))
-            {
-                _logger.LogWarning($"Directory does not exist: {location}. {DateTime.UtcNow}");
-                Directory.CreateDirectory(location);
-            }
+			if (!Directory.Exists(location)) {
+				_logger.LogWarning($"Directory does not exist: {location}. {DateTime.UtcNow}");
+				Directory.CreateDirectory(location);
+			}
 
-            SaveFileDialog openFileDialog = new SaveFileDialog();
-            openFileDialog.Filter = "json file(*.json)| *.json";
-            openFileDialog.Title = "Save the Export as JSON";
-            openFileDialog.ShowDialog();
-            exportJson = openFileDialog.FileName;
+			var openFileDialog = new SaveFileDialog {
+				Filter = "json file(*.json)| *.json",
+				Title = "Save the Export as JSON"
+			};
+			openFileDialog.ShowDialog();
+			var exportJson = openFileDialog.FileName;
 
-            StreamWriter jsonFile = new StreamWriter(exportJson);
-            foreach (Tour t in Tours)
-            {
-                byte[] imageArray = File.ReadAllBytes(t.ImagePath);
-                string base64ImageRepresentation = Convert.ToBase64String(imageArray);
-                TourObject tourObject = new TourObject(t, base64ImageRepresentation, new List<Log>(logManager.GetLogs(t.Id)));
-                tourObjectsCollection.TourObjects.Add(tourObject);
-            }
-            string jsonString = JsonConvert.SerializeObject(tourObjectsCollection, Formatting.Indented);
-            jsonFile.WriteLine(jsonString);
+			var jsonFile = new StreamWriter(exportJson);
+			foreach (var t in tours) {
+				var imageArray = File.ReadAllBytes(t.ImagePath);
+				var base64ImageRepresentation = Convert.ToBase64String(imageArray);
+				var tourObject = new TourObject(t, base64ImageRepresentation, new List<Log>(logManager.GetLogs(t.Id)));
+				tourObjectCollection.TourObjects.Add(tourObject);
+			}
 
-            jsonFile.Flush();
+			var jsonString = JsonConvert.SerializeObject(tourObjectCollection, Formatting.Indented);
+			jsonFile.WriteLine(jsonString);
+			jsonFile.Flush();
 
-            if (Directory.Exists(location))
-            {
-                var startInfo = new ProcessStartInfo(application, location);
-                Process.Start(startInfo);
-            }
-            else
-            {
-                MessageBox.Show($"Exporting the Tours was not successful.", "Tours Export Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-    }
+			if (Directory.Exists(location)) {
+				var startInfo = new ProcessStartInfo("explorer.exe", location);
+				Process.Start(startInfo);
+			} else {
+				MessageBox.Show($"Exporting the Tours was not successful.", "Tours Export Error", MessageBoxButton.OK,
+					MessageBoxImage.Error);
+			}
+		}
+	}
 }

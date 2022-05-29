@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows;
 using Microsoft.Extensions.Logging;
-using TourPlanner.BusinessLayer;
+using TourPlanner.BusinessLayer.ReportGeneration;
 using TourPlanner.ViewModels.Abstract;
 
 namespace TourPlanner.ViewModels.Commands {
@@ -28,10 +28,10 @@ namespace TourPlanner.ViewModels.Commands {
 			summarizeReport.CreateSummarizeReport(_logger, TourListViewModel.Tours, LogListViewModel.Logs);
 
 			if (File.Exists(filename)) {
-				var p = new Process();
-				p.StartInfo.FileName = filename;
-				p.StartInfo.UseShellExecute = true;
-				p.Start();
+				var ps = new Process();
+				ps.StartInfo.FileName = filename;
+				ps.StartInfo.UseShellExecute = true;
+				ps.Start();
 			} else {
 				MessageBox.Show("Report could not be created", "Report creation Error", MessageBoxButton.OK,
 					MessageBoxImage.Error);

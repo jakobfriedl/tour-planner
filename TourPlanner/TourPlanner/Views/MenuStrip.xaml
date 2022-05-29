@@ -14,7 +14,7 @@
                 <MenuItem Command="{Binding TourReportCommand}" Header="_Tour Report"></MenuItem>
                 <MenuItem Command="{Binding SummarizeReportCommand}" Header="_Summarize Report"></MenuItem>
             </MenuItem>
-            <MenuItem HorizontalAlignment="Right" Header="_Help"></MenuItem>
+            <MenuItem Command="{Binding HelpCommand}" Header="_Help"></MenuItem>
         </Menu>
     </Grid>
 </UserControl>

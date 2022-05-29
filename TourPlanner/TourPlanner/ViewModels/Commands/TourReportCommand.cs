@@ -2,8 +2,7 @@
 using System.IO;
 using System.Windows;
 using Microsoft.Extensions.Logging;
-using TourPlanner.BusinessLayer;
-using TourPlanner.DataAccessLayer.DAO;
+using TourPlanner.BusinessLayer.ReportGeneration;
 using TourPlanner.ViewModels.Abstract;
 
 namespace TourPlanner.ViewModels.Commands {
@@ -26,7 +25,7 @@ namespace TourPlanner.ViewModels.Commands {
 		/// </summary>
 		/// <param name="parameter"></param>
 		public override void Execute(object? parameter) {
-			var filename = Path.Combine(_reportLocation, TourListViewModel.SelectedTour.Id.ToString() + ".pdf");
+			var filename = Path.Combine(_reportLocation, $"{TourListViewModel.SelectedTour.Id}.pdf");
 			var tourReport = new TourReportGenerator();
 			tourReport.CreateTourReport(_logger, TourListViewModel.SelectedTour, LogListViewModel.Logs);
 			if (File.Exists(filename)) {

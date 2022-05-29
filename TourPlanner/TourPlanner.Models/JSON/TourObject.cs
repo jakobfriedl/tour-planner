@@ -1,30 +1,18 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
-namespace TourPlanner.Models
-{
-    public class TourObject
-    {
-        public TourObject(Tour tour, string image, List<Log> logs)
-        {
-            Tour = tour;
-            ImageInBase64 = image;
-            Logs = logs;
-        }
+namespace TourPlanner.Models.Json {
+	public class TourObject {
 
-        [JsonProperty("Tour")]
-        public Tour Tour { get; set; }
+		[JsonProperty("Tour")] public Tour Tour { get; set; }
+		[JsonProperty("Image")] public string ImageInBase64 { get; set; }
+		[JsonProperty("Logs")] public List<Log> Logs { get; set; }
 
-        [JsonProperty("Image")]
-        public string ImageInBase64 { get; set; }
+		public TourObject(Tour tour, string image, List<Log> logs) {
+			Tour = tour;
+			ImageInBase64 = image;
+			Logs = logs;
+		}
 
-        [JsonProperty("Logs")]
-        public List<Log> Logs { get; set; } = new List<Log>();
-    }
+	}
 }

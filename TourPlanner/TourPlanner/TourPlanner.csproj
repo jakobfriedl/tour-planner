@@ -23,6 +23,9 @@
     <None Update="Config\settings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\exports\setup.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\reports\setup.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

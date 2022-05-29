@@ -1,68 +1,58 @@
-﻿using System.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Win32;
+﻿using System;
 using System.IO;
+using System.Windows;
 using Microsoft.Extensions.Logging;
+using Microsoft.Win32;
 using Newtonsoft.Json;
-using TourPlanner.Models;
-using Newtonsoft.Json.Linq;
-using static System.Net.Mime.MediaTypeNames;
-using TourPlanner.Models.JSON;
-using TourPlanner.DataAccessLayer.SQL;
 using TourPlanner.DataAccessLayer.Configuration;
+using TourPlanner.DataAccessLayer.SQL;
+using TourPlanner.Models.Json;
 
-namespace TourPlanner.BusinessLayer
-{
-    public class ImportTours
-    {
-        private string importFilePath { get; set; }
-        private readonly ILogger _logger;
+namespace TourPlanner.BusinessLayer {
+	public class ImportTours {
+		private string _importFilePath; 
+		private readonly ILogger _logger;
 
-        public ImportTours(ILogger logger)
-        {
-            _logger = logger;
-        }
+		public ImportTours(ILogger logger) {
+			_logger = logger;
+		}
 
-        public void chooseImportFile()
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = $"{Directory.GetCurrentDirectory()}\\Resources\\exports";
-            openFileDialog.Filter = "json files (*.json)|*.json";
-            openFileDialog.ShowDialog();
-            importFilePath = openFileDialog.FileName;
-        }
+		public void ChooseImportFile() {
+			var openFileDialog = new OpenFileDialog {
+				InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), ConfigManager.GetConfig().ExportLocation),
+				Filter = "json files (*.json)|*.json"
+			};
+			openFileDialog.ShowDialog(); 
+			_importFilePath = openFileDialog.FileName;
+		}
 
-        public void Import()
-        {
-            chooseImportFile();
-            if(importFilePath == null)
-            {
-                MessageBox.Show($"No Import Filen chosen.", "No Import File", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            TourDAO tourDAO = new TourDAO(new Database(), _logger);
-            LogDAO logDAO = new LogDAO(new Database(), _logger);
+		public void Import() {
+			ChooseImportFile();
+			if (_importFilePath is null) {
+				_logger.LogWarning($"No valid import file chosen. {DateTime.UtcNow}");
+				MessageBox.Show($"No Import File chosen.", "No Import File", MessageBoxButton.OK,
+					MessageBoxImage.Error);
+				return;
+			}
 
-            var importFile = File.ReadAllText(importFilePath);
-            TourObjectsCollection tourObjectsList = JsonConvert.DeserializeObject<TourObjectsCollection>(importFile);
-            foreach (var tourObject in tourObjectsList.TourObjects)
-            {
-                Tour newTour = tourDAO.AddNewTour(tourObject.Tour);
-                newTour.ImagePath = Path.Combine(ConfigManager.GetConfig().ImageLocation!, $"{newTour.Id}.png");
-                tourDAO.SetImagePath(newTour.Id, newTour.ImagePath);
+			var tourDao = new TourDAO(new Database(), _logger);
+			var logDao = new LogDAO(new Database(), _logger);
 
-                byte[] imageBytes = Convert.FromBase64String(tourObject.ImageInBase64);
-                File.WriteAllBytesAsync(newTour.ImagePath, imageBytes);
-                foreach (var log in tourObject.Logs)
-                {
-                    log.TourId = newTour.Id;
-                    logDAO.AddNewLog(log);
-                }
-            }
-        }
-    }
+			var importFile = File.ReadAllText(_importFilePath);
+			var tourObjectList = JsonConvert.DeserializeObject<TourObjectCollection>(importFile);
+
+			foreach (var tourObject in tourObjectList.TourObjects) {
+				var newTour = tourDao.AddNewTour(tourObject.Tour);
+				newTour.ImagePath = Path.Combine(ConfigManager.GetConfig().ImageLocation!, $"{newTour.Id}.png");
+				tourDao.SetImagePath(newTour.Id, newTour.ImagePath);
+
+				var imageBytes = Convert.FromBase64String(tourObject.ImageInBase64);
+				File.WriteAllBytesAsync(newTour.ImagePath, imageBytes);
+				foreach (var log in tourObject.Logs) {
+					log.TourId = newTour.Id;
+					logDao.AddNewLog(log);
+				}
+			}
+		}
+	}
 }

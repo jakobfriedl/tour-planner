@@ -4,6 +4,7 @@
     {
         public string ImageLocation { get; set; }
         public string ReportLocation { get; set; }
+        public string ExportLocation { get; set; }
         public string DatabaseHost { get; set; }
         public string DatabasePort { get; set; }
         public string DatabaseUsername { get; set; }

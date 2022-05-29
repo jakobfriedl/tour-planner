@@ -14,14 +14,12 @@ namespace TourPlanner.ViewModels.Commands
     {
         private readonly ILogger _logger;
 
-        public ExportToursCommand(ILogger logger)
-        {
+        public ExportToursCommand(ILogger logger) {
             _logger = logger;
         }
 
-        public override void Execute(object? parameter)
-        {
-            ExportTours exportTours = new ExportTours(_logger);
+        public override void Execute(object? parameter) {
+            var exportTours = new ExportTours(_logger);
             exportTours.Export();
         }
     }

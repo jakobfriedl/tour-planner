@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace TourPlanner.Models
 {
@@ -20,10 +21,23 @@ namespace TourPlanner.Models
 
 		public byte[]? RouteImageSource { get; set; }
 
-        public Tour()
-        {
-
-        }
+        [JsonConstructor]
+		public Tour(int id, string name, string description, string start, string destination, TransportType transportType, double distance, int estimatedTime, string imagePath, double? popularity, double? childFriendliness, string displayDistance, string displayTime, byte[]? routeImageSource) {
+			Id = id;
+			Name = name;
+			Description = description;
+			Start = start;
+			Destination = destination;
+			TransportType = transportType;
+			Distance = distance;
+			EstimatedTime = estimatedTime;
+			ImagePath = imagePath;
+			Popularity = popularity;
+			ChildFriendliness = childFriendliness;
+			DisplayDistance = displayDistance;
+			DisplayTime = displayTime;
+			RouteImageSource = routeImageSource;
+		}
 
 		public Tour(string name) {
 			Name = name;

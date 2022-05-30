@@ -34,10 +34,34 @@
         <DockPanel Grid.Row="0">
             <TextBlock DockPanel.Dock="Left">Tours</TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="AddTourButton" Command="{Binding AddTourDialogCommand}">+</Button>
-                <Button x:Name="RemoveTourButton" Command="{Binding DeleteTourCommand}">-</Button>
-                <Button x:Name="EditTourButton" Command="{Binding EditTourDialogCommand}">E</Button>
-                <Button x:Name="SwapDirectionButton" Command="{Binding SwapDirectionCommand}" Content="S"/>
+                <Button x:Name="AddTourButton" Command="{Binding AddTourDialogCommand}">
+                    <Viewbox Width="16" Height="16">
+                        <Canvas Width="24" Height="24">
+                            <Path Fill="Black" Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+                        </Canvas>
+                    </Viewbox>
+                </Button>
+                <Button x:Name="RemoveTourButton" Command="{Binding DeleteTourCommand}">
+                    <Viewbox Width="16" Height="16">
+                        <Canvas Width="24" Height="24">
+                            <Path Fill="Black" Data="M19,13H5V11H19V13Z" />
+                        </Canvas>
+                    </Viewbox>
+                </Button>
+                <Button x:Name="EditTourButton" Command="{Binding EditTourDialogCommand}">
+                    <Viewbox Width="16" Height="16">
+                        <Canvas Width="24" Height="24">
+                            <Path Fill="Black" Data="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+                        </Canvas>
+                    </Viewbox>
+                </Button>
+                <Button x:Name="SwapDirectionButton" Command="{Binding SwapDirectionCommand}">
+                    <Viewbox Width="16" Height="16">
+                        <Canvas Width="24" Height="24">
+                            <Path Fill="Black"  Data="M21,9L17,5V8H10V10H17V13M7,11L3,15L7,19V16H14V14H7V11Z" />
+                        </Canvas>
+                    </Viewbox>
+                </Button>
             </StackPanel>
         </DockPanel>
 

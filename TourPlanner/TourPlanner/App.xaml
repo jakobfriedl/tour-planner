@@ -6,5 +6,10 @@
         <Style TargetType="Border">
             <Setter Property="CornerRadius" Value="4" />
         </Style>
+        <ResourceDictionary x:Key="Icons">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary x:Name="Icons" Source="Views/Icons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -47,8 +47,10 @@ namespace TourPlanner.ViewModels
 	        SelectedTour = selectedTour; 
 
 	        AddLogDialogCommand = new RelayCommand((_) => {
-		        var dialog = new LogDialog(this, selectedTour);
-		        dialog.ShowDialog();
+                if (SelectedTour.Start is not null && SelectedTour.Destination is not null) {
+                    var dialog = new LogDialog(this, selectedTour);
+                    dialog.ShowDialog();
+                }
 	        });
 	        OnPropertyChanged(nameof(AddLogDialogCommand));
 
@@ -109,7 +111,7 @@ namespace TourPlanner.ViewModels
         private void UpdateStats() {
 	        SelectedTour.Popularity = ManagerFactory.GetStatManager(_logger).GetPopularity(SelectedTour.Id);
 	        SelectedTour.ChildFriendliness = ManagerFactory.GetStatManager(_logger).GetChildFriendliness(SelectedTour.Id);
-	        OnPropertyChanged(nameof(SelectedTour));
+            OnPropertyChanged(nameof(SelectedTour)); 
         }
 	}
 }

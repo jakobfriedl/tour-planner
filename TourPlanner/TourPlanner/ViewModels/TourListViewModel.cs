@@ -39,7 +39,7 @@ namespace TourPlanner.ViewModels
 		public Tour SelectedTour {
 			get => _selectedTour;
 			set {
-				_selectedTour = value ?? new Tour("No Tour selected");
+				_selectedTour = value ?? new Tour("No tour selected."); 
 				OnPropertyChanged(nameof(SelectedTour));
 
 				// Cache Image to byte-array property of tour in order to be able to close file descriptor 

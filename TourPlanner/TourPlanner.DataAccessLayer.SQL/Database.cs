@@ -65,8 +65,7 @@ namespace TourPlanner.DataAccessLayer.SQL
 		/// Execute Command with DataReader and close connection after executing
 		/// </summary>
 		/// <returns>DataReader</returns>
-		public IDataReader ExecuteReader(DbCommand cmd)
-		{
+		public IDataReader ExecuteReader(DbCommand cmd) {
 			cmd.Connection = Connect();
 			cmd.Prepare();
 			return cmd.ExecuteReader(CommandBehavior.CloseConnection);
@@ -75,8 +74,7 @@ namespace TourPlanner.DataAccessLayer.SQL
 		/// <summary>
 		/// Execute Command Scalar
 		/// </summary>
-		public int ExecuteScalar(DbCommand cmd)
-		{
+		public int ExecuteScalar(DbCommand cmd) {
 			cmd.Connection = Connect();
 			cmd.Prepare();
 			var value = Convert.ToInt32(cmd.ExecuteScalar());
@@ -84,8 +82,7 @@ namespace TourPlanner.DataAccessLayer.SQL
 			return value;
 		}
 
-		public double ExecuteScalarToDouble(DbCommand cmd)
-		{
+		public double ExecuteScalarToDouble(DbCommand cmd) {
 			cmd.Connection = Connect();
 			cmd.Prepare();
 			var value = Convert.ToDouble(cmd.ExecuteScalar());
@@ -97,8 +94,7 @@ namespace TourPlanner.DataAccessLayer.SQL
 		/// Execute Command NonQuery
 		/// </summary>
 		/// <returns>Number of rows affected by the command</returns>
-		public int ExecuteNonQuery(DbCommand cmd)
-		{
+		public int ExecuteNonQuery(DbCommand cmd) {
 			cmd.Connection = Connect();
 			cmd.Prepare();
 			var value = cmd.ExecuteNonQuery();

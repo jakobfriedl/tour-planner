@@ -99,8 +99,7 @@ namespace TourPlanner.ViewModels
 		public void RemoveSelectedTour() {
 			var toRemove = SelectedTour;
             Tours.Remove(toRemove);
-            if (!IsEmpty())
-            {
+            if (!IsEmpty()) {
                 SelectedTour = Tours.FirstOrDefault()!;
             }
 		}
